@@ -1,0 +1,28 @@
+{
+  "name": "nettour",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "cross-env": "^5.1.4",
+    "dotenv": "^5.0.1",
+    "env": "0.0.2",
+    "joi": "^13.1.2",
+    "jsonwebtoken": "^8.2.1",
+    "koa": "^2.5.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.4.0",
+    "mongoose": "^5.0.14"
+  },
+  "devDependencies": {
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1"
+  },
+  "scripts": {
+    "start": "node src",
+    "start:dev": "cross-env NODE_PATH=src nodemon --watch src/ src/index.js"
+  }
+}
