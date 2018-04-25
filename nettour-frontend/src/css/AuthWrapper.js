@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import oc from 'open-color';
 import { Link } from 'react-router-dom';
-import { shadow } from 'lib/styleUtil';
+import { shadow } from 'css/styleUtil';
 
 // 화면의 중앙에 위치시킨다
 export const Positioner = styled.div`

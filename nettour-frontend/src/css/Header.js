@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import oc from 'open-color';
-import { shadow, media } from 'lib/styleUtil';
+import { shadow, media } from 'css/styleUtil';
 
 // 상단 고정, 그림자
 export const Positioner = styled.div`

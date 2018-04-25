@@ -1,5 +1,5 @@
 import React from 'react';
-import {BorderedButton} from 'lib/LoginButton';
+import {BorderedButton} from 'css/LoginButton';
 
 const ButtonLogin = () => (
     <BorderedButton to="/auth/login">

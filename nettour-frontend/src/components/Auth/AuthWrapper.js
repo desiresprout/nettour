@@ -1,5 +1,5 @@
 import React from 'react';
-import { Positioner, ShadowedBox, LogoWrapper, Logo, Contents} from 'lib/AuthWrapper'
+import { Positioner, ShadowedBox, LogoWrapper, Logo, Contents} from 'css/AuthWrapper'
 
 const AuthWrapper = ({children}) => (
     <Positioner>

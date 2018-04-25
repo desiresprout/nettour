@@ -1,5 +1,5 @@
 import React from 'react';
-import  { Title } from 'lib/AuthContent';
+import  { Title } from 'css/AuthContent';
 
 
 const AuthContent = ({title, children}) => (

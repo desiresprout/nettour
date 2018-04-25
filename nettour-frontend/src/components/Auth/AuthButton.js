@@ -1,5 +1,5 @@
 import React from 'react';
-import {Wrapper} from 'lib/AuthButton'
+import {Wrapper} from 'css/AuthButton'
 
 
 

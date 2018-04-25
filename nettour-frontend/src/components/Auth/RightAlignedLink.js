@@ -1,5 +1,5 @@
 import React from 'react';
-import { Aligner, StyledLink} from 'lib/RightAlignedLink';
+import { Aligner, StyledLink} from 'css/RightAlignedLink';
 
 
 const RightAlignedLink = ({to, children}) => (
