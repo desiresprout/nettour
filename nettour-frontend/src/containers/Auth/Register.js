@@ -116,7 +116,7 @@ class Register extends Component {
             // 하나라도 실패하면 진행하지 않음
             return;
         }
-
+        
         try {
             await AuthActions.localRegister({
                 email, username, password
@@ -140,7 +140,7 @@ class Register extends Component {
     render() {
         const { error } = this.props;
         const { email, username, password, passwordConfirm } = this.props.form.toJS();
-        const { handleChange } = this;
+        const { handleChange, handleLocalRegister } = this;
 
 
         return (
@@ -178,7 +178,7 @@ class Register extends Component {
                 {
                     error && <AuthError>{error}</AuthError>
                 }
-                <AuthButton>회원가입</AuthButton>
+                <AuthButton onClick={handleLocalRegister}>회원가입</AuthButton>
                 <RightAlignedLink to="/auth/login">로그인</RightAlignedLink>
             </AuthContent>
         );

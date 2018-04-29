@@ -51,7 +51,7 @@ class Login extends Component {
 
     render() {
         const { email, password } = this.props.form.toJS(); // form 에서 email 과 password 값을 읽어옴
-        const { handleChange } = this;
+        const { handleChange, handleLocalLogin } = this;
         const { error } = this.props;
 
         return (
@@ -71,7 +71,7 @@ class Login extends Component {
                     value={password} 
                     onChange={handleChange}
                 />
-                <AuthButton>로그인</AuthButton>
+                <AuthButton onClick={handleLocalLogin}>로그인</AuthButton>
                 <RightAlignedLink to="/auth/register">회원가입</RightAlignedLink>
             </AuthContent>
         );

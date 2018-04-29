@@ -9,15 +9,15 @@ export const Positioner = styled.div`
     position: fixed;
     top: 0px;
     width: 100%;
-    ${shadow(1)}
+    ${shadow(1)};    
 `;
 
 // 흰 배경, 내용 중간 정렬
-export const WhiteBackground = styled.div`
-    background: white;
+export const WhiteBackground = styled.div`    
     display: flex;
     justify-content: center;
     height: auto;
+    background:  ${oc.gray[2]};
 `;
 
 // 해더의 내용
@@ -27,7 +27,6 @@ export const HeaderContents = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-
     padding-right: 1rem;
     padding-left: 1rem;
     ${media.wide`
@@ -53,7 +52,8 @@ export const Spacer = styled.div`
 `;
 
 // 하단 그래디언트 테두리
-export const GradientBorder = styled.div`
+/* export const GradientBorder = styled.div`
     height: 3px;
     background: linear-gradient(to right, ${oc.teal[6]}, ${oc.cyan[5]});
-`;
+`; */
+

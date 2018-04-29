@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { Home, Auth } from 'pages';
 import HeaderContainer from 'containers/Base/HeaderContainer';
+import MenuContainer from 'containers/Base/MenuContainer';
 import storage from 'lib/storage';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -32,6 +33,7 @@ class App extends Component {
         return (
             <div>
                 <HeaderContainer/>
+                <MenuContainer/>
                 <Route exact path="/" component={Home}/>
                 <Route path="/auth" component={Auth}/>
             </div>

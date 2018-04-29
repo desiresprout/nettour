@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as baseActions from 'redux/modules/base';
+import * as menuActions from 'redux/modules/menu';
 import { AuthWrapper } from 'components/Auth';
 import { Route } from 'react-router-dom';
 import { Login, Register } from 'containers/Auth';
@@ -10,11 +11,13 @@ class Auth extends Component {
     // 페이지에 진입 할 때 헤더를 비활성화
     componentWillMount() {
         this.props.BaseActions.setHeaderVisibility(false);
+        this.props.MenuActions.setMenuVisibility(false);;
     }
 
     // 페이지에서 벗어 날 때 다시 활성화
     componentWillUnmount() {
         this.props.BaseActions.setHeaderVisibility(true);
+        this.props.MenuActions.setMenuVisibility(true);
     }
 
     render() {
@@ -32,6 +35,7 @@ export default connect(
 
     }),
     (dispatch) => ({
-        BaseActions: bindActionCreators(baseActions, dispatch)
+        BaseActions: bindActionCreators(baseActions, dispatch),
+        MenuActions: bindActionCreators(menuActions, dispatch)
     })
 )(Auth);
