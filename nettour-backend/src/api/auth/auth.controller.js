@@ -49,7 +49,7 @@ exports.localRegister = async (ctx) => {
         ctx.throw(500, e);
     }
     ctx.cookies.set('access_token', token, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
-    ctx.body = account.email; // 프로필 정보로 응답합니다.
+    ctx.body = account.profile; // 프로필 정보로 응답합니다.
 };
 
 // 로컬 로그인
@@ -88,7 +88,7 @@ exports.localLogin = async (ctx) => {
     }
 
     ctx.cookies.set('access_token', token, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
-    ctx.body = account.email;
+    ctx.body = account.profile;
 };
 
 // 이메일 / 아이디 존재유무 확인

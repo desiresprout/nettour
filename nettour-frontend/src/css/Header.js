@@ -22,6 +22,7 @@ export const WhiteBackground = styled.div`
 
 // 해더의 내용
 export const HeaderContents = styled.div`
+    position: relative;
     width: 1200px;
     height: 55px;
     display: flex;
@@ -44,6 +45,7 @@ export const Logo = styled.div`
     letter-spacing: 2px;
     color: ${oc.teal[7]};
     font-family: 'Rajdhani';
+    text-decoration: none;
 `;
 
 // 중간 여백

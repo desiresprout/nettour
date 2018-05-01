@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import oc from 'open-color';
 import { shadow, media } from 'css/styleUtil';
-import { NavLinkm, Link  } from 'react-router-dom';
+import { Link  } from 'react-router-dom';
 
 export const Wrapper = styled.nav`    
     position : fixed;    
@@ -24,15 +24,16 @@ export const Menuul = styled.ul`
 
 export const Menuli = styled.li`         
     padding: 0 75px; 
-    font-size : 25px;    
-    &:hover {
-        background:#f9f9f9;
-        border-radius: 15px;          
-      }    
+    font-size : 25px;       
 `;
 
-export const MenuLink = styled(Link)`          
-    text-decoration: none;        
+export const MenuLink = styled(Link)`
+    color : black;     // font-color가 아님..       
+    text-decoration: none;
+    &:hover {
+        background:#f9f9f9;
+                         
+      }          
 `;
 
      

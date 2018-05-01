@@ -1,13 +1,14 @@
 import React from 'react';
-import { Positioner, WhiteBackground, HeaderContents, Logo, Spacer} from 'css/Header';
+import { Positioner, WhiteBackground, HeaderContents, Spacer, Logo} from 'css/Header';
 import FaRoad from 'react-icons/lib/fa/road';
+import { Link } from 'react-router-dom';
 
 const Header = ({children}) => {
     return (
         <Positioner>
             <WhiteBackground>
                 <HeaderContents>
-                    <FaRoad/>
+                <Logo to="/">NET ToUR</Logo>
                     <Spacer/>
                     {children}
                 </HeaderContents>
