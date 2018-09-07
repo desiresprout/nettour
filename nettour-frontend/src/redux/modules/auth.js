@@ -2,6 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { Map } from 'immutable';
 import * as AuthAPI from 'lib/api/auth';
 import { pender } from 'redux-pender';
+import social from 'lib/social';
 
 
 const CHANGE_INPUT = 'auth/CHANGE_INPUT'; // input 값 변경
@@ -12,6 +13,7 @@ const LOCAL_REGISTER = 'auth/LOCAL_REGISTER'; // 이메일 가입
 const LOCAL_LOGIN = 'auth/LOCAL_LOGIN'; // 이메일 로그인
 const LOGOUT = 'auth/LOGOUT'; // 로그아웃
 const SET_ERROR = 'auth/SET_ERROR'; // 오류 설정
+const PROVIDER_LOGIN = 'auth/PROVIDER_LOGIN';
 
 export const changeInput = createAction(CHANGE_INPUT); //  { form, name, value }
 export const initializeForm = createAction(INITIALIZE_FORM); // form 
@@ -21,6 +23,7 @@ export const localRegister = createAction(LOCAL_REGISTER, AuthAPI.localRegister)
 export const localLogin = createAction(LOCAL_LOGIN, AuthAPI.localLogin); // { email, password }
 export const logout = createAction(LOGOUT, AuthAPI.logout);
 export const setError = createAction(SET_ERROR); // { form, message }
+export const providerLogin = createAction(PROVIDER_LOGIN, (provider)=>social[provider](), provider=>provider);
 
 const initialState = Map({
     register: Map({

@@ -10,13 +10,17 @@ export const sizes = {
 
 export const media = Object.keys(sizes).reduce((acc, label) => {
     //console.log(sizes); //객체
-    //console.log(acc); //객체
-    //console.log(label);   //문자열
+    //console.log(acc); //객체 , 1200, 992, 768, 376
+    //console.log(label); //문자열 , wide desktop tablet phone
+    // args = width:100%
+    //sizes[label]은 sizes[wide] size[desktop] size[tablet] 즉 1200px와 992px 768px 376px을 나타냄    
+
     acc[label] = (...args) => css`
         @media (max-width: ${sizes[label]}) {
             ${css(...args)}
         }
     `;
+    
    
     return acc;
     

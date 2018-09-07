@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component,  Fragment } from 'react';
 import Header, {ButtonLogin, UserThumbnail} from 'components/Base/Header';
 import { connect } from 'react-redux';
 import * as userActions from 'redux/modules/user';
@@ -6,6 +6,7 @@ import * as baseActions from 'redux/modules/base';
 import { bindActionCreators } from 'redux';
 import storage from 'lib/storage';
 import UserMenuContainer from './UserMenuContainer';
+import { Helmet } from 'react-helmet';
 
 class HeaderContainer extends Component {
     
@@ -21,13 +22,19 @@ class HeaderContainer extends Component {
         if(!visible) return null;
         
         return (          
+            <Fragment>
+            
+            <Helmet>
+            <title>NetTouR - 여행 후기  </title>
+            </Helmet>            
             <Header>            
                {     user.get('logged') 
                     ? ( <UserThumbnail thumbnail={user.getIn(['loggedInfo', 'thumbnail'])} onClick={handleThumbnailClick}/>)
                     : <ButtonLogin/>                    
                }    
                <UserMenuContainer eventTypes="click"/>
-            </Header>            
+            </Header>   
+            </Fragment>         
             
         );
     }

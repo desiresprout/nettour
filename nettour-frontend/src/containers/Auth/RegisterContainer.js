@@ -121,8 +121,10 @@ class Register extends Component {
             await AuthActions.localRegister({
                 email, username, password
             });
-            const loggedInfo = this.props.result.toJS();           
+            const loggedInfo = this.props.result.toJS(); //result에서 loggedInfo을 읽어옴      
             storage.set('loggedInfo', loggedInfo);
+            //console.log(loggedInfo); // profile이 담겨져있음 밑에 connect의 state에서 받아옴
+            //console.log(typeof(loggedInfo)); //객체
             UserActions.setLoggedInfo(loggedInfo);
             UserActions.setValidated(true);
             history.push('/'); // 회원가입 성공시 홈페이지로 이동

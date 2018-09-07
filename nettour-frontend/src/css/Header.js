@@ -1,33 +1,30 @@
 import styled from 'styled-components';
 import oc from 'open-color';
 import { shadow, media } from 'css/styleUtil';
+import { Link } from 'react-router-dom';
 
-// 상단 고정, 그림자
-export const Positioner = styled.div`
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 0px;
-    width: 100%;
-    ${shadow(1)};    
+export const HeaderWrapper = styled.div`
+    width:100%;    
+    background-image : url('static/images/wave-hero-background.svg');
+    background-size : cover;
+    background-repeat : no-repeat;      
 `;
 
-// 흰 배경, 내용 중간 정렬
-export const WhiteBackground = styled.div`    
-    display: flex;
-    justify-content: center;
-    height: auto;
-    background:  ${oc.gray[2]};
+export const Positioner = styled.div`
+    height: 37.5rem;
+    display : flex;
+    flex-direction : column;
+    align-items : center;
+    justify-items : center;
+    
 `;
 
 // 해더의 내용
-export const HeaderContents = styled.div`
-    position: relative;
+export const ContentWrapper = styled.div`
     width: 1200px;
-    height: 55px;
+    align-items : center;
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;    
     padding-right: 1rem;
     padding-left: 1rem;
     ${media.wide`
@@ -39,23 +36,67 @@ export const HeaderContents = styled.div`
     `}
 `;
 
+export const LogoWrapper = styled.div`
+    padding-top : 2rem;
+    width:1000px;
+    display:flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content: center;   
+    margin-bottom : 2rem;
+
+`;
+
 // 로고
-export const Logo = styled.div`
-    font-size: 1.4rem;
+export const Logo = styled(Link)`
+    font-size: 1.8rem;
     letter-spacing: 2px;
-    color: ${oc.teal[7]};
+    color: ${oc.gray[2]};
     font-family: 'Rajdhani';
     text-decoration: none;
+    cursor : pointer;
+    margin-left : 1rem;
+    &:hover {        
+        ${shadow(1)}
+    }
 `;
 
 // 중간 여백
-export const Spacer = styled.div`
-    flex-grow: 1;
+export const Space = styled.div`    
+    flex-grow :  ${props => props.space};
 `;
 
-// 하단 그래디언트 테두리
-/* export const GradientBorder = styled.div`
-    height: 3px;
-    background: linear-gradient(to right, ${oc.teal[6]}, ${oc.cyan[5]});
-`; */
+export const InfoWrapper = styled.div`
+    width : 1000px;
+    display : flex;
+    flex-direction : row
+    align-items : center;
+    justify-items : center;
+    margin : 0 auto;
+`;
+
+export const InfoButton = styled.div`
+    flex : 1 0 auto;
+    text-align : center;
+    color: ${oc.gray[1]};
+    &:hover {        
+        ${shadow(1)}
+    }
+    font-weigth : 400;
+`;
+
+
+export const BoardWrapper = styled.div`
+    width : 300px;
+    display : flex;
+    flex-direction : column;
+    align-items : center;
+    justify-items : center;
+`;
+
+
+
+
+
+
 

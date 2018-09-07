@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AuthContent, InputWithLabel, AuthButton, RightAlignedLink  } from 'components/Auth';
+import { AuthContent, InputWithLabel, AuthButton, RightAlignedLink, SocialButtons  } from 'components/Auth';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as authActions from 'redux/modules/auth';
@@ -22,6 +22,7 @@ class Login extends Component {
             value,
             form: 'login'
         });
+        
     }
 
     setError = (message) => {
@@ -49,6 +50,16 @@ class Login extends Component {
         }
     }
 
+    /*handleSocialLogin = async() => {
+        const { AuthActions, UserActions } = this.props;
+        try{
+            await AuthActions.providerLogin(provider);
+
+            const { socialInfo } = this.props;
+        }
+        
+    } */
+
     render() {
         const { email, password } = this.props.form.toJS(); // form 에서 email 과 password 값을 읽어옴
         const { handleChange, handleLocalLogin } = this;
@@ -72,11 +83,13 @@ class Login extends Component {
                     onChange={handleChange}
                 />
                 <AuthButton onClick={handleLocalLogin}>로그인</AuthButton>
-                <RightAlignedLink to="/auth/register">회원가입</RightAlignedLink>
+                <RightAlignedLink to="/auth/register">회원가입</RightAlignedLink>              
+                
             </AuthContent>
         );
     }
 }
+//<SocialButtons onSocialLogin={handleSocialLogin}/>
 
 export default connect(
     (state) => ({

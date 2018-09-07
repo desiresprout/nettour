@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="fce60088-4033-4624-af40-b29863ae54aa" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/nettour-backend/src/api/auth/auth.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-backend/src/api/auth/auth.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-backend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-backend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-backend/src/lib/token.js" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-backend/src/lib/token.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-backend/yarn-error.log" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-backend/yarn-error.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-frontend/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/components/Auth/AuthButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-frontend/src/components/Auth/AuthButton.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/components/Auth/AuthContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-frontend/src/components/Auth/AuthContent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/components/Auth/AuthError.js" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-frontend/src/components/Auth/AuthError.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/components/Auth/AuthWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-frontend/src/components/Auth/AuthWrapper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/components/Auth/InputWithLabel.js" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-frontend/src/components/Auth/InputWithLabel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/components/Auth/RightAlignedLink.js" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-frontend/src/components/Auth/RightAlignedLink.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/components/Auth/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-frontend/src/components/Auth/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/components/Base/Header/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-frontend/src/components/Base/Header/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/components/Base/Menu/Menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-frontend/src/components/Base/Menu/Menu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/containers/Auth/Login.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/containers/Auth/Register.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/containers/Auth/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-frontend/src/containers/Auth/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/containers/Base/HeaderContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-frontend/src/containers/Base/HeaderContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/css/AuthButton.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/css/AuthContent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/css/AuthError.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/css/AuthWrapper.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/css/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-frontend/src/css/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/css/InputWithLabel.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/css/Menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-frontend/src/css/Menu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/css/RightAlignedLink.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/css/styleUtil.js" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-frontend/src/css/styleUtil.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-frontend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/pages/Auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-frontend/src/pages/Auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/pages/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-frontend/src/pages/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/src/redux/modules/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-frontend/src/redux/modules/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nettour-frontend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/nettour-frontend/yarn.lock" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="390" />
+    <option name="width" value="1525" />
+    <option name="height" value="1030" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="nettour" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nettour" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nettour" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nettour" type="462c0819:PsiDirectoryNode" />
+              <item name="nettour-backend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nettour" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nettour" type="462c0819:PsiDirectoryNode" />
+              <item name="nettour-frontend" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fce60088-4033-4624-af40-b29863ae54aa" name="Default" comment="" />
+      <created>1528468449634</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1528468449634</updated>
+      <workItem from="1528468456666" duration="45000" />
+      <workItem from="1528468559824" duration="3000" />
+      <workItem from="1528646736599" duration="2000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="50000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="312" y="0" width="1220" height="824" extended-state="0" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28689885" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
+    </layout>
+  </component>
+</project>

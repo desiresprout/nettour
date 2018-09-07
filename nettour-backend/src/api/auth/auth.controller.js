@@ -9,7 +9,7 @@ exports.localRegister = async (ctx) => {
         password: Joi.string().required().min(6)
     });    
     const result = Joi.validate(ctx.request.body, schema);    
-
+    
     // 스키마 검증 실패
     if(result.error) {
         ctx.status = 400;
@@ -48,7 +48,8 @@ exports.localRegister = async (ctx) => {
     } catch (e) {
         ctx.throw(500, e);
     }
-    ctx.cookies.set('access_token', token, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
+    
+    ctx.cookies.set('access_token', token, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 }); //네임,값
     ctx.body = account.profile; // 프로필 정보로 응답합니다.
 };
 
@@ -108,6 +109,15 @@ exports.exists = async (ctx) => {
     };
 };
 
+exports.socialRegister = async (ctx)=>{
+    const { body } = ctx.request; // 토큰
+    const { provider } = ctx.params; // 페북인지 구글인지
+
+    const schema = Joi.object({
+            accessToken : Joi.string().required(),
+    });
+}
+
 // 로그아웃
 exports.logout = async (ctx) => {
     ctx.cookies.set('access_token', null, {
@@ -118,8 +128,9 @@ exports.logout = async (ctx) => {
 };
 
 exports.check = (ctx) => {
-    console.log(ctx.request);
+    //console.log(ctx.request);
     const { user } = ctx.request;
+    //console.log(user);
     
 
     if(!user) {
