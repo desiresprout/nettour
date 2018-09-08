@@ -8,18 +8,19 @@ const Header = ({children}) => {
             <Positioner>                
                     <ContentWrapper>
                         <LogoWrapper>
-                            <Logo to="/">NET ToUR</Logo>
+                            <Logo to="/">Net ToUR</Logo>
                                 <Space space="3"></Space>
                                 {children}
                         </LogoWrapper>
                         <InfoWrapper>
                             <Space space="4"></Space>
                             <InfoButton>Question</InfoButton>
-                            <InfoButton>InfoMation</InfoButton>
+                            <InfoButton>Information</InfoButton>
                         </InfoWrapper>                
                     </ContentWrapper>
                     <BoardWrapper>
-                        <p></p>
+                        <p>Please let me know your experience.
+                                You might have another experience.</p>
                         <InfoButton>게시판</InfoButton>
                         <InfoButton>통계</InfoButton>                      
                     </BoardWrapper>

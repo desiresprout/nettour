@@ -7,11 +7,18 @@ export const HeaderWrapper = styled.div`
     width:100%;    
     background-image : url('static/images/wave-hero-background.svg');
     background-size : cover;
-    background-repeat : no-repeat;      
+    background-repeat : no-repeat;    
+    background-position: top;  
+    @media (min-width: 992px)    {
+        padding: 10% 0;
+        border : 2px solid red;
+    }
+
+    
 `;
 
 export const Positioner = styled.div`
-    height: 37.5rem;
+
     display : flex;
     flex-direction : column;
     align-items : center;
@@ -82,16 +89,30 @@ export const InfoButton = styled.div`
     &:hover {        
         ${shadow(1)}
     }
-    font-weigth : 400;
+    font-weight : 500;
 `;
 
 
 export const BoardWrapper = styled.div`
-    width : 300px;
+    width : 680px;
     display : flex;
     flex-direction : column;
     align-items : center;
-    justify-items : center;
+    justify-items : center;  
+    margin-top : 4rem;
+    color: ${oc.gray[1]};
+    font-weight : 700;
+    font-size : 2rem;
+    
+
+    & > p {
+        line-height : 3rem;
+        letter-spacing : 1.5px;
+    }
+
+    & > nth-child(2){
+        margin-top : 2rem;
+    }
 `;
 
 

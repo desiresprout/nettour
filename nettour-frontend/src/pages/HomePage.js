@@ -8,7 +8,7 @@ class HomePage extends Component {
         return (
             <Fragment>
             <HeaderContainer/>            
-            <Background></Background>            
+            <Background></Background>
             </Fragment>
         );
     }
