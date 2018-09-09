@@ -1,5 +1,5 @@
 import React, { Component,  Fragment } from 'react';
-import Header, {ButtonLogin, UserThumbnail} from 'components/Base/Header';
+import Header, { Buttonstyle, UserThumbnail} from 'components/Base/Header';
 import { connect } from 'react-redux';
 import * as userActions from 'redux/modules/user';
 import * as baseActions from 'redux/modules/base';
@@ -17,20 +17,19 @@ class HeaderContainer extends Component {
     }
     
     render() {
-        const { visible, user } = this.props;
+        const { visible, user, login } = this.props;
         const { handleThumbnailClick } = this;
         if(!visible) return null;
         
         return (          
-            <Fragment>
-            
+            <Fragment>            
             <Helmet>
             <title>NetTouR - 여행 후기  </title>
             </Helmet>            
-            <Header>            
+            <Header solid>            
                {     user.get('logged') 
                     ? ( <UserThumbnail thumbnail={user.getIn(['loggedInfo', 'thumbnail'])} onClick={handleThumbnailClick}/>)
-                    : <ButtonLogin/>                    
+                    : <Buttonstyle className="login" />                    
                }    
                <UserMenuContainer eventTypes="click"/>
             </Header>   

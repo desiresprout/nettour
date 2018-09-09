@@ -2,10 +2,10 @@ import React from 'react';
 import { Positioner, LogoWrapper, HeaderWrapper, Space, Logo, ContentWrapper,InfoWrapper, InfoButton, BoardWrapper } from 'css/Header';
 import { Link } from 'react-router-dom';
 
-const Header = ({children}) => {
+const Header = ({children, solid}) => {
     return (
-        <HeaderWrapper className="Wrapper">
-            <Positioner>                
+        <HeaderWrapper solid={solid}  >
+            <Positioner >                
                     <ContentWrapper>
                         <LogoWrapper>
                             <Logo to="/">Net ToUR</Logo>

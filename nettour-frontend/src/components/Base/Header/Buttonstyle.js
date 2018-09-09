@@ -5,8 +5,20 @@ import { Link } from 'react-router-dom';
 import { shadow } from 'css/styleUtil';
 
 export const Button = styled(Link)`
-    font-weight: 600;
+   &.login{
+    font-weight: 1000;
     color: ${oc.gray[1]};    
+    padding: 0.5rem;
+    padding-bottom: 0.4rem;   
+    border-radius: 2px;
+    text-decoration: none;
+    transition: .2s all;
+
+
+   }
+
+    font-weight: 600;
+    color: ${oc.gray[1]};   
     padding: 0.5rem;
     padding-bottom: 0.4rem;
     cursor: pointer;
@@ -24,10 +36,10 @@ export const Button = styled(Link)`
     }
 `;
 
-const ButtonLogin = () => (
-    <Button to="/auth/login">
+const Buttonstyle = ({ login }) => (
+    <Button to="/auth/login" login={login} >
         Login / Resigter
     </Button>
 );
 
-export default ButtonLogin;
+export default Buttonstyle;

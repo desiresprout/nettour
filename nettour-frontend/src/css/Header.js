@@ -7,26 +7,27 @@ export const HeaderWrapper = styled.div`
     width:100%;    
     background-image : url('static/images/wave-hero-background.svg');
     background-size : cover;
-    background-repeat : no-repeat;    
+    background-repeat : no-repeat;  
     background-position: top;  
     @media (min-width: 992px)    {
-        padding: 10% 0;
-        border : 2px solid red;
-    }
-
+        padding: 10% 0;        
+    }    
+    ${props => props.solid && ` 
+   
+      
+ `}    
     
 `;
 
 export const Positioner = styled.div`
-
     display : flex;
     flex-direction : column;
     align-items : center;
-    justify-items : center;
+    justify-items : center;   
     
 `;
 
-// 해더의 내용
+
 export const ContentWrapper = styled.div`
     width: 1200px;
     align-items : center;
@@ -54,7 +55,6 @@ export const LogoWrapper = styled.div`
 
 `;
 
-// 로고
 export const Logo = styled(Link)`
     font-size: 1.8rem;
     letter-spacing: 2px;
@@ -68,7 +68,6 @@ export const Logo = styled(Link)`
     }
 `;
 
-// 중간 여백
 export const Space = styled.div`    
     flex-grow :  ${props => props.space};
 `;
