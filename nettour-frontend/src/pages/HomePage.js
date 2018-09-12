@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import Background from 'components/Base/Background';
-import HeaderContainer from 'containers/Base/HeaderContainer';
+import { HeaderContainer}  from 'containers/Base';
 
 
 class HomePage extends Component {
     render() {
         return (
             <Fragment>
-            <HeaderContainer/>            
+            <HeaderContainer main={false} />            
             <Background></Background>
             </Fragment>
         );

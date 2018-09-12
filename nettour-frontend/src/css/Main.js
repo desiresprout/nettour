@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom';
 
 
 
-export const UserWrapper = styled.div`
+export const MainTemplate = styled.div`
         display : flex;
         flex-direction : row;
 `;
 
-export const SidebarWrapper = styled.div`
+export const SidebarTemplate = styled.div`
     display : flex;
     flex-direction : column;
     width : 15rem;
@@ -26,11 +26,10 @@ export const SidebarContainer = styled.div`
 
 `;
 
-
-export const HeaderWrapper = styled.div`
-
+export const SidebarIcon = styled.div`
 `;
 
-export const HeaderContainer = styled.div`
-    
+
+export const Sidebar = styled.div`
+
 `;

@@ -17,7 +17,7 @@ class HeaderContainer extends Component {
     }
     
     render() {
-        const { visible, user, login } = this.props;
+        const { visible, user, login, main } = this.props;
         const { handleThumbnailClick } = this;
         if(!visible) return null;
         
@@ -26,13 +26,29 @@ class HeaderContainer extends Component {
             <Helmet>
             <title>NetTouR - 여행 후기  </title>
             </Helmet>            
-            <Header solid>            
-               {     user.get('logged') 
-                    ? ( <UserThumbnail thumbnail={user.getIn(['loggedInfo', 'thumbnail'])} onClick={handleThumbnailClick}/>)
-                    : <Buttonstyle className="login" />                    
-               }    
-               <UserMenuContainer eventTypes="click"/>
-            </Header>   
+            
+            { !main
+                ? ( 
+                        <Header>            
+                        {     user.get('logged') 
+                            ? ( <UserThumbnail thumbnail={user.getIn(['loggedInfo', 'thumbnail'])} onClick={handleThumbnailClick}/>)
+                            : <Buttonstyle className="login" />                    
+                        }    
+                            <UserMenuContainer eventTypes="click"/>
+                        </Header> 
+                  )                  
+                :  
+                (  
+                    <Header main>            
+                    {     user.get('logged') 
+                        ? ( <UserThumbnail thumbnail={user.getIn(['loggedInfo', 'thumbnail'])} onClick={handleThumbnailClick}/>)
+                        : <Buttonstyle className="login" />                    
+                    }    
+                        <UserMenuContainer eventTypes="click"/>
+                    </Header>  
+                )           
+            }            
+              
             </Fragment>         
             
         );

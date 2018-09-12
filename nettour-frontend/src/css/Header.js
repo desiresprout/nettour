@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import oc from 'open-color';
 import { shadow, media } from 'css/styleUtil';
 import { Link } from 'react-router-dom';
@@ -12,7 +12,7 @@ export const HeaderWrapper = styled.div`
     @media (min-width: 992px)    {
         padding: 10% 0;        
     }    
-    ${props => props.solid && ` 
+    ${props => props.main && ` 
    
       
  `}    

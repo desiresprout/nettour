@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Route } from 'react-router-dom';
-import { HomePage, AuthPage } from 'pages';
+import { HomePage, AuthPage, MainPage } from 'pages';
 import HeaderContainer from 'containers/Base/HeaderContainer';
 import storage from 'lib/storage';
 import { connect } from 'react-redux';
@@ -13,7 +13,7 @@ class App extends Component {
 
     initializeUserInfo = async () => {
         const loggedInfo = storage.get('loggedInfo'); // 로그인 정보를 로컬스토리지에서 가져옵니다.
-        if(!loggedInfo) return; // 로그인 정보가 없다면 여기서 멈춥니다.
+        if(!loggedInfo) return; // 로그인 정보가 없다면 이 함수 종료
 
         const { UserActions } = this.props;
         UserActions.setLoggedInfo(loggedInfo);
@@ -38,6 +38,7 @@ class App extends Component {
             </helmet>            
                 <Route exact path="/" component={HomePage}/>
                 <Route path="/auth" component={AuthPage}/>
+                <Route path="/main" component={MainPage}/>
             </Fragment>
         );
     }

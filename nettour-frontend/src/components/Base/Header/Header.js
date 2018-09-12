@@ -2,9 +2,9 @@ import React from 'react';
 import { Positioner, LogoWrapper, HeaderWrapper, Space, Logo, ContentWrapper,InfoWrapper, InfoButton, BoardWrapper } from 'css/Header';
 import { Link } from 'react-router-dom';
 
-const Header = ({children, solid}) => {
+const Header = ({children, main}) => {
     return (
-        <HeaderWrapper solid={solid}  >
+        <HeaderWrapper >
             <Positioner >                
                     <ContentWrapper>
                         <LogoWrapper>
@@ -21,7 +21,7 @@ const Header = ({children, solid}) => {
                     <BoardWrapper>
                         <p>Please let me know your experience.
                                 You might have another experience.</p>
-                        <InfoButton>게시판</InfoButton>
+                        <InfoButton to="/main">게시판</InfoButton>
                         <InfoButton>통계</InfoButton>                      
                     </BoardWrapper>
             </Positioner>
