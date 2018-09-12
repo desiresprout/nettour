@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { HomePage, AuthPage, MainPage } from 'pages';
 import HeaderContainer from 'containers/Base/HeaderContainer';
 import storage from 'lib/storage';
@@ -33,12 +33,16 @@ class App extends Component {
     render() {
         return (
             <Fragment>
+
             <helmet>
             <title> NetTouR </title>
-            </helmet>            
+            </helmet> 
+            <Switch>           
                 <Route exact path="/" component={HomePage}/>
                 <Route path="/auth" component={AuthPage}/>
-                <Route path="/main" component={MainPage}/>
+                <Route path="/main" component={MainPage}/>            
+            </Switch>
+
             </Fragment>
         );
     }

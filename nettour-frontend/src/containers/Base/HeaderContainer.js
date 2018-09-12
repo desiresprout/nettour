@@ -3,10 +3,11 @@ import Header, { Buttonstyle, UserThumbnail} from 'components/Base/Header';
 import { connect } from 'react-redux';
 import * as userActions from 'redux/modules/user';
 import * as baseActions from 'redux/modules/base';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 import storage from 'lib/storage';
 import UserMenuContainer from './UserMenuContainer';
 import { Helmet } from 'react-helmet';
+import {  withRouter } from 'react-router-dom';
 
 class HeaderContainer extends Component {
     
@@ -56,6 +57,7 @@ class HeaderContainer extends Component {
 }
 
 export default connect(
+    
     (state) => ({
         visible: state.base.getIn(['header', 'visible']),        
         user: state.user
@@ -63,5 +65,10 @@ export default connect(
     (dispatch) => ({
         UserActions: bindActionCreators(userActions, dispatch),
         BaseActions: bindActionCreators(baseActions, dispatch)
-    })
+    }),
 )(HeaderContainer);
+
+
+
+
+

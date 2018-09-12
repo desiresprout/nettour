@@ -12,8 +12,7 @@ export const HeaderWrapper = styled.div`
     @media (min-width: 992px)    {
         padding: 10% 0;        
     }    
-    ${props => props.main && ` 
-   
+    ${props => props.main && `    
       
  `}    
     
@@ -81,7 +80,7 @@ export const InfoWrapper = styled.div`
     margin : 0 auto;
 `;
 
-export const InfoButton = styled.div`
+export const InfoButton = styled(Link)`
     flex : 1 0 auto;
     text-align : center;
     color: ${oc.gray[1]};
