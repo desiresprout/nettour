@@ -3,8 +3,6 @@ import oc from 'open-color';
 import { shadow, media } from 'css/styleUtil';
 import { Link } from 'react-router-dom';
 
-
-
 export const MainTemplate = styled.div`
         display : flex;
         flex-direction : row;
@@ -26,10 +24,43 @@ export const SidebarContainer = styled.div`
 
 `;
 
+export const SidebarWrapper = styled.div`
+    padding : 3rem;    
+    display : flex;
+    border : 1px solid yellow;
+    font-size : 1.3rem;
+
+    & > a{
+        padding : 0.2rem;
+        font-size : 1.3rem;
+    }
+    svg{
+        font-size : 1rem;
+    }
+
+        
+`;
+
 export const SidebarIcon = styled.div`
+    width : 40px;
+    border : 1px solid red;
 `;
 
 
-export const Sidebar = styled.div`
+export const SidebarMenu = styled.div`
+     margin-left : 0.25rem;
+     border : 1px solid blue;
+
+`;
+
+export const BoardContainer = styled.div`
+
+`;
+
+export const BoardList = styled.div`
+        
+`;
+
+export const Board = styled.div`
 
 `;

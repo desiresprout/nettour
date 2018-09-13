@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import oc from 'open-color';
-import FacebookIcon from 'react-icons/lib/io/social-facebook';
-import GoogleIcon from 'react-icons/lib/io/social-google';
+import FaFacebookSquare from 'react-icons/lib/fa/beer';
+import FaGoogle from 'react-icons/lib/fa/google';
 import { shadow, media } from 'css/styleUtil';
 
 const Wrapper = styled.div`
@@ -69,11 +69,11 @@ const SocialButton = styled.div`
 const SocialButtons = ({onSocialLogin}) => (
     <Wrapper>
         <SocialButton facebook onClick={()=>onSocialLogin('facebook')}>
-            <FacebookIcon/>
+            <FaFacebookSquare/>
             페이스북
         </SocialButton>
         <SocialButton google onClick={()=>onSocialLogin('google')}>
-            <GoogleIcon/>
+            < FaGoogle/>
             구글
         </SocialButton>
     </Wrapper>

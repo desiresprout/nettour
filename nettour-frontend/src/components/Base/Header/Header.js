@@ -15,16 +15,15 @@ const Header = ({children, main}) => {
                                 {children}
                         </LogoWrapper>
                         <InfoWrapper>
-                            <Space space="4"></Space>
-                            <InfoButton to="/main">Question</InfoButton>
-                            <InfoButton to="/main">Information</InfoButton>
+                            <Space space="4"></Space>                            
+                            <InfoButton to="/main" >Information</InfoButton>
                         </InfoWrapper>                
                     </ContentWrapper>
                     <BoardWrapper>
                         <p>Please let me know your experience.
                                 You might have another experience.</p>
                         <InfoButton to="/main">게시판</InfoButton>
-                        <InfoButton to="/main">통계</InfoButton>                      
+                        <InfoButton to="/main" >통계</InfoButton>                      
                     </BoardWrapper>
             </Positioner>
         </HeaderWrapper>

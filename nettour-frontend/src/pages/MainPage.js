@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from 'react';
-import HeaderContainer from 'containers/Base/HeaderContainer';
+import MainContainer from 'containers/Main/MainContainer';
 
 
 class MainPage extends Component {
     render() {
         return (
             <Fragment>
-            <HeaderContainer main={true} />            
+                      <MainContainer/>
            
             </Fragment>
         );
