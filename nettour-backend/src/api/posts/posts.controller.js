@@ -2,6 +2,7 @@ const Account = require('models/account');
 const Post = require('models/posts');
 const Joi = require('joi');
 const ObjectId = require('mongoose').Types.ObjectId;
+const moment = require('moment');
 
 
 exports.write  = async(ctx)=>{
@@ -67,12 +68,30 @@ exports.list = async (ctx) => {
     let posts = null;
 
     try{
-      posts = await Post.list({});  
+      posts = await Post.list( { cursor, username } );  
     } catch(e){
         ctx.throw(500,e);
     }
+    
+    const next = posts.length === 20 ? `/api/posts/?${username ? `username=${username}&` : ''}cursor=${posts[19]._id}` : null;
+    
+    const a = posts[0].createdAt;     //몽고디비 utc
+    const d = posts[0].content;
    
-    const next = posts.length === 20 ? `/api/posts/?cursor=${posts[19]._id}` : null;
+    const b = new Date(a); //utf를 자스객체로 변경 
+    
+    moment.locale('en');
+    const c = moment(b.toString(), "YYYYMMDD").fromNow();
+    console.log(d);
+    console.log(c);
+
+    //var utcDate = "Tue, 18 Sep 2018 14:28:32 GMT";
+
+    //FIrst convert it to JS date object
+    
+    //var jsDateObj = new Date(utcDate);
+    
+   // moment(jsDateObj.toISOString(), "YYYYMMDD").fromNow()
 
     ctx.body = {
         next,
