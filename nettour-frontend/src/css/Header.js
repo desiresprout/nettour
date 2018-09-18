@@ -2,14 +2,16 @@ import styled, { css } from 'styled-components';
 import oc from 'open-color';
 import { shadow, media } from 'css/styleUtil';
 import { Link } from 'react-router-dom';
+import background from 'static/images/wave-hero-background.svg';
+
 
 export const HeaderWrapper = styled.div`
     width:100%;    
-    background-image : url('static/images/wave-hero-background.svg');
     background-size : cover;
     background-repeat : no-repeat;  
     background-position: top;  
-    @media (min-width: 992px)    {
+    background-image : url(${background});
+    {
         padding: 10% 0;        
     }    
     ${props => props.main && `    

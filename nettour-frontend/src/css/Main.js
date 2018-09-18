@@ -16,13 +16,10 @@ export const SidebarTemplate = styled.div`
     height : 100vh;
     justify-content : flex-start;
     margin-top : 8rem;
+    
 `;
 
 
-export const SidebarContainer = styled.div`
-    margin : 0 auto;
-
-`;
 
 export const SidebarWrapper = styled.div`
     padding : 3rem;    
@@ -30,14 +27,7 @@ export const SidebarWrapper = styled.div`
     border : 1px solid yellow;
     font-size : 1.3rem;
 
-    & > a{
-        padding : 0.2rem;
-        font-size : 1.3rem;
-    }
-    svg{
-        font-size : 1rem;
-    }
-
+   
         
 `;
 

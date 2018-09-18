@@ -12,8 +12,10 @@ const { jwtMiddleware } = require('./lib/token');
 
 
 
-mongoose.Promise = global.Promise; // Node 의 네이티브 Promise 사용
-// mongodb 연결
+mongoose.Promise = global.Promise; 
+
+
+// mongodb 연결 , 아이디비번 만들것
 mongoose.connect(process.env.MONGO_URI).then(
     (response) => {
         console.log('Successfully connected to mongodb');
@@ -28,12 +30,7 @@ app.use(jwtMiddleware);
 router.use('/api', api.routes());
 
 router.get('/post', (ctx, next) => {
-    const { id } = ctx.request.query; // 주소 뒤에 ?id=10 이런식으로 작성된 쿼리는 ctx.request.query 에 파싱됩니다.
-    if(id) {
-        ctx.body = '포스트 #' + id;
-    } else {
-        ctx.body = '포스트 아이디가 없습니다.';
-    }
+    ctx.body = 'post';
 });
 
 app.use(router.routes()).use(router.allowedMethods());

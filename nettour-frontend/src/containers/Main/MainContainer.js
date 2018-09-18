@@ -11,9 +11,8 @@ class MainContainer extends Component {
         return (
             <MainTemplate>
                 <SidebarContainer/>
-
-
-        
+                
+                    
                    
                 
             </MainTemplate>
