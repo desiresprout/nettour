@@ -29,7 +29,15 @@ Post.statics.write = function({count, username, content}) {
 };
 
 Post.statics.list = function ( { cursor, username, self}){
-    const query = {};
+    const query = Object.assign(
+        { }, 
+        cursor ? { _id: { $lt: cursor } } : { },
+        username ? { username } : { }
+    );
+
+    console.dir(query);
+  
+
 
     return this.find(query)
         .sort({_id: -1})

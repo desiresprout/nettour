@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
-import { BoardList }  from 'components/Main';
-
-
-// state.question
-//state.post
-//
+import { BoardWrapper } from 'css/Main';
 
 class BoardContainer extends Component {
-    state = {  }
+    
     render() { 
-        return ( 
-            <BoardList>
-
-
-            </BoardList>
+        return (
+            <BoardWrapper>            
+            
+            </BoardWrapper>            
+          
+          
+            
 
          );
     }

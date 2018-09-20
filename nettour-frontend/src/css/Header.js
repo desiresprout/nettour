@@ -2,29 +2,53 @@ import styled, { css } from 'styled-components';
 import oc from 'open-color';
 import { shadow, media } from 'css/styleUtil';
 import { Link } from 'react-router-dom';
-import background from 'static/images/wave-hero-background.svg';
+import wavebackground from 'static/images/wave-hero-background.svg';
+import { commonbackground }  from 'css/common.js';
 
-
+/*background-image : url(${first});
+transition : all 5s linear; 
+        background-size : cover;
+        background-repeat : no-repeat;  
+        background-position: 0 90%;
+        padding : 80% 0;    */
 export const HeaderWrapper = styled.div`
-    width:100%;    
+    width: 100%;      
     background-size : cover;
-    background-repeat : no-repeat;  
-    background-position: top;  
-    background-image : url(${background});
+    background-repeat : no-repeat;
+    background-position : top;    
+    background-image : url(${wavebackground});
+    background-color : ${oc.gray[3]};
+    
+    @media (min-width: 992px)
+    {
+        padding: 15% 0;
+    }
+
+    @media (min-width : 1920px)
     {
         padding: 10% 0;        
     }    
-    ${props => props.main && `    
-      
- `}    
+    ${props => props.main && `
+        width: calc( 100vw - 15rem );                          
+        height : 8rem;    
+        background-image : none;     
+             
+          
+        
+    `}    
     
 `;
+// background-color : ${oc.gray[3]};
 
 export const Positioner = styled.div`
     display : flex;
     flex-direction : column;
     align-items : center;
     justify-items : center;   
+
+    ${props => props.main && `    
+        display : none;
+ `}    
     
 `;
 
@@ -43,6 +67,10 @@ export const ContentWrapper = styled.div`
     ${media.tablet`
         width: 100%;
     `}
+
+    ${props => props.main && `    
+         display : none;
+ `}   
 `;
 
 export const LogoWrapper = styled.div`
@@ -53,6 +81,10 @@ export const LogoWrapper = styled.div`
     align-items:center;
     justify-content: center;   
     margin-bottom : 2rem;
+
+    ${props => props.main && `    
+        display : none;
+ `}   
 
 `;
 
@@ -67,10 +99,19 @@ export const Logo = styled(Link)`
     &:hover {        
         ${shadow(1)}
     }
+
+    ${props => props.main && `    
+        display : none;
+ `}   
 `;
 
 export const Space = styled.div`    
     flex-grow :  ${props => props.space};
+
+    ${props => props.main && ` 
+        display : none;   
+        
+ `}   
 `;
 
 export const InfoWrapper = styled.div`
@@ -80,6 +121,10 @@ export const InfoWrapper = styled.div`
     align-items : center;
     justify-items : center;
     margin : 0 auto;
+
+    ${props => props.main && `    
+        display : none;
+ `}   
 `;
 
 export const InfoButton = styled(Link)`
@@ -90,6 +135,10 @@ export const InfoButton = styled(Link)`
         ${shadow(1)}
     }
     font-weight : 500;
+
+    ${props => props.main && `    
+        display : none;
+ `}   
 `;
 
 
@@ -103,6 +152,10 @@ export const BoardWrapper = styled.div`
     color: ${oc.gray[1]};
     font-weight : 700;
     font-size : 2rem;
+
+    ${props => props.main && `    
+        display : none;
+ `}   
     
 
     & > p {

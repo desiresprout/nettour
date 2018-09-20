@@ -11,12 +11,12 @@ class SidebarContainer extends Component {
 
                         <SidebarWrapper>
                             
-                            <SidebarMenu> asdasd </SidebarMenu>                   
+                            <SidebarMenu> 최신 포스트 </SidebarMenu>                   
                         </SidebarWrapper>
 
                         <SidebarWrapper>
                             
-                            <SidebarMenu> asdasd </SidebarMenu>                    
+                            <SidebarMenu> 통 계 </SidebarMenu>                    
                         </SidebarWrapper>
 
                         <SidebarWrapper>

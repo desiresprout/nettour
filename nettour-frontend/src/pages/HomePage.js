@@ -7,7 +7,7 @@ class HomePage extends Component {
     render() {
         return (
             <Fragment>
-            <HeaderContainer main={false} />            
+            <HeaderContainer main={false}/>            
             <Background></Background>
             </Fragment>
         );
