@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SidebarTemplate, SidebarWrapper, SidebarIcon, SidebarMenu } from 'css/Main';
+import { SidebarTemplateCss, SidebarWrapperCss, SidebarIcon, SidebarMenu } from 'css/Main';
 
 
 
@@ -7,25 +7,25 @@ import { SidebarTemplate, SidebarWrapper, SidebarIcon, SidebarMenu } from 'css/M
 class SidebarContainer extends Component {
     render() {
         return (
-            <SidebarTemplate>                
+            <SidebarTemplateCss>                
 
-                        <SidebarWrapper>
+                        <SidebarWrapperCss>
                             
                             <SidebarMenu> 최신 포스트 </SidebarMenu>                   
-                        </SidebarWrapper>
+                        </SidebarWrapperCss>
 
-                        <SidebarWrapper>
+                        <SidebarWrapperCss>
                             
                             <SidebarMenu> 통 계 </SidebarMenu>                    
-                        </SidebarWrapper>
+                        </SidebarWrapperCss>
 
-                        <SidebarWrapper>
+                        <SidebarWrapperCss>
                              
                             <SidebarMenu>asdasd </SidebarMenu>                     
-                        </SidebarWrapper>
+                        </SidebarWrapperCss>
                         
                     
-                </SidebarTemplate>
+                </SidebarTemplateCss>
         );
     }
 }

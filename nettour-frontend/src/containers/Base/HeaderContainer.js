@@ -7,7 +7,7 @@ import { bindActionCreators, compose } from 'redux';
 import storage from 'lib/storage';
 import UserMenuContainer from './UserMenuContainer';
 import { Helmet } from 'react-helmet';
-import { BoardWrapper } from 'css/Main';
+
 
 class HeaderContainer extends Component {
     

@@ -1,3 +1,2 @@
+export { default as Sidebar } from './Sidebar';
 
-export { default as BoardList } from './BoardList';
-export { default as BoardItem } from './BoardItem';

@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as userActions from 'redux/modules/user';
 import { helmet } from 'react-helmet';
+import { hot } from 'react-hot-loader'
 
 
 class App extends Component {
@@ -53,4 +54,4 @@ export default connect(
     (dispatch) => ({
         UserActions: bindActionCreators(userActions, dispatch)
     })
-)(App);
+)(hot(module)(App));

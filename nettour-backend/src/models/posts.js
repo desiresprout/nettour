@@ -8,7 +8,9 @@ const Comment = new Schema({
 });
 
 const Post = new Schema({
+    post_thumbnail : String,
     createdAt: { type: Date, default: Date.now },
+    //updatedAt
     count: Number,
     username: String,
     content: String,

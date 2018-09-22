@@ -1,19 +1,20 @@
 import React, { Component, Fragment } from 'react';
 import SidebarContainer from 'containers/Main/SidebarContainer';
-import BoardContainer from 'containers/Main/BoardContainer'
-import { MainTemplate, ContentTemplate } from 'css/Main';
+import ContentContainer from 'containers/Main/ContentContainer'
 import HeaderContainer from 'containers/Base/HeaderContainer';
+
+import { MainTemplateCss, ContentTemplateCss } from 'css/Main';
 
 class MainPage extends Component {
     render() {
         return (            
-            <MainTemplate>
+            <MainTemplateCss>
                 <SidebarContainer/>
-                <ContentTemplate>
+                <ContentTemplateCss>
                     <HeaderContainer main/>
-                    <BoardContainer/>
-                </ContentTemplate>
-            </MainTemplate>
+                    <ContentContainer/>
+                </ContentTemplateCss>
+            </MainTemplateCss>
            
             
         );

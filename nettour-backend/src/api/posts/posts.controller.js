@@ -9,7 +9,7 @@ exports.write  = async(ctx)=>{
     const { user } = ctx.request;
     if(!user) {        
         ctx.status = 403;
-        ctx.body = { message: ' not logged in' };
+        ctx.body = { message: ' not login' };
         return;
     }
     let account;
@@ -24,7 +24,7 @@ exports.write  = async(ctx)=>{
         return;
     }
 
-    const count = account.thoughtCount + 1;
+    const count = account.postCount + 1;
 
         const schema = Joi.object().keys({
         content: Joi.string().min(5).max(1000).required() 
@@ -51,8 +51,7 @@ exports.write  = async(ctx)=>{
     } catch (e) {
         ctx.throw(500, e);
     }
-
-    /* 포스트 정보 반환 */
+    
     ctx.body = 'true';
     
 };
@@ -61,7 +60,7 @@ exports.list = async (ctx) => {
     const { cursor, username } = ctx.query; 
 
     if(cursor && !ObjectId.isValid(cursor)) {
-        ctx.status = 400; // Bad Request
+        ctx.status = 400; 
         return;    
     }
 
@@ -74,12 +73,8 @@ exports.list = async (ctx) => {
     }
     
     const next = posts.length === 20 ? `/api/posts/?${username ? `username=${username}&` : ''}cursor=${posts[19]._id}` : null;
-   
     
-
-
     
-
     ctx.body = {
         next,
         data: posts
