@@ -3,17 +3,16 @@ import SidebarContainer from 'containers/Main/SidebarContainer';
 import ContentContainer from 'containers/Main/ContentContainer'
 import HeaderContainer from 'containers/Base/HeaderContainer';
 
-import { MainTemplateCss, ContentTemplateCss } from 'css/Main';
+import { MainTemplateCss, BodyTemplateCss } from 'css/Main';
 
 class MainPage extends Component {
     render() {
         return (            
-            <MainTemplateCss>
-                <SidebarContainer/>
-                <ContentTemplateCss>
-                    <HeaderContainer main/>
-                    <ContentContainer/>
-                </ContentTemplateCss>
+            <MainTemplateCss className="maintemplate">
+            <SidebarContainer/>                
+            
+            <ContentContainer className="contentcontainer"/>
+               
             </MainTemplateCss>
            
             
@@ -21,15 +20,13 @@ class MainPage extends Component {
     }
 }
 
-/* MainTemplete : flex-direction : row
-
-boardtemplate 안에 headercontainer랑 boardcontainer
-
-
-
+/* main템플릿 margin-left : 15rem;
+    sidebar은 position : fixed, top :0 left:0
+    bodytemplatecss flex, flex-direction : column
 
 
 */
+
 
 /* <Switch>
           <Route exact path="/(|trending)" component={Trending} />

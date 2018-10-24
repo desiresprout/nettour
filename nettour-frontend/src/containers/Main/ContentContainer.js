@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { PostList } from 'components/Post'; 
-import { ContentWrapperCss } from 'css/Main';
+import { ContentTemplateCss } from 'css/Main';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -27,14 +27,17 @@ class ContentContainer extends Component {
         const { data } = this.props;
         
         return (
-            <ContentWrapperCss>            
+                 
+            <ContentTemplateCss className="contenttemplate">
                 <PostList
                     posts={data}
                 
                 
                 
-                />                
-            </ContentWrapperCss>            
+                /> 
+                </ContentTemplateCss>       
+                          
+                       
           
           
             

@@ -40,7 +40,7 @@ class HeaderContainer extends Component {
                   )                  
                 :  
                 (  
-                    <Header main={main}>            
+                    <Header className="header" main={main}>            
                     {     user.get('logged') 
                         ? ( <UserThumbnail thumbnail={user.getIn(['loggedInfo', 'thumbnail'])} onClick={handleThumbnailClick}/>)
                         : <Buttonstyle className="login" />                    

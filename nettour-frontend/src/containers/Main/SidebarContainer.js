@@ -7,7 +7,7 @@ import { SidebarTemplateCss, SidebarWrapperCss, SidebarIcon, SidebarMenu } from 
 class SidebarContainer extends Component {
     render() {
         return (
-            <SidebarTemplateCss>                
+            <SidebarTemplateCss className="sidebartemplate">                
 
                         <SidebarWrapperCss>
                             

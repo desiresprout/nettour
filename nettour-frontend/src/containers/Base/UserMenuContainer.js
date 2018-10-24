@@ -11,8 +11,7 @@ import onClickOutside from 'react-onclickoutside';
 
 class UserMenuContainer extends Component {
 
-    handleClickOutside = (e) => {
-        console.log("outsideclick");
+    handleClickOutside = (e) => {       
         const { BaseActions } = this.props;
         BaseActions.setUserMenuVisibility(false);
     }

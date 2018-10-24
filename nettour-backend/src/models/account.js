@@ -23,7 +23,7 @@ const Account = new Schema({
             accessToken: String
         }
     },
-    password: String, // 로컬계정의 경우엔 비밀번호를 해싱해서 저장합니다
+    password: String, 
     postCount: { type: Number, default: 0 }, // 서비스에서 포스트를 작성 할 때마다 1씩 올라갑니다
     createdAt: { type: Date, default: Date.now }
 });
@@ -48,8 +48,7 @@ Account.statics.findByEmailOrUsername = function({username, email}) {
 };
 
 Account.statics.localRegister = function({ username, email, password }) {
-    // 데이터를 생성 할 때는 new this() 를 사용합니다.
-    //console.log(localregister);
+  
     const account = new this({
         profile: {
             username

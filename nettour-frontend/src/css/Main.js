@@ -4,21 +4,21 @@ import { shadow, media } from 'css/styleUtil';
 import { Link } from 'react-router-dom';
 
 export const MainTemplateCss = styled.div`
-        display : flex;
-        flex-direction : row;
-        width : 100vw;
-        height : 100vh;
+       
+        margin-left : 15rem;
+        border : 1px solid red;
 `;
 
 export const SidebarTemplateCss = styled.div`
     display : flex;
     flex-direction : column;
     width : 15rem;
-    height : 100vh;    
+    height : 100%;    
     justify-content : flex-start;    
     position : fixed;
     top : 0;
     left : 0;
+   
     
 `;
 
@@ -43,18 +43,11 @@ export const SidebarMenu = styled.div`
 
 `;
 
-export const ContentTemplateCss = styled.div`        
-    width : calc(100vw - 15rem);
-    height : 100vh;
-    display : flex;
-    flex-direction : column; 
-    margin-left : 15rem;
+export const ContentTemplateCss = styled.div`
+    padding-left : 1.75rem;
+    padding-right : 1.75rem;
+    
+    
 `;
 
-export const ContentWrapperCss = styled.div`
-    width : calc(100vw - 15rem);
-    height : calc(100vh - 8rem);
-    border : 1px solid blue;
-
-`;
 

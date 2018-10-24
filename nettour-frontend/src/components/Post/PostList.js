@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { PostCard }  from 'components/Post';
 import { PostListCss } from 'css/PostList';
-import { PostCardCss } from 'css/PostCard';
 
+
+//let result = setSeconds(new Date(2014, 8, 1, 11, 30, 40), 45);
+//console.log(result);
 
 const PostList = ({posts}) => {
 
@@ -14,9 +16,9 @@ const PostList = ({posts}) => {
 
    
     return (
-        <PostCardCss>
+        <PostListCss className="postlist">
             {postlist}
-        </PostCardCss>
+        </PostListCss>
     );
 };
 

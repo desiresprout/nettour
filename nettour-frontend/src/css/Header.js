@@ -17,21 +17,21 @@ export const HeaderWrapper = styled.div`
     background-repeat : no-repeat;
     background-position : top;    
     background-image : url(${wavebackground});
-    background-color : ${oc.gray[3]};
     
-    @media (min-width: 992px)
-    {
-        padding: 15% 0;
-    }
+    
+    
 
     @media (min-width : 1920px)
     {
         padding: 10% 0;        
     }    
     ${props => props.main && `
-        width: calc( 100vw - 15rem );                          
-        height : 8rem;    
-        background-image : none;     
+        width: 100%;                          
+        height : 15rem;    
+        background-image : none;
+        padding : 1.75rem;     
+        
+        background-color : #ffffff;
              
           
         

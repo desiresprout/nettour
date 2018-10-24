@@ -9,9 +9,7 @@ export const loadPost = createAction(LOAD_POST, PostsAPI.list);
 
 const initialState ={
     next: '',
-    data: [],    
-    
-
+    data: [],
 };
 
 export default handleActions({

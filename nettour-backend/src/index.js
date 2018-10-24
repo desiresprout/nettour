@@ -5,11 +5,10 @@ const app = new Koa();
 const router = new Router();
 const api = require('api');   
 const port = process.env.PORT || 4000;
-const bodyParser = require('koa-bodyparser');
-
+const koabody = require('koa-body');
 const mongoose = require('mongoose');
 const { jwtMiddleware } = require('./lib/token');
-
+const cors = require('@koa/cors');
 
 
 mongoose.Promise = global.Promise; 
@@ -24,8 +23,12 @@ mongoose.connect(process.env.MONGO_URI).then(
     console.error(e);
 });
 
-app.use(bodyParser());
+app.use(koabody({
+    multipart : true,
+}));
 app.use(jwtMiddleware);
+app.use(cors());
+
 
 router.use('/api', api.routes());
 

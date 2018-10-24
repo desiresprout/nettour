@@ -1,17 +1,28 @@
 import React from 'react';
-import { PostCardCss, PostThumnailCss, RadiusMaskCss, } from 'css/PostCard';
-import { CardContentCss, UserThunmnailCss, ContentHeadCss, } from 'css/PostCardContent';
+import { PostCardCss, PostThumbnailCss, RadiusMaskCss, ImageholderCss } from 'css/PostCard';
 import UserThumbnail from 'components/Base/Header/UserThumbnail';
+import { IoIosImage } from 'react-icons/io';
+import { PostCardContent } from 'components/Post';
+
+
+
+
 
 const PostCard = ( { post } ) => {
     const { likesCount, likes, _id, count, username, content, createdAt, comments } = post;
 
-   
-    //<PostThumnailCss image={`/api/users/${username}/thumbnail`}/>
+    //<img src={`/api/users/${username}/thumbnail`}/>
     return (
-        <PostCardCss>
-            
-        
+        <PostCardCss className="postcard">
+            <PostThumbnailCss to={username}>
+                <ImageholderCss>
+                    <IoIosImage/>
+                    <RadiusMaskCss/>      
+                
+                </ImageholderCss>               
+                
+            </PostThumbnailCss> 
+            <PostCardContent/>       
         
         </PostCardCss>
         

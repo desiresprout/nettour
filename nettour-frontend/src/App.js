@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { HomePage, AuthPage, MainPage } from 'pages';
+import { HomePage, AuthPage, MainPage, PostDetailPage } from 'pages';
 import HeaderContainer from 'containers/Base/HeaderContainer';
 import storage from 'lib/storage';
 import { connect } from 'react-redux';
@@ -8,6 +8,9 @@ import {bindActionCreators} from 'redux';
 import * as userActions from 'redux/modules/user';
 import { helmet } from 'react-helmet';
 import { hot } from 'react-hot-loader'
+
+import  EditorContainer   from 'containers/Main/EditorContainer';
+
 
 
 class App extends Component {
@@ -35,19 +38,23 @@ class App extends Component {
         return (
             <Fragment>
 
-            <helmet>
-            <title> NetTouR </title>
-            </helmet> 
+           
             <Switch>           
                 <Route exact path="/" component={HomePage}/>
                 <Route path="/auth" component={AuthPage}/>
-                <Route path="/main" component={MainPage}/>            
+                <Route path="/main" component={MainPage}/>
+                <Route path="/write" component={EditorContainer}/>
+                <Route path="/@:username/:title" component={PostDetailPage}/> 
             </Switch>
 
             </Fragment>
         );
     }
 }
+
+/*<helmet>
+<title> NetTouR </title>
+</helmet> */
 
 export default connect(
     null,

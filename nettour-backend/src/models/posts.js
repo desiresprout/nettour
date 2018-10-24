@@ -9,22 +9,23 @@ const Comment = new Schema({
 
 const Post = new Schema({
     post_thumbnail : String,
-    createdAt: { type: Date, default: Date.now },
-    //updatedAt
-    count: Number,
+    createdAt: { type: Date, default: Date.now }, 
     username: String,
+    title: String,
     content: String,
+    state : Schema.Types.Mixed,
     likesCount: { type: Number, default: 0 },
     likes: { type: [String], default: [] },
     comments: { 
         type: [Comment],
         default: []
-    }
+    },
+    url_slug : String,
 });
 
-Post.statics.write = function({count, username, content}) {
+Post.statics.write = function({title, username, content, state, url_slug}) {
     const post = new this({
-        count, username, content
+        title, username, content, state, url_slug
     });
 
     return post.save();
@@ -36,10 +37,6 @@ Post.statics.list = function ( { cursor, username, self}){
         cursor ? { _id: { $lt: cursor } } : { },
         username ? { username } : { }
     );
-
-    console.dir(query);
-  
-
 
     return this.find(query)
         .sort({_id: -1})

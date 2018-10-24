@@ -23,9 +23,10 @@ exports.getProfile = async (ctx) => {
 };
 
 
+
+
 exports.getThumbnail = async (ctx) => {
     const { username } = ctx.params;
-
     
     let account;
     try {
@@ -38,6 +39,8 @@ exports.getThumbnail = async (ctx) => {
         ctx.status = 404;
         return;
     }
+    //console.log(account.profile.thumbnail); 
+
 
     ctx.redirect(account.profile.thumbnail);
     

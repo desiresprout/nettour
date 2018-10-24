@@ -127,11 +127,8 @@ exports.logout = async (ctx) => {
     ctx.status = 204;
 };
 
-exports.check = (ctx) => {
-    //console.log(ctx.request);
-    const { user } = ctx.request;
-    //console.log(user);
-    
+exports.check = (ctx) => {    
+    const { user } = ctx.request;    
 
     if(!user) {
         ctx.status = 403; // Forbidden
