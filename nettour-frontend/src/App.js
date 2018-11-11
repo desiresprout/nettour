@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { HomePage, AuthPage, MainPage, PostDetailPage } from 'pages';
+import { HomePage, AuthPage, MainPage, PostPage } from 'pages';
 import HeaderContainer from 'containers/Base/HeaderContainer';
 import storage from 'lib/storage';
 import { connect } from 'react-redux';
@@ -9,15 +9,15 @@ import * as userActions from 'redux/modules/user';
 import { helmet } from 'react-helmet';
 import { hot } from 'react-hot-loader'
 
-import  EditorContainer   from 'containers/Main/EditorContainer';
+import  EditorContainer   from 'containers/Post/EditorContainer';
 
 
 
 class App extends Component {
 
     initializeUserInfo = async () => {
-        const loggedInfo = storage.get('loggedInfo'); // 로그인 정보를 로컬스토리지에서 가져옵니다.
-        if(!loggedInfo) return; // 로그인 정보가 없다면 이 함수 종료
+        const loggedInfo = storage.get('loggedInfo'); 
+        if(!loggedInfo) return;
 
         const { UserActions } = this.props;
         UserActions.setLoggedInfo(loggedInfo);
@@ -44,7 +44,7 @@ class App extends Component {
                 <Route path="/auth" component={AuthPage}/>
                 <Route path="/main" component={MainPage}/>
                 <Route path="/write" component={EditorContainer}/>
-                <Route path="/@:username/:title" component={PostDetailPage}/> 
+                <Route path="/@:username/:urlslug" component={PostPage}/> 
             </Switch>
 
             </Fragment>

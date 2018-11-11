@@ -31,8 +31,8 @@ class HeaderContainer extends Component {
             { !main
                 ? ( 
                         <Header>            
-                        {     user.get('logged') 
-                            ? ( <UserThumbnail thumbnail={user.getIn(['loggedInfo', 'thumbnail'])} onClick={handleThumbnailClick}/>)
+                        {     user.logged 
+                            ? ( <UserThumbnail thumbnail={user.loggedInfo.thumbnail} onClick={handleThumbnailClick}/>)
                             : <Buttonstyle className="login" />                    
                         }    
                             <UserMenuContainer eventTypes="click"/>
@@ -41,8 +41,8 @@ class HeaderContainer extends Component {
                 :  
                 (  
                     <Header className="header" main={main}>            
-                    {     user.get('logged') 
-                        ? ( <UserThumbnail thumbnail={user.getIn(['loggedInfo', 'thumbnail'])} onClick={handleThumbnailClick}/>)
+                    {     user.logged 
+                        ? ( <UserThumbnail thumbnail={user.loggedInfo.thumbnail} onClick={handleThumbnailClick}/>)
                         : <Buttonstyle className="login" />                    
                     }    
                         <UserMenuContainer eventTypes="click"/>
@@ -59,7 +59,7 @@ class HeaderContainer extends Component {
 export default connect(
     
     (state) => ({
-        visible: state.base.getIn(['header', 'visible']),        
+        visible: state.base.header.visible,        
         user: state.user
     }),
     (dispatch) => ({

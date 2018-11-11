@@ -4,7 +4,7 @@ import auth from './auth';
 import { penderReducer } from 'redux-pender';
 import user from './user';
 import post from './post';
-import editor from './editor';
+
 
 
 export default combineReducers({
@@ -12,6 +12,5 @@ export default combineReducers({
     auth,
     user,
     post,
-    editor,
     pender: penderReducer
 });

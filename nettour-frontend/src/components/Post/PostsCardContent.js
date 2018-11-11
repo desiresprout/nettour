@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { CardContentCss, UserThunmnailCss, ContentHeadCss, UsernameCss, SubinfoCss, DescriptionCss  } from 'css/PostCardContent';
+import { CardContentCss, UserThunmnailCss, ContentHeadCss, UsernameCss, SubinfoCss, DescriptionCss  } from 'css/PostsCardContent';
 import { Link } from 'react-router-dom';
 
-const PostCardContent = ({ username, posttitle } ) => {
+const PostsCardContent = ({ username, title } ) => {
     return (
         <CardContentCss>
 
@@ -25,4 +25,4 @@ const PostCardContent = ({ username, posttitle } ) => {
     );
 };
 
-export default PostCardContent;
+export default PostsCardContent;

@@ -16,12 +16,12 @@ class SidebarContainer extends Component {
 
                         <SidebarWrapperCss>
                             
-                            <SidebarMenu> 통 계 </SidebarMenu>                    
+                            <SidebarMenu>  </SidebarMenu>                    
                         </SidebarWrapperCss>
 
                         <SidebarWrapperCss>
                              
-                            <SidebarMenu>asdasd </SidebarMenu>                     
+                            <SidebarMenu> </SidebarMenu>                     
                         </SidebarWrapperCss>
                         
                     

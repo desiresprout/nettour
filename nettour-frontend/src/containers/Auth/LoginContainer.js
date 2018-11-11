@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { AuthContent, InputWithLabel, AuthButton, RightAlignedLink, SocialButtons  } from 'components/Auth';
+import { AuthContent, InputWithLabel, AuthButton, RightAlignedLink, SocialButtons, AuthError, SocialDivider } from 'components/Auth';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as authActions from 'redux/modules/auth';
 import * as userActions from 'redux/modules/user';
-import storage from 'lib/storage';  
+import storage from 'lib/storage';
+import SocialLoginContainer from 'containers/Auth/SocialLoginContainer';  
 
 class Login extends Component {
 
@@ -20,7 +21,7 @@ class Login extends Component {
         AuthActions.changeInput({
             name,
             value,
-            form: 'login'
+            form : "login"
         });
         
     }
@@ -28,19 +29,19 @@ class Login extends Component {
     setError = (message) => {
         const { AuthActions } = this.props;
         AuthActions.setError({
-            form: 'login',
+            form: "login",
             message
         });
         return false;
     }
 
     handleLocalLogin = async () => {
-        const { form, AuthActions, UserActions, history } = this.props;
-        const { email, password } = form.toJS();
+        const { login, AuthActions, UserActions, history } = this.props;
+        const { email, password } = login;
 
         try {
             await AuthActions.localLogin({email, password});
-            const loggedInfo = this.props.result.toJS();
+            const loggedInfo = this.props.result;
             UserActions.setLoggedInfo(loggedInfo);
             history.push('/');
             storage.set('loggedInfo', loggedInfo);
@@ -48,20 +49,10 @@ class Login extends Component {
         } catch (e) {            
             this.setError('잘못된 계정정보입니다.');
         }
-    }
-
-    /*handleSocialLogin = async() => {
-        const { AuthActions, UserActions } = this.props;
-        try{
-            await AuthActions.providerLogin(provider);
-
-            const { socialInfo } = this.props;
-        }
-        
-    } */
+    }   
 
     render() {
-        const { email, password } = this.props.form.toJS(); // form 에서 email 과 password 값을 읽어옴
+        const { email, password } = this.props.login; // form 에서 email 과 password 값을 읽어옴
         const { handleChange, handleLocalLogin } = this;
         const { error } = this.props;
 
@@ -82,9 +73,13 @@ class Login extends Component {
                     value={password} 
                     onChange={handleChange}
                 />
+                {
+                    error && <AuthError>{error}</AuthError>
+                }
                 <AuthButton onClick={handleLocalLogin}>로그인</AuthButton>
                 <RightAlignedLink to="/auth/register">회원가입</RightAlignedLink>              
-                
+                <SocialDivider/>
+                <SocialLoginContainer/>
             </AuthContent>
         );
     }
@@ -93,9 +88,9 @@ class Login extends Component {
 
 export default connect(
     (state) => ({
-        form: state.auth.getIn(['login', 'form']),
-        error: state.auth.getIn(['login', 'error']),
-        result: state.auth.get('result')
+        login: state.auth.login,
+        error: state.auth.login.error,
+        result: state.auth.result,
     }),
     (dispatch) => ({
         AuthActions: bindActionCreators(authActions, dispatch),

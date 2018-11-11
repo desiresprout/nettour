@@ -10,3 +10,19 @@ export const commonbackground = css `
 export const Postarea = styled.textarea`
 
 `; //인라인요소
+
+export const ButtonCss = styled.div`
+
+    ${props => props.action && `
+        font-size : 0.875rem;
+        color : ${oc.gray[7]};
+        font-weight : 700;
+        padding : 0.15rem 0.5rem;
+        cursor : pointer;
+        &:hover{
+            color : ${oc.indigo[9]}
+        }
+    `}
+
+    
+`;

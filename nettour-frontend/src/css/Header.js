@@ -31,9 +31,7 @@ export const HeaderWrapper = styled.div`
         background-image : none;
         padding : 1.75rem;     
         
-        background-color : #ffffff;
-             
-          
+        background-color : #ffffff;      
         
     `}    
     
@@ -62,6 +60,7 @@ export const ContentWrapper = styled.div`
     padding-left: 1rem;
     ${media.wide`
         width: 992px;
+        
     `}
 
     ${media.tablet`

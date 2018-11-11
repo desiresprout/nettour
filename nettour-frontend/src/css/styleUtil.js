@@ -1,6 +1,6 @@
 import { css, keyframes } from 'styled-components';
 
-// 미디어 쿼리 헬퍼: https://www.styled-components.com/docs/advanced#media-templates 참조
+// 미디어   쿼리 헬퍼: https://www.styled-components.com/docs/advanced#media-templates 참조
 export const sizes = {
     wide: '1200px',
     desktop: '992px',
@@ -9,18 +9,27 @@ export const sizes = {
 };
 
 export const media = Object.keys(sizes).reduce((acc, label) => {
-    //console.log(sizes); //객체
-    //console.log(acc); //객체 , 1200, 992, 768, 376
-    //console.log(label); //문자열 , wide desktop tablet phone
+    //sizes객체의 key를 가져와서  object.keys(sizes) : wide, desktop, tablet, phone
+    //console.log(acc); //객체 wide desktop tablet phone
+    //label - 문자열 , wide desktop tablet phone
     // args = width:100%
-    //sizes[label]은 sizes[wide] size[desktop] size[tablet] 즉 1200px와 992px 768px 376px을 나타냄    
-
+    //sizes[label]은 sizes[wide] sizes[desktop] sizes[tablet] 즉 1200px와 992px 768px 376px을 나타냄    
+   
+   
+    //${media.wide`
+    //width: 992px;            //호출값
+    //`}                 wide값일땐 변수값의 css값을 ~~으로 해라
     acc[label] = (...args) => css`
         @media (max-width: ${sizes[label]}) {
             ${css(...args)}
         }
     `;
-    
+    //css상에는 
+    /*
+        @media (max-width: 1200px)            
+          width: 992px;        //리턴값
+}
+    */
    
     return acc;
     

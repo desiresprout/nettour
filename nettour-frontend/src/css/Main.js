@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 export const MainTemplateCss = styled.div`
        
         margin-left : 15rem;
-        border : 1px solid red;
+        
 `;
 
 export const SidebarTemplateCss = styled.div`

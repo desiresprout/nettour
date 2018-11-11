@@ -1,5 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
-import { Map } from 'immutable';
+import produce from 'immer';
 import * as AuthAPI from 'lib/api/auth';
 import { pender } from 'redux-pender';
 import social from 'lib/social';
@@ -14,6 +14,10 @@ const LOCAL_LOGIN = 'auth/LOCAL_LOGIN'; // 이메일 로그인
 const LOGOUT = 'auth/LOGOUT'; // 로그아웃
 const SET_ERROR = 'auth/SET_ERROR'; // 오류 설정
 const PROVIDER_LOGIN = 'auth/PROVIDER_LOGIN';
+const TOGGLE_ANIMATE = 'auth/TOGGLE_ANIMATE'; // 애니메이션 토글
+
+const SOCIAL_LOGIN = 'auth/SOCIAL_LOGIN'; // 소셜 로그인
+const SOCIAL_REGISTER = 'auth/SOCIAL_REGISTEER'; // 소셜 회원가입
 
 export const changeInput = createAction(CHANGE_INPUT); //  { form, name, value }
 export const initializeForm = createAction(INITIALIZE_FORM); // form 
@@ -24,58 +28,103 @@ export const localLogin = createAction(LOCAL_LOGIN, AuthAPI.localLogin); // { em
 export const logout = createAction(LOGOUT, AuthAPI.logout);
 export const setError = createAction(SET_ERROR); // { form, message }
 export const providerLogin = createAction(PROVIDER_LOGIN, (provider)=>social[provider](), provider=>provider);
+export const toggleAnimation = createAction(TOGGLE_ANIMATE);
 
-const initialState = Map({
-    register: Map({
-        form: Map({
-            email: '',
-            username: '',
-            password: '',
-            passwordConfirm: ''
-        }),
-        exists: Map({
+export const socialLogin = createAction(SOCIAL_LOGIN, AuthAPI.socialLogin); // { provider, accessToken }
+export const socialRegister = createAction(SOCIAL_REGISTER, AuthAPI.socialRegister); // { provider, accessToken, username }
+
+const initialState = {
+    register: {        
+        email: '',
+        username: '',
+        password: '',
+        passwordConfirm: '',        
+        exists: {
             email: false,
-            password: false
-        }),
+            username: false
+        },
         error: null
-    }),
-    login: Map({
-        form: Map({
-            email: '',
-            password: ''
-        }),
+    },
+
+    login: {
+        email: '',
+        password: '',        
         error: null
-    }),
-    result: Map({})
-});
+    },
+    result: {},
+    animate: false,
+    social:{
+        accessToken : null,
+        provider : null,
+        registered : null
+
+    },
+};
 
 export default handleActions({
-    [CHANGE_INPUT]: (state, action) => {
+
+    [CHANGE_INPUT]: (state, action) => produce(state,draft => {
         const { form, name, value } = action.payload;
-        return state.setIn([form, 'form', name], value);
-    },
-    [INITIALIZE_FORM]: (state, action) => {
-        const initialForm = initialState.get(action.payload);
-        return state.set(action.payload, initialForm);
-    },
+        draft[form][name] = value;          
+    }),         
+    [INITIALIZE_FORM]: (state, action) => produce(state,draft => {
+        const initialForm = action.payload;  //string : login
+        draft.initialForm = initialState;       
+    }),
     ...pender({
         type: CHECK_EMAIL_EXISTS,
-        onSuccess: (state, action) => state.setIn(['register', 'exists', 'email'], action.payload.data.exists)
+        onSuccess: (state, action) => produce(state, draft => {
+        draft.register.exists.email = action.payload.data.exists;    
+        }),
     }),
     ...pender({
         type: CHECK_USERNAME_EXISTS,
-        onSuccess: (state, action) => state.setIn(['register', 'exists', 'username'], action.payload.data.exists)
+        onSuccess: (state, action) => produce(state, draft => {
+            draft.register.exists.username = action.payload.data.exists;  
+        }),           
     }),
     ...pender({
         type: LOCAL_LOGIN,
-        onSuccess: (state, action) => state.set('result', Map(action.payload.data))
+        onSuccess: (state, action) => produce(state, draft => {
+            draft.result = action.payload.data;
+        }),                       
     }),
     ...pender({
         type: LOCAL_REGISTER,
-        onSuccess: (state, action) => state.set('result', Map(action.payload.data))
+        onSuccess: (state, action) => produce(state, draft => {
+            draft.result = action.payload.data;  
+        }),
     }),
-    [SET_ERROR]: (state, action) => {
-        const { form, message } = action.payload;
-        return state.setIn([form, 'error'], message);
-    }
+    [SET_ERROR]: (state, action) => produce(state, draft => {
+        const { form , message } = action.payload;            
+        draft[form].error = message;  
+    }),
+    [TOGGLE_ANIMATE]: (state, action) => produce(state, draft =>{
+        draft.animate = !action.payload;
+    }),    
+    ...pender({
+        type: PROVIDER_LOGIN,
+        onSuccess: (state, action) => produce(state, draft => {
+            const { payload, meta } = action;
+            draft.social.accessToken = payload;
+            draft.social.provider = meta;  
+        }),
+    }),   
+    ...pender({
+        type: SOCIAL_LOGIN,
+        onSuccess: (state, action) =>  produce(state, draft => {
+            if(action.payload.status ===204 ){
+                return draft.social.registered = false;
+            }
+            draft.result = action.payload.data;
+            draft.social.registered = true;
+        })
+    }),       
+    ...pender({
+        type: SOCIAL_REGISTER,
+        onSuccess: (state, action) => produce(state, draft => {
+            draft.result = action.payload.data;
+        }),        
+    })    
+    
 }, initialState);

@@ -4,7 +4,7 @@ import oc from 'open-color';
 import { shadow, media } from 'css/styleUtil';
 import { Link } from 'react-router-dom';
 
-export const PostCardCss = styled.div`
+export const PostsCardCss = styled.div`
     display : block;
     width : calc(33.333% - 1.75rem);
     text-decoration : none;
@@ -14,7 +14,7 @@ export const PostCardCss = styled.div`
     
 `;
 
-export const PostThumbnailCss = styled(Link)`
+export const PostsThumbnailCss = styled(Link)`
     display : block;
     position : relative;
     width: 100%;  

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import oc from 'open-color';
 import { shadow, media } from 'css/styleUtil';
 import { Link } from 'react-router-dom';
-import { RadiusMask} from 'css/PostCard';
+import { RadiusMask} from 'css/PostsCard';
  
 export const CardContentCss = styled.div`
     position : relative;

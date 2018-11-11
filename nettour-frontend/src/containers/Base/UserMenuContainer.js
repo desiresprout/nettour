@@ -51,8 +51,8 @@ class UserMenuContainer extends Component {
 
 export default connect(
     (state) => ({
-        visible: state.base.getIn(['userMenu', 'visible']),
-        username: state.user.getIn(['loggedInfo', 'username'])
+        visible: state.base.userMenu.visible,
+        username: state.user.loggedInfo.username
     }),
     (dispatch) => ({
         BaseActions: bindActionCreators(baseActions, dispatch),

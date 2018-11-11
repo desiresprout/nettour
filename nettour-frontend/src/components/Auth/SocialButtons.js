@@ -1,7 +1,9 @@
-import React from 'react';
+ import React from 'react';
 import styled from 'styled-components';
 import oc from 'open-color';
 import { shadow, media } from 'css/styleUtil';
+//import FacebookIcon from 'react-icons/lib/io/social-facebook';
+//import GoogleIcon from 'react-icons/lib/io/social-google';  
 
 const Wrapper = styled.div`
     margin-top: 1rem;
@@ -63,15 +65,15 @@ const SocialButton = styled.div`
         }
     `}
 `;
-
-const SocialButtons = ({onSocialLogin}) => (
+//<GoogleIcon/>  <FacebookIcon/>
+const SocialButtons = ({onsocial}) => (
     <Wrapper>
-        <SocialButton facebook onClick={()=>onSocialLogin('facebook')}>
-            
+        <SocialButton facebook onClick={()=>onsocial('facebook')}>
+        
             페이스북
         </SocialButton>
-        <SocialButton google onClick={()=>onSocialLogin('google')}>
-            
+        <SocialButton google onClick={()=>onsocial('google')}>
+        
             구글
         </SocialButton>
     </Wrapper>
