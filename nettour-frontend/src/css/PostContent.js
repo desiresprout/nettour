@@ -4,7 +4,10 @@ import { shadow, media } from 'css/styleUtil';
 import { Link } from 'react-router-dom';
 
 export const PostContentCss = styled.div`
-    box-sizing : inherit;
+   text-align: start;
+   font-size : 1.125rem;
+   word-break : break-word;
+   color : #343a40;
 `;
 
 export const ContentCss = styled.div`

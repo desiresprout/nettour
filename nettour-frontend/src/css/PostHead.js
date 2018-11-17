@@ -5,8 +5,14 @@ import { Link } from 'react-router-dom';
 
 
 export const PostTemplateCss = styled.div`         
-   box-sizing : inherit;
+   
     
+`;
+
+export const PostWrapperCss = styled.div`
+    margin : 0 auto;
+    width : 750px;
+    position : relative;
 `;
 
 export const PostHeadCss = styled.div`

@@ -1,34 +1,82 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';  
-import * as postActions from 'redux/modules/post';
+import * as PostActions from 'redux/modules/post';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
-import { Editor } from "react-draft-wysiwyg";
-import { EditorState, convertToRaw, ContentState } from "draft-js";
-import draftToHtml from "draftjs-to-html";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import axios from 'axios';
+
+import { PostComments } from 'components/Post';
+import { PostCommentInput } from 'components/Post'
 
 
 class PostCommentContainer extends Component {
+    
+      initialize = async () => {        
+
+        const { postid } = this.props;
+        console.log(postid);
+        if(!postid) return;         
+
+        try{
+            console.log("readcommnet");
+            await PostActions.readcomment(postid);
+            const { comments} = this.props;
+            console.log(comments);      
+        } 
+        catch (e){      
+            console.log(e);      
+        }
+       
+      };
+    
+      componentDidMount() {        
+        this.initialize();
+      }
+
+      componentDidUpdate(prevProps) {
+        console.log("didupdate");
+        if (prevProps.postid !== this.props.postid) {
+            console.log("notprops");
+            this.initialize();
+        }
+      }  
+
+      onwritecomment = async (text, parentId) => {
+        
+      };
+    
+    
+    
+    
+    
+    
     render() {
+        const { logged, commentinput, comments, currentusername } = this.props;
+            //comment에는 _id username, comment
         return (
-            <div>
-                
-            </div>
+            <Fragment>
+                <PostComments>
+                    logged = {logged}
+                    commentinput = { logged && <PostCommentInput writecomment={this.onwritecomment} />}
+                    comments = {comments}
+                    currentusername = {currentusername}
+                </PostComments>
+            </Fragment>
         );
     }
 }
 
 export default connect(
     (state) => ({
-        //username : state.post.detaildata.username,        
-       // title: state.post.detaildata.title, 
-       // content: state.post.detaildata.content,        
-       // editorstate : state.post.detaildata.editorstate,        
-        
+        logged: state.user.logged,        
+        postid : state.post.readpost.postid,
+        title: state.post.readpost.title,        
+        content: state.post.readpost.content,              
+        likesCount : state.post.readpost.likesCount,
+        date : state.post.readpost.date,
+        comments: state.post.readpost.comment.comments,          
+        currentusername : state.user.loggedInfo.username
     }),
     (dispatch) => ({
-        PostActions: bindActionCreators(postActions, dispatch)
+        PostActions: bindActionCreators(PostActions, dispatch)
       })    
 )(withRouter(PostCommentContainer)); 

@@ -25,3 +25,13 @@ export const Escapeurl = (url)=> {
       .replace(/ /g, '-')    //공백 을 - 처리
       .replace(/--+/g, '-'); // -- 한번이상을 -처리
   };
+
+  /*export const commentescape = ( comment ) => {
+        return comemnt
+        .replace(
+          /[<script>(.*?)<(\/?)script>]/ig,
+          ''
+        )
+
+
+  }; */

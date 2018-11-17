@@ -4,9 +4,8 @@ import { shadow, media } from 'css/styleUtil';
 import { Link } from 'react-router-dom';
 
 export const PostBodyCss = styled.div`
-    margin : 0 auto;
-    width : 750px;
-    position : relative;       
+    margin-top : 4rem;
+    font-size : 1rem;     
 
 `;
 

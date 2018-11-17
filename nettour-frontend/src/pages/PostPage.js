@@ -1,7 +1,8 @@
 import React, { Component,Fragment} from 'react';
 import PostViewContainer from 'containers/Post/PostViewContainer';
 import PostCommentContainer from 'containers/Post/PostCommentContainer';
-import { PostTemplateCss } from 'css/PostHead';
+import { PostTemplateCss, PostWrapperCss } from 'css/PostHead';
+import { PostHead } from 'components/Post';
 
 class PostPage extends Component {    
     
@@ -12,10 +13,13 @@ class PostPage extends Component {
 
 
         return (    
-                <Fragment>              
-                <PostViewContainer name={username} urlslug={decodeURI(urlslug)} />
-                <PostCommentContainer/>
-                </Fragment>                
+                <PostTemplateCss className="PostTemplate">
+                    <PostHead/>
+                    <PostWrapperCss className="PostAreaCss">               
+                        <PostViewContainer name={username} urlslug={decodeURI(urlslug)} />
+                        <PostCommentContainer/>
+                    </PostWrapperCss>
+                </PostTemplateCss>                
             
         );
     }

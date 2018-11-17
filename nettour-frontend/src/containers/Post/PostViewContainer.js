@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import * as PostActions from 'redux/modules/post';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
-
 import { ContentState, EditorState, convertFromRaw, convertFromHTML  } from "draft-js";
 import htmlToDraft from 'html-to-draftjs';
 
@@ -11,7 +10,7 @@ import axios from 'axios';
 import Escapeurl from 'lib/common';
 
 import { PostHead, PostBody, PostContent, PostLike, PostComments} from 'components/Post';
-import { PostTemplateCss} from 'css/PostHead';
+import { PostWrapperCss } from 'css/PostHead';
 import { PostContentCss} from 'css/PostContent';
 
 
@@ -34,10 +33,10 @@ class PostViewContainer extends Component {
         } catch(e) {
              console.log(e);          
         } 
-
+            console.log("readpost");
     }
 
-    onToggleAskremove = () => {
+    onTogglePostAskremove = () => {
         //PostActions.toggleaskremove();
     };
 
@@ -63,29 +62,22 @@ class PostViewContainer extends Component {
         //const blocksFromHTML = convertFromHTML(content);      
       
         return (            
-            <PostTemplateCss className="PostTemplate">                
-               
-                <PostHead/>                
+            <Fragment>            
+                    <PostBody  //posthead
+                        title = {title}
+                        likes = {likesCount}
+                        date = {date}
+                        username = {username}
+                        own = {currentuser===username}
+                        askpostremove = {this.onTogglePostAskremove}
+                    />
+                    <PostContentCss className="PostContent" 
+                            dangerouslySetInnerHTML={{__html: content }}>           
+                    </PostContentCss>             
                 
-                <PostBody
-                    title = {title}
-                    likes = {likesCount}
-                    date = {date}
-                    username = {username}
-                    own = {currentuser===username}
-                    onaskremove = {this.onToggleAskremove}
-                />
-                <PostContentCss classNmae="PostContent" dangerouslySetInnerHTML={{__html: content }}>               
-                </PostContentCss>
-
-                <PostComments>
-                    
-                </PostComments>
                 
-
-               
             
-            </PostTemplateCss>
+            </Fragment>
         );
     }
 }
