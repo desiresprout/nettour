@@ -10,21 +10,9 @@ import { PostCommentInput } from 'components/Post'
 
 class PostCommentContainer extends Component {
     
-      initialize = async () => {        
+      initialize = async () => {    
 
-        const { postid } = this.props;
-        console.log(postid);
-        if(!postid) return;         
-
-        try{
-            console.log("readcommnet");
-            await PostActions.readcomment(postid);
-            const { comments} = this.props;
-            console.log(comments);      
-        } 
-        catch (e){      
-            console.log(e);      
-        }
+       
        
       };
     
@@ -33,9 +21,9 @@ class PostCommentContainer extends Component {
       }
 
       componentDidUpdate(prevProps) {
-        console.log("didupdate");
+        
         if (prevProps.postid !== this.props.postid) {
-            console.log("notprops");
+            
             this.initialize();
         }
       }  
@@ -54,12 +42,12 @@ class PostCommentContainer extends Component {
             //comment에는 _id username, comment
         return (
             <Fragment>
-                <PostComments>
+                <PostComments
                     logged = {logged}
                     commentinput = { logged && <PostCommentInput writecomment={this.onwritecomment} />}
                     comments = {comments}
                     currentusername = {currentusername}
-                </PostComments>
+                />
             </Fragment>
         );
     }
@@ -67,7 +55,7 @@ class PostCommentContainer extends Component {
 
 export default connect(
     (state) => ({
-        logged: state.user.logged,        
+        logged: !!state.user.logged,        
         postid : state.post.readpost.postid,
         title: state.post.readpost.title,        
         content: state.post.readpost.content,              

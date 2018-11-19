@@ -12,10 +12,10 @@ const Post = new Schema({
     createdAt: { type: Date, default: Date.now }, 
     username: String,
     title: String,
-    content: String,
-    state : Schema.Types.Mixed,
+    content: String,   
     likesCount: { type: Number, default: 0 },
     likes: { type: [String], default: [] },
+    commentCount : String,
     comments: { 
         type: [Comment],
         default: []
@@ -23,9 +23,9 @@ const Post = new Schema({
     url_slug : String,
 });
 
-Post.statics.write = function({title, username, content, state, url_slug}) {
+Post.statics.writepost = function({title, username, content, state, url_slug}) {
     const post = new this({
-        title, username, content, state, url_slug
+        title, username, content, url_slug
     });
 
     return post.save();
@@ -37,11 +37,26 @@ Post.statics.list = function ( { cursor, username, self}){
         cursor ? { _id: { $lt: cursor } } : { },
         username ? { username } : { }
     );
-
+    //여기서 lean()을 하면 다음포스트 읽어올수있을까?? 테스트해볼것
     return this.find(query)
         .sort({_id: -1})
+        .select('-_id -comments')
         .limit(20)
         .exec();
+};
+
+
+
+Post.statics.readpost = function ({ name, urlslug}) {
+
+    return this.findOne({
+        'username' : name,
+        'url_slug' : urlslug
+    })
+    .select('_id title username content createdAt comments')
+    .lean()
+    .exec();
+
 };
 
 module.exports = mongoose.model('Post',Post);

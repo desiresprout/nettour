@@ -143,14 +143,13 @@ class EditorContainer extends Component {
       }
 
      handleSubmit = async () => {         
-        const { PostActions, title, content, state, history } = this.props;
+        const { PostActions, title, content, history } = this.props;
          
        
         try { 
             await PostActions.writepost({
                 title : Escapeurl(title),
-                content,
-                state,
+                content
             });                           
         } catch(e) {
           console.log(e);          
@@ -214,9 +213,7 @@ export default connect(
         username : state.user.loggedInfo.username,
         title: state.post.editor.title, 
         content: state.post.editor.content,        
-        state : state.post.editor.state,
-        editorerrors : state.post.editor.error,
-       
+        editorerrors : state.post.editor.error,       
         urlslug : state.post.given.url_slug,
         givenerros : state.post.given.error,  
         loading : state.pender.pending['editor/WRITE_POST'],        

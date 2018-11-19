@@ -1,4 +1,4 @@
-import React, { type Node } from 'react';
+import React from 'react';
 import * as postActions from 'redux/modules/post';
 import { Link } from 'react-router-dom';
 import { PostCommentsCss, Comment_InputCss, Ask_login, Comment_listCss} from 'css/PostComments';
@@ -16,10 +16,10 @@ const PostComments = ({ commentsCount, commentInput, logged, comments, currentus
     )}
     <Comment_listCss className="comment-list">
       {comments &&
-        comments.map((comment) => {
+        comments.map((comment,i) => {
           return (
             <PostComment  
-               key = {comment.id}
+               key = {comment.i}
                username = {comment.username}
                comment = { comment.comment}
                date = {comment.createdAt}

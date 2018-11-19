@@ -14,13 +14,13 @@ class PostComment extends Component {
             <PostcommentCss>
                 <Comment_headCss>
                     <Comment_InfoCss>
-                        <Link to= {'/'} />
+                        <Link to= {'/'} >{username} </Link>
                         <Comment_DateCss>{Fromnow(date)}</Comment_DateCss>
                     </Comment_InfoCss>
                 </Comment_headCss>
 
                 <Comment_bodyCss>
-                    <div>댓글 렌더링</div>
+                    <div>{comment}</div>
                 
                 </Comment_bodyCss>
                 

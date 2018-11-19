@@ -80,7 +80,7 @@ Account.methods.generateToken = function() {
 };
 
 Account.methods.increaseThoughtCount = function() {
-    this.thoughtCount++;
+    this.postCount++;
     return this.save();
 };
 

@@ -15,7 +15,7 @@ const EDIT_POST = 'posts/EDIT_POST';
 const TOGGLE_ASK_REMOVE = 'posts/TOGGLE_ASK_REMOVE';
 
 const WRITE_COMMENT = 'posts/WRITE_COMMENT';
-const READ_COMMENTS = 'posts/READ_COMMENTS';
+//const READ_COMMENTS = 'posts/READ_COMMENTS';
 const TOGGLE_COMMENT = 'posts/TOGGLE_COMMENT'; // 덧글 창 열고 닫기
 const CHANGE_COMMENT_INPUT = 'posts/CHANGE_COMMENT_INPUT'; // 덧글 인풋 수정
 
@@ -30,7 +30,7 @@ export const readpost = createAction(READ_POST, PostsAPI.readpost);
 
 export const toggleaskremove = createAction(TOGGLE_ASK_REMOVE);
 export const writecomment = createAction(WRITE_COMMENT, PostsAPI.writecomment);
-export const readcomment = createAction(READ_COMMENTS, PostsAPI.readcomment);
+//export const readcomment = createAction(READ_COMMENTS, PostsAPI.readcomment);
 export const togglecomment = createAction(TOGGLE_COMMENT); // postId
 export const changecommentinput = createAction(CHANGE_COMMENT_INPUT); // { postId, value }
 
@@ -140,15 +140,7 @@ export default handleActions({
         
     }), 
 
-    ...pender({
-        type: READ_COMMENTS,
-        onSuccess: (state, action) => produce(state, draft => {
-        console.log(action.payload.data);
-         // const { comments } = action.payload.data;      
-          draft.readpost.comment.comments = action.paylad.data.comments;
-        }),
-        
-    }), 
+    
    
           
 

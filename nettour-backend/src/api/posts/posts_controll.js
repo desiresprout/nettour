@@ -4,23 +4,16 @@ const Joi = require('joi');
 const ObjectId = require('mongoose').Types.ObjectId;
 const fs = require('fs');
 const AWS = require('aws-sdk');
-const { formatFileName } = require('../../lib/common');
+const { formatFileName, Escapeurl } = require('../../lib/common');
 
-
-
-exports.write  = async(ctx)=>{
+exports.writepost  = async(ctx)=>{    
     const { user } = ctx.request;
-
-    if(!user) {        
-        ctx.status = 403;
-        ctx.body = { message: ' not login' };
-        return;
-    }  
-
+    //console.log(ctx.request.headers);
+    
     let account;
+
     try {
-        account = await Account.findById(user._id).exec();
-      
+        account = await Account.findById(user._id).exec();      
     } catch (e) {
         ctx.throw(500, e);
     }
@@ -29,48 +22,43 @@ exports.write  = async(ctx)=>{
         ctx.status = 403; 
         return;
     } 
-
     const count = account.postCount + 1;
-
+    //trim()은 공백이 없어야댐, state : Joi.any().required(),
+    /*   thumbnail: Joi.string().uri().allow(null),    */
+    //state : Joi.any().required(), 
     const schema = Joi.object().keys({
-        title : Joi.string().min(5).max(50).required(),
-        content: Joi.string().min(5).required(),
-        state : Joi.any().required(),
+        title : Joi.string().required().trim().min(2).max(150),
+        content: Joi.string().min(5).required(),            
     });
 
     const result = Joi.validate(ctx.request.body, schema);
 
     if(result.error) {        
-        ctx.status = 401; 
+        ctx.status = 401;       
+        console.log(result.error);        
         return;
-    }
+    }  
+    //thumbnail,
+    const { title , content } = ctx.request.body;    
 
-    const { title, content, state } = ctx.request.body;
-      
-    const as = '';
-    const URL_SLUG = as.concat(user.profile.username +'/' + title);
-    
-    
     let post;
+    //thumnail 작업
     try {
-        post = await Post.write({
-            title,
-            username: user.profile.username,         
-            content,
-            state,
-            url_slug : URL_SLUG,   
-        });
-        
+        post = await Post.writepost({
+            username: user.profile.username, 
+            title,                   
+            content,            
+            url_slug : Escapeurl(title),  
+        });        
     } catch (e) {
         ctx.throw(500, e);
-    }
-    
-    
-    ctx.body = post;
+    }   
+
+    ctx.body = post;  
     
 };
 
-exports.list = async (ctx) => {
+exports.postlists = async (ctx) => {
     const { cursor, username } = ctx.query; 
 
     if(cursor && !ObjectId.isValid(cursor)) {
@@ -95,7 +83,8 @@ exports.list = async (ctx) => {
     };
 };
 
-exports.imageupload = async (ctx)=>{ 
+exports.imageupload = async (ctx)=>{
+    //console.log(ctx.request.headers); 
     const { file } = ctx.request.files;
     const { name } = file;    
 
@@ -115,6 +104,7 @@ exports.imageupload = async (ctx)=>{
     const read = fs.createReadStream(file.path);
     const filetype = file.type;    
     
+  
     const s3 = new AWS.S3({
         credentials: {
           accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -144,7 +134,38 @@ exports.imageupload = async (ctx)=>{
       
 };
 
-exports.postdetail = async(ctx)=>{
+exports.readpost = async(ctx)=>{
+    const { name, urlslug } = ctx.params; 
+    //console.log(urlslug); 
 
+    /*let account;
+    try {
+        //console.time();
+        account = await Account.findById(name._id).select('_id').exec();
+        //console.timeEnd();      
+    } catch (e) {
+        ctx.throw(500, e);
+    }
+
+    if(!account) {
+        ctx.status = 403; 
+        return;
+    }   */        
+    
+    let post;    
+    try {
+        //console.time();
+        post = await Post.readpost({
+            name, 
+            urlslug 
+        });
+        //console.log(post);   
+        //console.timeEnd();     
+    } catch (e) {
+        ctx.throw(500, e);
+    }   
+  
+    ctx.body = post;
+    
 
 };

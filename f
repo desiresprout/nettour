@@ -1,10 +1,34 @@
-[33mcommit 20a533d0ed8c366808506f9b95ed5f51d650ad72[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+[33mcommit 546edabaac87e3d18b881582e64f397afbb41dfb[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
 Author: desiresprout <desiresprout@gmail.com>
-Date:   Thu Sep 20 21:24:36 2018 +0900
+Date:   Sun Nov 18 00:35:00 2018 +0900
+
+    post and comment write read
+
+[33mcommit 2f8172178fc8c85f424ff44b5bf8329ee43acf24[m
+Author: desiresprout <desiresprout@gmail.com>
+Date:   Mon Nov 12 00:23:42 2018 +0900
+
+    backend comment and postview css
+
+[33mcommit 595fd534ff773e9fb98bd67010a73d3f283d2d0d[m
+Author: desiresprout <desiresprout@gmail.com>
+Date:   Wed Oct 24 21:53:24 2018 +0900
+
+    editor & redirect post
+
+[33mcommit 76070bc14fbe95cda01a4efbf1c2ef7019370f92[m
+Author: desiresprout <desiresprout@gmail.com>
+Date:   Sun Sep 23 00:07:19 2018 +0900
+
+    post frontend backend
+
+[33mcommit 2d65f744a740eea2fcc0739ba4a64e5ea05c571d[m
+Author: desiresprout <desiresprout@gmail.com>
+Date:   Thu Sep 20 21:37:16 2018 +0900
 
     main template
 
-[33mcommit 76c23b671332deda08b26ef751b998eb2d09065e[m[33m ([m[1;31morigin/master[m[33m)[m
+[33mcommit 76c23b671332deda08b26ef751b998eb2d09065e[m
 Author: desiresprout <desiresprout@gmail.com>
 Date:   Tue Sep 18 23:59:37 2018 +0900
 

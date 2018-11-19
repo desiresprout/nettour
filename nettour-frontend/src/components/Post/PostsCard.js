@@ -1,7 +1,8 @@
 import React from 'react';
 import { PostsCardCss, PostsThumbnailCss, RadiusMaskCss, ImageholderCss } from 'css/PostsCard';
 import UserThumbnail from 'components/Base/Header/UserThumbnail';
-//import { IoIosImage } from 'react-icons/io';
+import { IoIosImage } from 'react-icons/io';
+
 import { PostsCardContent } from 'components/Post';
 
 

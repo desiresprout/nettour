@@ -1,14 +1,17 @@
 const Router = require('koa-router');
 const posts = new Router();
-const postsCtrl = require('./posts.controller');
-const multer = require('multer');
-const fs = require('fs');
+const postsctrl = require('./posts_controll');
+const commentsctrl = require('./comments_controll');
 
-posts.post('/', postsCtrl.write);
-posts.get('/', postsCtrl.list);
+posts.get('/', postsctrl.postlists);
 
-posts.get('/detail', postsCtrl.postdetail)
+posts.post('/', postsctrl.writepost);
 
-posts.post('/images', postsCtrl.imageupload);
+posts.get('/post/:name/:urlslug', postsctrl.readpost);
+
+posts.post('/:postid/comments', commentsctrl.writecomment);
+
+
+posts.post('/images', postsctrl.imageupload);
 
 module.exports = posts;

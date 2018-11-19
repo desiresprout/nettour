@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TextareaAutosize from 'react-autosize-textarea';
-import { Comment_InputCss, Button_wrapperCss } from 'css/PostComments';
+import { Postcomment_inputcss, Button_wrapperCss } from 'css/PostComments';
 
 class PostCommentInput extends Component {
   static defaultProps = {
@@ -61,7 +61,7 @@ class PostCommentInput extends Component {
     const { focused, input, waiting } = this.state;
 
     return (
-      <Comment_InputCss className="PostCommentInput">
+      <Postcomment_inputcss className="PostCommentInput">
         <TextareaAutosize
           rows={focused || input !== '' ? 4 : 1}
           maxRows={20}
@@ -80,7 +80,7 @@ class PostCommentInput extends Component {
             </button>
           )}
         </Button_wrapperCss>
-      </Comment_InputCss>
+      </Postcomment_inputcss>
     );
   }
 }

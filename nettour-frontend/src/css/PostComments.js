@@ -14,15 +14,8 @@ export const PostCommentsCss = styled.div`
     }
 `;
 
+export const Comment_InputCss = styled.div`
 
-export const Comment_InputCss = styled.textarea`
-    
-    .textarea{
-        max-height : 400px;
-        overflow : hidden;
-        overflow-wrap : break-word;
-        height : 53px;
-    }
 
 `;
 
@@ -37,9 +30,14 @@ export const Ask_login = styled.div`
 `;
 
 export const Button_wrapperCss = styled.div`
-    maring-top : 1rem;
+    margin-top : 1rem;
     display : flex;
     justify-content : flex-end;
+    position : absolute;
+    right : 0;
+    top : 0.6rem;
+    font-size : 1rem;
+    color : white;
 
     button{
         background : #845ef7;
@@ -78,3 +76,11 @@ export const Comment_DateCss = styled.div`
 export const Comment_bodyCss = styled.div`
 
 `
+export const Postcomment_inputcss = styled.div`
+    .textarea{
+        max-height : 400px;
+        overflow : hidden;
+        overflow-wrap : break-word;
+        height : 53px;
+    }
+`;
