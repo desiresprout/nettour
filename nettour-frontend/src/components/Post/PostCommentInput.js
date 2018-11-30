@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TextareaAutosize from 'react-autosize-textarea';
-import { Postcomment_inputcss, Button_wrapperCss } from 'css/PostComments';
+import { Postcomment_inputcss, Button_wrapperCss, Button_commentCss } from 'css/PostComments';
 
 class PostCommentInput extends Component {
   static defaultProps = {
@@ -15,7 +15,7 @@ class PostCommentInput extends Component {
     waiting: false,
   };
 
-  constructor(props: Props) {
+  constructor(props) {
     super(props);
     if (props.defaultValue) {
       this.state.input = props.defaultValue;
@@ -38,11 +38,13 @@ class PostCommentInput extends Component {
     this.setState({
       input: e.target.value,
     });
+    
   };
 
-  onWriteButtonClick = async () => {
-    const { onWriteComment, replyTo } = this.props;
-    const { input } = this.state;
+  onWriteButtonClick = async () => {    
+     const { onWriteComment } = this.props;
+     const { input } = this.state;
+    
     try {
       this.setState({
         input: '',
@@ -50,34 +52,34 @@ class PostCommentInput extends Component {
       if (this.props.onCancel) {
         this.props.onCancel();
       }
-      await onWriteComment(input, replyTo);
+      await onWriteComment(input);
     } catch (e) {
       console.log(e);
-    }
+    } 
   };
 
   render() {
-    const { showCancel, onCancel, editing } = this.props;
+    const { WriteComment, showCancel, onCancel, editing } = this.props;
     const { focused, input, waiting } = this.state;
 
     return (
       <Postcomment_inputcss className="PostCommentInput">
         <TextareaAutosize
-          rows={focused || input !== '' ? 4 : 1}
+          rows={focused || input !== '' ? 3 : 1}
           maxRows={20}
           onFocus={this.onFocus}
           onBlur={this.onBlur}
           onChange={this.onChange}
           value={input}
         />
-        <Button_wrapperCss className="button-wrapper">
-          <button onClick={this.onWriteButtonClick}>
-            {editing ? '수정하기' : '댓글 작성'}
-          </button>
+        <Button_wrapperCss className="button_wrapper">
+          <Button_commentCss  edit onClick={this.onWriteButtonClick}>
+            {editing ? '댓글수정하기' : '댓글작성'}
+          </Button_commentCss>
           {showCancel && (
-            <button cancel onMouseDown={onCancel}>
+            <Button_commentCss cancel onMouseDown={onCancel}>
               취소
-            </button>
+            </Button_commentCss>
           )}
         </Button_wrapperCss>
       </Postcomment_inputcss>

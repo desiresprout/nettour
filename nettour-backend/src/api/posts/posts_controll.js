@@ -8,7 +8,7 @@ const { formatFileName, Escapeurl } = require('../../lib/common');
 
 exports.writepost  = async(ctx)=>{    
     const { user } = ctx.request;
-    //console.log(ctx.request.headers);
+   
     
     let account;
 
@@ -28,7 +28,8 @@ exports.writepost  = async(ctx)=>{
     //state : Joi.any().required(), 
     const schema = Joi.object().keys({
         title : Joi.string().required().trim().min(2).max(150),
-        content: Joi.string().min(5).required(),            
+        content: Joi.string().min(5).required(), 
+        slug :  Joi.string().min(5).required(),           
     });
 
     const result = Joi.validate(ctx.request.body, schema);
@@ -39,7 +40,7 @@ exports.writepost  = async(ctx)=>{
         return;
     }  
     //thumbnail,
-    const { title , content } = ctx.request.body;    
+    const { title , content, slug } = ctx.request.body;    
 
     let post;
     //thumnail 작업
@@ -48,8 +49,9 @@ exports.writepost  = async(ctx)=>{
             username: user.profile.username, 
             title,                   
             content,            
-            url_slug : Escapeurl(title),  
+            url_slug : slug,  
         });        
+        //url_slug : Escapeurl(title),  
     } catch (e) {
         ctx.throw(500, e);
     }   
@@ -165,7 +167,83 @@ exports.readpost = async(ctx)=>{
         ctx.throw(500, e);
     }   
   
-    ctx.body = post;
+    ctx.body = post;    
+
+};
+
+exports.getpost = async(ctx)=>{
+    const { id } = ctx.params; 
     
+    if(!ObjectId.isValid(id)) {
+        ctx.status = 400; 
+        return;
+    }
+    
+    let getpost = null;
+    try{
+        getpost = await Post.findById(id).select('_id title content');
+    }catch(e){
+        console.error(e);
+    }
+    //console.log(getpost);
+    ctx.body = getpost;
+};
+
+exports.editpost = async(ctx)=>{
+
+    //id = postid, content
+    const schema = Joi.object().keys({
+        id : Joi.string().required().trim().min(2).max(150),
+        content: Joi.string().min(5).required(), 
+        slug :  Joi.string().min(5).required(),
+        title : Joi.string().min(5).required(),            
+    });
+
+    const result = Joi.validate(ctx.request.body, schema);
+    
+    if(result.error) {        
+        ctx.status = 401;       
+        console.log(result.error);        
+        return;
+    }  
+
+   // const { id, title, content, slug} = ctx.request.body;
+
+    let editpost = null;
+        //await Post.findByIdAndUpdate(postid, {'$set' : { 'comments.$.comment' : comment  }  })
+        //{         $set: { text: req.body.text, title: req.body.title }}
+    try{
+        editpost = await Post.findByIdAndUpdate(ctx.request.body.id,                    
+            { $set : { 
+                title : ctx.request.body.title, 
+                content : ctx.request.body.content, 
+                url_slug : ctx.request.body.slug 
+                     } 
+            },
+        { new : true}).select('_id title content url_slug createdAt username').lean();
+        if(!editpost){
+            ctx.status = 400;
+            return;
+        }
+    }catch(e){
+        ctx.throw(e,500);
+    }
+   // console.log(editpost);
+
+    ctx.body = editpost;
+
+    
+};
+
+exports.removepost = async (ctx) => {
+    const { id } = ctx.params;
+    console.log(id);
+    
+    try {
+      await Post.findByIdAndRemove(id).exec();
+      ctx.status = 204;
+    } catch (e) {
+      ctx.throw(e, 500);
+    }
 
 };

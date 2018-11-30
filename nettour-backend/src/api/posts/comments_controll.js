@@ -1,16 +1,18 @@
 const Joi = require('joi');
 const Post = require('models/posts');
-const {ObjectId} = require('mongoose').Types;
+const ObjectId = require('mongoose').Types.ObjectId;
 
 exports.writecomment = async (ctx) => {  
     const { user } = ctx.request;
-    //console.log(user);
+   
     if(!user) {
         ctx.status = 403; 
         return;
-    }
+    } 
+     //console.log(ctx.request.headers);
     
     const schema = Joi.object().keys({
+        currentusername : Joi.string().required(),
         comment: Joi.string().min(1).max(100).required()
     });
 
@@ -20,9 +22,9 @@ exports.writecomment = async (ctx) => {
         return;
     }
 
-    const { username } = user.profile;
-    const { comment } = ctx.request.body;
+    const { currentusername, comment } = ctx.request.body;    
     const { postid } = ctx.params;   
+    
 
     
     if(!ObjectId.isValid(postid)) {
@@ -44,35 +46,142 @@ exports.writecomment = async (ctx) => {
     }
     
     try {
-        await post.writecomment({username,comment});
+        await post.writecomment({currentusername,comment});
     } catch (e) {
         ctx.throw(500, e);
-    }
-
+    }   
     
-    ctx.body = post.comments;
+    
+    ctx.body = {
+        comments : post.comments,
+    };
 };
 
-//수정댓글로 체인지
-exports.readcomment = async(ctx) => {
-   
-    const { postid } = ctx.params;  
 
-    if(!ObjectId.isValid(postid)) {
+exports.editcomment = async(ctx) => {
+    const { user } = ctx.request;
+    
+    if(!user) {
+        ctx.status = 403; 
+        return;
+    }    
+    
+    const schema = Joi.object().keys({
+        commentid : Joi.string().required(),
+        comment: Joi.string().min(1).max(100).required(),
+        
+    });
+
+    const result = Joi.validate(ctx.request.body, schema);
+    if(result.error) {
+        ctx.status = 400;
+        return;
+    } 
+
+    const { commentid, comment} = ctx.request.body;
+
+    if(!ObjectId.isValid(commentid)) {
         ctx.status = 400; 
         return;
-    }
+    }  
 
-    let post = null;
-
+    let edit = null;     
+    
+    /*
+    edit = await Post.updateOne ( { 'comments._id' : commentid },
+         {'$set' : { 'comments.$.comment' : comment  } });
+    
+        findOneAndUpdate({ '서브도큐먼트._id': 아이디 }, { $set: { '서브도큐먼트.$.필드': '값' }  })
+        findOneAndUpdate({ 'comments._id' : commentid}, { $set : { 'comments.$.comment' : comment }})
+    */
     try {
-        post = await Post.findById(postid);
+        //console.time();
+        edit = await Post.findOneAndUpdate({ 'comments._id' : commentid}, 
+        { $set : { 'comments.$.comment' : comment }}, { new : true}).select('comments');
+
+         //edit = await Post.findById(postid);
+        // console.timeEnd();             
+        
     } catch (e) {
         ctx.throw(500, e);
-    }
-    //console.log(post.comments);
-    console.log("readcomment");
-    ctx.body = post.comments;
+    }  
+  
+    //console.log(edit);
+    ctx.body = {
+        comments : edit.comments
+    };
+};
 
+exports.deletecomment = async (ctx) => {
+  
+    /*const { user } = ctx.request;
+    
+    if(!user) {
+        ctx.status = 403; 
+        return;
+    }     */ 
+    //console.log("hi");
+    const schema = Joi.object().keys({
+        commentid : Joi.string().required(),        
+    });
+
+    const result = Joi.validate(ctx.request.body, schema);
+    if(result.error) {
+        ctx.status = 401;
+        return;
+    } 
+    /*
+        findOneAndUpdate({ '서브도큐먼트._id': 아이디 }, { $set: { '서브도큐먼트.$.필드': '값' }  })
+        findOneAndUpdate({ 'comments._id' : commentid}, { $set : { 'comments.$.comment' : comment }})
+    */
+    
+    const { commentid } = ctx.request.body;
+    //console.log(ctx.request.body);
+
+    /*
+     edit = await Post.findOneAndUpdate({ 'comments._id' : commentid}, 
+        { $set : { 'comments.$.comment' : comment }}, { new : true}).select('comments');
+
+         deletecomment = await Post.findByIdAndUpdate({'comments._id' : ObjectId(commentid)},
+        { $pull : { 'comments : {_id : ObjectId(commentid) } }, {new : true}); 
+
+         deletecomment = await Post.findOneAndUpdate( {'comments._id' : commentid} ,
+        {
+            $pull: { comment: { _id: commentid }}
+        },
+        {new: true} ).select('comments');
+
+                Post.update({
+            _id: postid
+        }, {
+            $pull: {
+            comment: {
+                _id: commentid
+            }
+            }
+        });
+
+        deletecomment = await Post.findOneAndUpdate(
+            postid,
+           { $pull: { 'comments': {  _id: commentid } } });
+
+    */  //$pull: { 'comment.$._id':  commentid }
+    let deletecomment = null;
+    
+    try{
+        deletecomment = await Post.findOneAndUpdate( {'comments._id' : commentid} ,
+        {
+            $pull: { comments: { _id: commentid }}
+        },
+        { new: true} ).select('-_id comments');
+    }catch(e){
+        console.log(e);
+        ctx.throw(e,400);
+    }   
+    //console.log(deletecomment);
+    ctx.body = deletecomment;
+    
+   
+    
 
 };

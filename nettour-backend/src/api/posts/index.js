@@ -4,14 +4,15 @@ const postsctrl = require('./posts_controll');
 const commentsctrl = require('./comments_controll');
 
 posts.get('/', postsctrl.postlists);
-
 posts.post('/', postsctrl.writepost);
-
 posts.get('/post/:name/:urlslug', postsctrl.readpost);
-
-posts.post('/:postid/comments', commentsctrl.writecomment);
-
-
+posts.get('/post/:id', postsctrl.getpost);
+posts.patch('/post/edit', postsctrl.editpost);
+posts.post('/post/:postid/comments', commentsctrl.writecomment);
+posts.patch('/post/comments', commentsctrl.editcomment);
 posts.post('/images', postsctrl.imageupload);
+
+posts.delete('/post/:id', postsctrl.removepost);
+posts.patch('/delete/comment', commentsctrl.deletecomment);
 
 module.exports = posts;

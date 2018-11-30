@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import oc from 'open-color';
-import {  media } from 'css/styleUtil';
+import { media } from 'css/styleUtil';
 
 
 export const PostActionCss = styled.div`   

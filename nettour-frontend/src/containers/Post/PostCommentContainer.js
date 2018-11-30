@@ -6,34 +6,67 @@ import { withRouter } from 'react-router-dom';
 
 import { PostComments } from 'components/Post';
 import { PostCommentInput } from 'components/Post'
+import PostAction from 'components/Post/PostAction';
 
 
 class PostCommentContainer extends Component {
     
       initialize = async () => {    
-
-       
+                  
        
       };
     
       componentDidMount() {        
-        this.initialize();
+        
       }
 
-      componentDidUpdate(prevProps) {
-        
-        if (prevProps.postid !== this.props.postid) {
-            
-            this.initialize();
-        }
-      }  
+      
 
-      onwritecomment = async (text, parentId) => {
-        
-      };
-    
-    
-    
+      onwritecomment = async (comment) => {
+            const { postid, currentusername, PostActions, } = this.props;
+            if(!postid) return Promise.resolve();
+
+            let post_comment = null;
+            try{
+                post_comment = await PostActions.writecomment({
+                    postid,
+                    currentusername,
+                    comment,
+                    
+                });
+            }catch(e){
+                console.error(e);
+            }
+                      
+      };    
+
+      onEditComment = async({ currentusername, commentid, comment}) => {
+            const { PostActions, postid} = this.props;
+
+            let edit_comment = null;
+            
+            try{
+                edit_comment = await PostActions.editcomment({
+                    commentid,                    
+                    comment                
+                });
+            }catch(e){
+                console.error(e);
+            }
+
+      }
+
+      onRemoveComment = async(commentid) => {
+        const { PostActions } = this.props;
+          //console.log(commentid);
+        let removecomment = null;
+        try{
+            removecomment = await PostActions.removecomment(commentid);
+        }catch(e){
+            console.log(e);
+        }
+
+      }
     
     
     
@@ -44,9 +77,12 @@ class PostCommentContainer extends Component {
             <Fragment>
                 <PostComments
                     logged = {logged}
-                    commentinput = { logged && <PostCommentInput writecomment={this.onwritecomment} />}
+                    commentinput = { logged && <PostCommentInput onWriteComment={this.onwritecomment} />}
                     comments = {comments}
                     currentusername = {currentusername}
+                    commentsCount = {comments ? comments.length : 0}
+                    onEditComment = {this.onEditComment}
+                    onRemoveComment = {this.onRemoveComment}
                 />
             </Fragment>
         );

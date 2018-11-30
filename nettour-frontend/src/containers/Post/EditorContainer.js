@@ -4,9 +4,10 @@ import * as PostActions from 'redux/modules/post';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { Editor } from "react-draft-wysiwyg";
-import { EditorState, convertToRaw } from "draft-js";
+import { EditorState, convertToRaw, ContentState  } from "draft-js";
 import draftToHtml from 'draftjs-to-html';
-
+import htmlToDraft from 'html-to-draftjs';
+import queryString from 'query-string';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import axios from 'axios';
 import styled, { css } from 'styled-components';
@@ -81,6 +82,39 @@ class EditorContainer extends Component {
         editorState: EditorState.createEmpty(),        
       };
 
+
+      initializePostInfo = async(id) => {
+        
+        const { PostActions} = this.props;
+        try{
+            await PostActions.getpost(id);
+        }catch(e){
+            console.log(e);
+        }
+        const { content } = this.props;
+        const contentBlock = htmlToDraft(content);
+        if (contentBlock) {
+            const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+            const editorState = EditorState.createWithContent(contentState);
+        this.setState({
+            editorState,
+        });
+        }
+
+      };
+
+      
+
+      componentDidMount() {
+         const { PostActions, location } = this.props;
+         const { id } = queryString.parse(location.search);
+
+         if(id){
+            this.initializePostInfo(id);            
+         }
+        
+      }
+
       componentWillUnmount() {
         //const { EditorActions } = this.props;  
         //EditorActions.reset(); 
@@ -105,7 +139,6 @@ class EditorContainer extends Component {
         const { PostActions, username, title } = this.props;
         let html = (draftToHtml(convertToRaw(editorState.getCurrentContent())));
        
-
         /*const editor = {
             HTML : html,
             EDITORSTATE : editorState,             
@@ -143,24 +176,36 @@ class EditorContainer extends Component {
       }
 
      handleSubmit = async () => {         
-        const { PostActions, title, content, history } = this.props;
-         
-       
-        try { 
-            await PostActions.writepost({
-                title : Escapeurl(title),
-                content
-            });                           
-        } catch(e) {
-          console.log(e);          
-        }
-        //const { response } = this.props.errors;        
-        //console.log(response.status); stauts상태대로 오류 모달창 보여주기, 400 : 글자수제한
-     
-        if (!this.props.username || !this.props.urlslug) return;          
-        const redirecturl = `/@${this.props.username}/${this.props.urlslug}`;
-        history.push(redirecturl); 
+        const { PostActions, title, content, history, location } = this.props;       
+
+        try {            
+            const { id } = queryString.parse(location.search);
+            
+            if(id) {
+              await PostActions.editpost({ 
+                  id,
+                  title,
+                  content,
+                  slug : Escapeurl(title)
+                }); 
+              
+            }else{
+                await PostActions.writepost({
+                    title,
+                    content,
+                    slug : Escapeurl(title)
+                }); 
+            }            
+            
+            if (!this.props.username || !this.props.urlslug) return;          
+            const redirecturl = `/@${this.props.username}/${this.props.urlslug}`;
+            history.push(redirecturl); 
+          } catch (e) {
+            console.log(e);  //포스트 작성 , 수정 실패
+          }        
         
+        //const { response } = this.props.errors;        
+        //console.log(response.status); stauts상태대로 오류 모달창 보여주기, 400 : 글자수제한        
     }
 
     handletitleChange = (e) => {      
@@ -170,9 +215,12 @@ class EditorContainer extends Component {
 
     render() {
         const { editorState} = this.state;
-        const { title } = this.props;
-        const { handleSubmit } = this;        
+        const { handleSubmit } = this;  
+        const { match, location, title } = this.props;
+        const { id } = queryString.parse(location.search);
+            
 
+        
         return (
             <Fragment>
                 <EditorHeader>
@@ -183,7 +231,7 @@ class EditorContainer extends Component {
                 onChange={this.handletitleChange}
                 />
                 </INPUT_AREA>
-                <Button onClick={this.handleSubmit}>올리기</Button>  
+                <Button onClick={this.handleSubmit}>{id ? '수정하기' : '등록하기' }</Button>  
                
                 </EditorHeader>               
 

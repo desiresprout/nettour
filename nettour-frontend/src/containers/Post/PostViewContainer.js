@@ -33,18 +33,20 @@ class PostViewContainer extends Component {
         } catch(e) {
              console.log(e);          
         } 
-            console.log("readpost");
+            //console.log("readpost");
     }
 
-    onTogglePostAskremove = () => {
-        //PostActions.toggleaskremove();
-    };
-
-    onConfirmRemove = () => {
-        const { PostActions } = this.props;
-        PostActions.toggleaskremove();
-
-    };
+    handleRemovePost = async () => {
+        
+        const { PostActions, postid, history }  = this.props;
+        try{
+            await PostActions.removepost(postid);
+        }catch(e){
+            console.log(e);
+        }
+        history.push('/main');
+        
+    }
        
         
     
@@ -53,13 +55,11 @@ class PostViewContainer extends Component {
     }
 
     render() {
-        const { title, username, content,  likesCount, date, askremove, currentuser, logged} = this.props;
-        const contentBlock = htmlToDraft(content); 
-        //const contentState = ContentState.createFromBlockArray(
-        //    contentBlock.contentBlocks
-        //  );
-        //const postContent = EditorState.createWithContent(contentState); //변환된 editorstate 
-        //const blocksFromHTML = convertFromHTML(content);      
+        const { title, username, content,  likesCount, date, currentuser, logged, postid } = this.props;
+        //const contentBlock = htmlToDraft(content); 
+
+        const { handleRemovePost } = this;
+       
       
         return (            
             <Fragment>            
@@ -69,7 +69,8 @@ class PostViewContainer extends Component {
                         date = {date}
                         username = {username}
                         own = {currentuser===username}
-                        askpostremove = {this.onTogglePostAskremove}
+                        onremovepost = {handleRemovePost}
+                        id={postid}
                     />
                     <PostContentCss className="PostContent" 
                             dangerouslySetInnerHTML={{__html: content }}>           
@@ -81,20 +82,7 @@ class PostViewContainer extends Component {
         );
     }
 }
-/*
-    <QuestionModal
-        open={askremove}
-        title = "타이틀"
-        descripttion= "진짜삭제?"
-        confrim = "삭제"
-        onconfirm ={this.onConfirmRemove}
-        oncancel = {this.onToggleAskremove}
-*/
 
-
-
-//dangerouslySetInnerHTML={{__html: content }}
-// <Editor editorState = {postContent} />
 export default connect(
     (state) => ({
         username : state.post.readpost.username,        
@@ -103,9 +91,10 @@ export default connect(
         likesCount : state.post.readpost.likesCount,
         date : state.post.readpost.date,
         askremove : state.post.askremove,
-        
+        postid : state.post.readpost.postid,        
         currentuser : state.user.loggedInfo.username,
         logged : !!state.user.loggedInfo.username,
+        
         
     }),
     (dispatch) => ({

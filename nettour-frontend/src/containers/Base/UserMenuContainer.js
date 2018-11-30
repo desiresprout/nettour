@@ -41,7 +41,7 @@ class UserMenuContainer extends Component {
         return (
             <UserMenu>
                 <Username username={username}/>
-                <UserMenuItem>나의 흐름</UserMenuItem>
+                <UserMenuItem>ㅇㅇ</UserMenuItem>
                 <UserMenuItem>설정</UserMenuItem>
                 <UserMenuItem onClick={handleLogout}>로그아웃</UserMenuItem>
             </UserMenu>

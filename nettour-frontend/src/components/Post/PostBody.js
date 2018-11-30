@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { SeparatorCss} from 'css/Separator';
 import { PostAction } from 'components/Post';
 
-const PostBody = ({title, likes, date, username, own, id, onaskpostremove } ) => {
+const PostBody = ({title, likes, date, username, own, id, onremovepost } ) => {
     //const changedate = Fromnow(date);
     //const changecontent = htmlToDraft(convertFromRaw(state.getCurrentContent()));  
         //img에 유저프로필 렌더링
@@ -28,10 +28,10 @@ const PostBody = ({title, likes, date, username, own, id, onaskpostremove } ) =>
                 <h1>{title}</h1>
                 <Date_likes_number className="Date">
                     <h3>{Fromnow(date)}</h3>
-                    <button>"좋아요버튼만들기"</button>
+                    <button>"좋</button>
                 </Date_likes_number>
                 <SeparatorCss/>
-                { own && <PostAction id={id} onaskpostremove={onaskpostremove} /> }
+                { own && <PostAction id={id} onremovepost={onremovepost} /> }
                 
             </PostHeadCss>
         </PostBodyCss>      
