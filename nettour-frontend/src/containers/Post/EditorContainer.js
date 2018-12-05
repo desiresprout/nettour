@@ -1,6 +1,7 @@
-import React, { Component, Fragment } from "react";
+    import React, { Component, Fragment } from "react";
 import { connect } from 'react-redux';  
 import * as PostActions from 'redux/modules/post';
+import * as UserActions from 'redux/modules/user';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { Editor } from "react-draft-wysiwyg";
@@ -20,7 +21,7 @@ import { Escapeurl } from 'lib/common';
         };
 
         const editorStyle = {
-            background: "#edf2ff",
+            background: "white",
             userSelect: "none",
             margin: "0 auto",
             width: "100%",
@@ -31,7 +32,6 @@ import { Escapeurl } from 'lib/common';
         };
         const toolbarStyle = {
             paddingLeft : "13rem",
-            background : "#edf2ff",
             marginTop: "0.5rem",
             boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)"
         };
@@ -65,15 +65,14 @@ import { Escapeurl } from 'lib/common';
         `;
 
         const EditorHeader = styled.div`
-            border : 1px solid #364fc7;
-            border-radius: 3px;
+            
             display : flex;
             height : 4rem;
             padding-left : 2rem;
             padding-right : 2rem;
             align-items : center;
             color: #fff;
-            margin-bottom : 2rem;
+            
 
         `;
 
@@ -106,9 +105,9 @@ class EditorContainer extends Component {
       
 
       componentDidMount() {
-         const { PostActions, location } = this.props;
+         const { PostActions, location, user } = this.props;
          const { id } = queryString.parse(location.search);
-
+        
          if(id){
             this.initializePostInfo(id);            
          }
@@ -154,14 +153,16 @@ class EditorContainer extends Component {
     
             reader.onload = (e) => {
               data.append('file', file);
+              
               axios.post('http://localhost:4000/api/posts/images', data)
                 .then(function (res) {
                   resolve({ 
                     data: { 
                       link: `https://s3.amazonaws.com/s3nettour/${res.data}` 
-                    }                
+                    }               
                   });    
-                })            
+                }) 
+                                 
                 .catch(function (err) {
                   if(err) {
                     console.log('error', err);
@@ -175,9 +176,15 @@ class EditorContainer extends Component {
           });
       }
 
-     handleSubmit = async () => {         
-        const { PostActions, title, content, history, location } = this.props;       
 
+          
+      
+
+     handleSubmit = async () => {         
+        const { PostActions, title, content, history, location, user } = this.props; 
+        //console.log(user); //로그인이 아닌걸 판별해야댐
+        if(!user.logged && !user.validated ) return;
+        
         try {            
             const { id } = queryString.parse(location.search);
             
@@ -264,11 +271,14 @@ export default connect(
         editorerrors : state.post.editor.error,       
         urlslug : state.post.given.url_slug,
         givenerros : state.post.given.error,  
-        loading : state.pender.pending['editor/WRITE_POST'],        
+        loading : state.pender.pending['editor/WRITE_POST'],
+        
+        user: state.user
         
     }),
     (dispatch) => ({
-        PostActions: bindActionCreators(PostActions, dispatch)
+        PostActions: bindActionCreators(PostActions, dispatch),
+        UserActions: bindActionCreators(UserActions, dispatch)
     }),  
 )(withRouter(EditorContainer));
     

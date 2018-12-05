@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { SidebarTemplateCss, SidebarWrapperCss, SidebarIcon, SidebarMenu } from 'css/Main';
-
+import { Link } from 'react-router-dom';
 
 
 
@@ -12,11 +12,11 @@ class SidebarContainer extends Component {
                         <SidebarWrapperCss>
                             
                             <SidebarMenu> 최신 포스트 </SidebarMenu>                   
-                        </SidebarWrapperCss>
+</SidebarWrapperCss>
 
                         <SidebarWrapperCss>
                             
-                            <SidebarMenu>  </SidebarMenu>                    
+                            <SidebarMenu > <Link to="/write" >글작성</Link> </SidebarMenu>                    
                         </SidebarWrapperCss>
 
                         <SidebarWrapperCss>

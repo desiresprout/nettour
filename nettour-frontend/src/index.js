@@ -7,7 +7,7 @@ import configureStore from 'redux/configureStore';
 import social from 'lib/social'
 const store = configureStore();
 
-window.social = social;
+
 
 
 

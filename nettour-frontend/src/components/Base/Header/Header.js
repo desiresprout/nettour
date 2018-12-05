@@ -15,15 +15,13 @@ const Header = ({children, main}) => {
                                 {children}
                         </LogoWrapper>
                         <InfoWrapper>
-                            <Space space="4"></Space>                            
-                            <InfoButton to="/main" >Information</InfoButton>
+                            <div>여행후기를 공유해보세요</div>                           
+                            <InfoButton to="/main" >여행글보러가기</InfoButton>
                         </InfoWrapper>                
                     </ContentWrapper>
-                    <BoardWrapper >
-                        <p>Please let me know your experience.
-                                You might have another experience.</p>
-                        <InfoButton to="/main">게시판</InfoButton>
-                        <InfoButton to="/main" >통계</InfoButton>                      
+                    <BoardWrapper >                        
+                
+                                        
                     </BoardWrapper>
             </Positioner>
         </HeaderWrapper>

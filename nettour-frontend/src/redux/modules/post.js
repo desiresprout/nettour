@@ -51,7 +51,6 @@ const initialState ={
         },        
     },    
     editor:{
-        id : '',
         title: '',
         content: '',              
         error: '',
@@ -76,12 +75,11 @@ export default handleActions({
     ...pender({
         type: READ_POST,
         onSuccess: (state, action) => produce(state, draft => {               
-                 const { _id, likesCount, username, title, content, createdAt, comments} = action.payload.data;
+                 const { _id , username, title, content, createdAt, comments} = action.payload.data;
                  draft.readpost.postid = _id;
                  draft.readpost.title = title;
                  draft.readpost.username = username;                
-                 draft.readpost.content = content;
-                 draft.readpost.likesCount = likesCount;
+                 draft.readpost.content = content;                 
                  draft.readpost.date = createdAt; 
                  draft.readpost.comment.comments = comments;                
         }),        

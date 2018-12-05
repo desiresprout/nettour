@@ -20,7 +20,7 @@ const PostBody = ({title, likes, date, username, own, id, onremovepost } ) => {
                         <img/>
                     </Link> 
                 <UserInfoCss>
-                    <Link to={'/'}>{username}</Link>
+                    <Link to={'/'}>작성자 : {username}</Link>
                 </UserInfoCss>               
 
                     
@@ -28,7 +28,7 @@ const PostBody = ({title, likes, date, username, own, id, onremovepost } ) => {
                 <h1>{title}</h1>
                 <Date_likes_number className="Date">
                     <h3>{Fromnow(date)}</h3>
-                    <button>"좋</button>
+                    
                 </Date_likes_number>
                 <SeparatorCss/>
                 { own && <PostAction id={id} onremovepost={onremovepost} /> }

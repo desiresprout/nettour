@@ -29,7 +29,7 @@ exports.writepost  = async(ctx)=>{
     const schema = Joi.object().keys({
         title : Joi.string().required().trim().min(2).max(150),
         content: Joi.string().min(5).required(), 
-        slug :  Joi.string().min(5).required(),           
+        slug :  Joi.string().min(1).required(),           
     });
 
     const result = Joi.validate(ctx.request.body, schema);
@@ -77,7 +77,7 @@ exports.postlists = async (ctx) => {
     }
     
     const next = posts.length === 20 ? `/api/posts/?${username ? `username=${username}&` : ''}cursor=${posts[19]._id}` : null;
-    
+    //console.log(posts);
     
     ctx.body = {
         next,
@@ -132,6 +132,8 @@ exports.imageupload = async (ctx)=>{
       } catch (e) {
         ctx.throw(500,e);        
       }
+      //`https://s3.amazonaws.com/s3nettour/${res.data}`
+      //console.log(imagepath);
       ctx.body = imagepath; 
       
 };

@@ -4,26 +4,25 @@ import UserThumbnail from 'components/Base/Header/UserThumbnail';
 import { IoIosImage } from 'react-icons/io';
 
 import { PostsCardContent } from 'components/Post';
-
+import { IoIosImages } from 'react-icons/io'
 
 
 
 
 const PostsCard = ( { post } ) => {
-    const { likesCount, likes, _id, count, username, content, createdAt, comments, url_slug} = post;
-
-    //<img src={`/api/users/${username}/thumbnail`}/>
+    const { _id, username, title, content, createdAt, comments, url_slug, user_thumbnail} = post;
+    
     return (
         <PostsCardCss className="postcard">
-            <PostsThumbnailCss to={url_slug}>
+            <PostsThumbnailCss to={`@${username}/${url_slug}`}>
                 <ImageholderCss>
-                    
-                    <RadiusMaskCss/>      
+                    <IoIosImages/>
+                    <RadiusMaskCss className="radius"/>      
                 
                 </ImageholderCss>               
                 
             </PostsThumbnailCss> 
-            <PostsCardContent/>       
+            <PostsCardContent title={title} thumnail={user_thumbnail} date={createdAt} count={comments.length}/>       
         
         </PostsCardCss>
         

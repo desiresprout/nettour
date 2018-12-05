@@ -61,7 +61,15 @@ export const UsernameCss = styled.h3`
 export const SubinfoCss = styled.div`
     font-size : 0.875rem;
     margin-top : 0.5rem;
-    color : #8aa6c1;
+    color : #8aa6c1;    
+    
+
+    .a{
+        padding-left : 1rem;
+    }
+
+    
+    
 `;
 
 export const DescriptionCss = styled.div`

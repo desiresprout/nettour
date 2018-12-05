@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import oc from 'open-color';
 import { shadow, media } from 'css/styleUtil';
 import { Link } from 'react-router-dom';
-import wavebackground from 'static/images/wave-hero-background.svg';
+import abc from 'static/images/a.jpg';
 import { commonbackground }  from 'css/common.js';
 
 /*background-image : url(${first});
@@ -16,7 +16,7 @@ export const HeaderWrapper = styled.div`
     background-size : cover;
     background-repeat : no-repeat;
     background-position : top;    
-    background-image : url(${wavebackground});
+    
     
     
     
@@ -52,6 +52,7 @@ export const Positioner = styled.div`
 
 
 export const ContentWrapper = styled.div`
+    
     width: 1200px;
     align-items : center;
     display: flex;
@@ -62,6 +63,7 @@ export const ContentWrapper = styled.div`
         width: 992px;
         
     `}
+    
 
     ${media.tablet`
         width: 100%;
@@ -89,15 +91,12 @@ export const LogoWrapper = styled.div`
 
 export const Logo = styled(Link)`
     font-size: 1.8rem;
+    color : ${oc.indigo[6]};
     letter-spacing: 2px;
-    color: ${oc.gray[2]};
     font-family: 'Rajdhani';
     text-decoration: none;
     cursor : pointer;
     margin-left : 1rem;
-    &:hover {        
-        ${shadow(1)}
-    }
 
     ${props => props.main && `    
         display : none;
@@ -129,7 +128,7 @@ export const InfoWrapper = styled.div`
 export const InfoButton = styled(Link)`
     flex : 1 0 auto;
     text-align : center;
-    color: ${oc.gray[1]};
+    color : ${oc.indigo[3]};
     &:hover {        
         ${shadow(1)}
     }
@@ -142,7 +141,10 @@ export const InfoButton = styled(Link)`
 
 
 export const BoardWrapper = styled.div`
-    width : 680px;
+    background-image : url(${abc});
+    background-size : cover;
+    background-repeat : no-repeat;
+    background-position : top; 
     display : flex;
     flex-direction : column;
     align-items : center;
@@ -151,20 +153,10 @@ export const BoardWrapper = styled.div`
     color: ${oc.gray[1]};
     font-weight : 700;
     font-size : 2rem;
+    width : 100%;
+    height : 800px;    
 
-    ${props => props.main && `    
-        display : none;
- `}   
     
-
-    & > p {
-        line-height : 3rem;
-        letter-spacing : 1.5px;
-    }
-
-    & > nth-child(2){
-        margin-top : 2rem;
-    }
 `;
 
 

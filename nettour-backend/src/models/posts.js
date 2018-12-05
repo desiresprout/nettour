@@ -8,7 +8,7 @@ const Comment = new Schema({
 });
 
 const Post = new Schema({
-    post_thumbnail : String,
+    user_thumbnail : { type : String, default : 'static/images/thumbnail.png' },
     createdAt: { type: Date, default: Date.now }, 
     username: String,
     title: String,
@@ -44,6 +44,7 @@ Post.statics.list = function ( { cursor, username, self}){
         .sort({_id: -1})
         
         .limit(20)
+        .select('-_id -content -likes -likesCount')
         .exec();
 };
 
