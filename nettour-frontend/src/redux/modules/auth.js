@@ -19,6 +19,8 @@ const TOGGLE_ANIMATE = 'auth/TOGGLE_ANIMATE'; // 애니메이션 토글
 const SOCIAL_LOGIN = 'auth/SOCIAL_LOGIN'; // 소셜 로그인
 const SOCIAL_REGISTER = 'auth/SOCIAL_REGISTEER'; // 소셜 회원가입
 
+const GET_CODE = 'auth/GET_CODE';
+
 export const changeInput = createAction(CHANGE_INPUT); //  { form, name, value }
 export const initializeForm = createAction(INITIALIZE_FORM); // form 
 export const checkEmailExists = createAction(CHECK_EMAIL_EXISTS, AuthAPI.checkEmailExists); // email
@@ -33,6 +35,8 @@ export const toggleAnimation = createAction(TOGGLE_ANIMATE);
 export const socialLogin = createAction(SOCIAL_LOGIN, AuthAPI.socialLogin); // { provider, accessToken }
 export const socialRegister = createAction(SOCIAL_REGISTER, AuthAPI.socialRegister); // { provider, accessToken, username }
 
+export const getCode = createAction(GET_CODE, AuthAPI.getCode);
+
 const initialState = {
     register: {        
         email: '',
@@ -41,11 +45,11 @@ const initialState = {
         passwordConfirm: '',        
         exists: {
             email: false,
-            username: false
+            username: false,
+            auth_message : '',
         },
         error: null
     },
-
     login: {
         email: '',
         password: '',        
@@ -57,7 +61,6 @@ const initialState = {
         accessToken : null,
         provider : null,
         registered : null
-
     },
 };
 
@@ -92,9 +95,11 @@ export default handleActions({
     ...pender({
         type: LOCAL_REGISTER,
         onSuccess: (state, action) => produce(state, draft => {
-            draft.result = action.payload.data;  
+            draft.register.exists.confirming = action.payload.data;
+            //draft.result = action.payload.data;  
+            //action.payload.data = account.profile 
         }),
-    }),
+    }), 
     [SET_ERROR]: (state, action) => produce(state, draft => {
         const { form , message } = action.payload;            
         draft[form].error = message;  
@@ -125,6 +130,13 @@ export default handleActions({
         onSuccess: (state, action) => produce(state, draft => {
             draft.result = action.payload.data;
         }),        
-    })    
+    }),
+    ...pender({
+        type: GET_CODE,
+        onSuccess: (state, action) => produce(state, draft => {           
+            draft.register.exists.auth_message = action.payload.data.message; 
+        }),        
+    }),
+
     
 }, initialState);

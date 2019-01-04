@@ -7,7 +7,8 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as userActions from 'redux/modules/user';
 import { helmet } from 'react-helmet';
-import { hot } from 'react-hot-loader'
+import { hot } from 'react-hot-loader';
+import EmailAuthContainer from 'containers/Auth/EmailAuthContainer';
 
 import  EditorContainer   from 'containers/Post/EditorContainer';
 
@@ -45,6 +46,7 @@ class App extends Component {
                 <Route path="/main" component={MainPage}/>
                 <Route path="/write" component={EditorContainer}/>
                 <Route path="/@:username/:urlslug" component={PostPage}/> 
+                <Route path="/auth-email" component={EmailAuthContainer} />
             </Switch>
 
             </Fragment>

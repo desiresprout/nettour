@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const crypto = require('crypto');
+const shortid = require('shortid');
 
 function hash(password) {
     return crypto.createHmac('sha256', process.env.SECRET_KEY).update(password).digest('hex');
@@ -11,7 +12,11 @@ const Account = new Schema({
         username: String,
         thumbnail: { type: String, default: '/static/images/thumbnail.png' }
     },
-    email: { type: String },
+    auth : {
+        code : { type : String, default : shortid.generate() },
+        code_created : { type : Date, default : Date.now},
+        is_authed : { type : Boolean, default : false}
+    },   
     
     social: {
         facebook: {
@@ -23,9 +28,11 @@ const Account = new Schema({
             accessToken: String
         }
     },
-    password: String, 
-    postCount: { type: Number, default: 0 }, // 서비스에서 포스트를 작성 할 때마다 1씩 올라갑니다
+    email: { type: String },
+    password: { type: String }, 
+    postCount: { type: Number, default: 0 }, 
     createdAt: { type: Date, default: Date.now }
+    
 });
 
 Account.statics.findByUsername = function(username) {
@@ -34,7 +41,10 @@ Account.statics.findByUsername = function(username) {
 };
 
 Account.statics.findByEmail = function(email) {
-    return this.findOne({email}).exec();
+    
+    return this.findOne({'email' : email})
+    .select('-_id auth')
+    .exec();
 };
 
 Account.statics.findByEmailOrUsername = function({username, email}) {
@@ -47,12 +57,21 @@ Account.statics.findByEmailOrUsername = function({username, email}) {
     }).exec();
 };
 
+Account.statics.findByUserCode = function(code,email) {
+    // 객체에 내장되어있는 값을 사용 할 때는 객체명.키 이런식으로 쿼리하면 됩니다
+    return this.findOne({
+        'auth.code' : code,
+        'email' : email
+    })
+    .select('-_id auth email')
+    .exec();
+};
+
 Account.statics.localRegister = function({ username, email, password }) {
   
     const account = new this({
         profile: {
-            username
-            // thumbnail 값을 설정하지 않으면 기본값으로 설정됩니다.
+            username            
         },
         email,
         password: hash(password)
@@ -79,7 +98,7 @@ Account.methods.generateToken = function() {
     return generateToken(payload);  //generateToken(payload, 'account');
 };
 
-Account.methods.increaseThoughtCount = function() {
+Account.methods.increasePostCount = function() {
     this.postCount++;
     return this.save();
 };

@@ -41,8 +41,7 @@ Post.statics.list = function ( { cursor, username, self}){
     //여기서 lean()을 하면 다음포스트 읽어올수있을까?? 테스트해볼것
     //.select('-_id -comments')
     return this.find(query)
-        .sort({_id: -1})
-        
+        .sort({_id: -1})        
         .limit(20)
         .select('-_id -content -likes -likesCount')
         .exec();

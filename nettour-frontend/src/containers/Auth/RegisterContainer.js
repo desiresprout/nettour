@@ -34,7 +34,7 @@ class Register extends Component {
     
     }
 
-    setError = (message) => {
+    setError = (message) => {       
         const { AuthActions } = this.props;
         AuthActions.setError({
             form: 'register',
@@ -70,7 +70,7 @@ class Register extends Component {
                 this.setError('비밀번호확인이 일치하지 않습니다.');
                 return false;
             }
-            this.setError(null); 
+            this.setError(null); this.setError(null); 
             return true;
         }
     }
@@ -112,24 +112,29 @@ class Register extends Component {
         if(!validate['email'](email)   // validate[키](값)
             || !validate['username'](username) 
             || !validate['password'](password) 
-            || !validate['passwordConfirm'](passwordConfirm)) { 
-           
+            || !validate['passwordConfirm'](passwordConfirm)) {            
             return;
         }
         
         try {
             await AuthActions.localRegister({
                 email, username, password
-            });            
-            const loggedInfo = this.props.result; //result에서 loggedInfo을 읽어옴      
-            storage.set('loggedInfo', loggedInfo);
-            //console.log(loggedInfo); // profile이 담겨져있음 밑에 connect의 state에서 받아옴
-            //console.log(typeof(loggedInfo)); //객체
-            UserActions.setLoggedInfo(loggedInfo);
-            UserActions.setValidated(true);
-            history.push('/');  
-        } catch(e) {
+            });         
+         
+            if(!this.props.exists.confirming) return;
+            this.setError('이메일 인증을 진행해주세요'); 
             
+            setTimeout(() => {
+                history.push('/auth/login')
+              }, 7000);  
+            
+            //history.push('/auth/login')
+            //this.props.result - { thumbail : xxx,  username : xxx }    
+            /* storage.set('loggedInfo', loggedInfo);            
+            UserActions.setLoggedInfo(loggedInfo);
+            UserActions.setValidated(true); 
+            history.push('/');  */ 
+        } catch(e) {            
             if(e.response.status === 409) {
                 const { key } = e.response.data;
                 const message = key === 'email' ? '이미 존재하는 이메일입니다.' : '이미 존재하는 아이디입니다.';
@@ -194,6 +199,7 @@ export default connect(
         register: state.auth.register,
         error: state.auth.register.error,
         exists: state.auth.register.exists,
+        confirming : state.auth.register.exists.confirming,
         result: state.auth.result,
     }),
     (dispatch) => ({
