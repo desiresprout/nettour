@@ -14,3 +14,4 @@ export const socialLogin = ({provider, accessToken}) => axios.post(`/api/auth/lo
 export const socialRegister = ({provider, accessToken, username}) => axios.post(`/api/auth/register/${provider}`, { accessToken, username });
 
 export const getCode = ({ email, code }) => axios.get(`/api/auth/getcode?email=${email}&code=${code}`);
+export const resetCode = ( email ) => axios.get(`/api/auth/resetcode/` + email);

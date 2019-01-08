@@ -117,7 +117,7 @@ exports.imageupload = async (ctx)=>{
     try {
         const response = await s3
           .upload({
-            Bucket: 's3nettour',
+            Bucket: 'nettour.ml',
             Key: imagepath, //
             Body: read,  //스트림
             ContentType: filetype,  //image/png
@@ -134,6 +134,7 @@ exports.imageupload = async (ctx)=>{
       }
       //`https://s3.amazonaws.com/s3nettour/${res.data}`
       //console.log(imagepath);
+      
       ctx.body = imagepath; 
       
 };

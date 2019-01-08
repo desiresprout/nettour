@@ -35,15 +35,14 @@ const Account = new Schema({
     
 });
 
-Account.statics.findByUsername = function(username) {
-    // 객체에 내장되어있는 값을 사용 할 때는 객체명.키 이런식으로 쿼리하면 됩니다
+Account.statics.findByUsername = function(username) {    
     return this.findOne({'profile.username': username}).exec();
 };
 
 Account.statics.findByEmail = function(email) {
     
     return this.findOne({'email' : email})
-    .select('-_id auth')
+    .select('-_id')
     .exec();
 };
 
@@ -52,18 +51,18 @@ Account.statics.findByEmailOrUsername = function({username, email}) {
         // $or 연산자를 통해 둘중에 하나를 만족하는 데이터를 찾습니다
         $or: [
             { 'profile.username': username },
-            { email }
+            { 'email' : email}
         ]
     }).exec();
 };
 
-Account.statics.findByUserCode = function(code,email) {
+Account.statics.findByUserCode = function({code,email}) {
     // 객체에 내장되어있는 값을 사용 할 때는 객체명.키 이런식으로 쿼리하면 됩니다
     return this.findOne({
         'auth.code' : code,
         'email' : email
     })
-    .select('-_id auth email')
+    .select('_id auth email')
     .exec();
 };
 
@@ -102,6 +101,16 @@ Account.methods.increasePostCount = function() {
     this.postCount++;
     return this.save();
 };
+
+Account.statics.emailChangeAuth = function(id){
+    /* !this.auth.is_authed;
+    return this.save(); */
+    return this.findByIdAndUpdate(id, {
+        $set: { 'auth.is_authed' : true }        
+    }, {
+        //new: true,        
+    });
+}
 
 
 

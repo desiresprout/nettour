@@ -158,11 +158,11 @@ class EditorContainer extends Component {
                 .then(function (res) {
                   resolve({ 
                     data: { 
-                      link: `https://s3.amazonaws.com/s3nettour/${res.data}` 
+                      link: `https://s3.ap-northeast-2.amazonaws.com/nettour.ml/${res.data}` 
                     }               
                   });    
                 }) 
-                                 
+                                
                 .catch(function (err) {
                   if(err) {
                     console.log('error', err);

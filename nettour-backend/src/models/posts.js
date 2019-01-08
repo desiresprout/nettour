@@ -47,8 +47,6 @@ Post.statics.list = function ( { cursor, username, self}){
         .exec();
 };
 
-
-
 Post.statics.readpost = function ({ name, urlslug}) {
 
     return this.findOne({
@@ -71,6 +69,32 @@ Post.methods.writecomment = function ({ currentusername, comment}){
     return this.save();
 };
 
+Post.statics.like = function({_id, username}) {
+    return this.findByIdAndUpdate(_id, {
+        $inc: { likesCount: 1 },
+        $push: { likes: username }
+    }, {
+        new: true, 
+        select: 'likesCount'
+    }).exec();
+};
+
+Post.statics.unlike = function({_id, username}) {
+    return this.findByIdAndUpdate(_id, {
+        $inc: { likesCount: -1 },
+        $pull: { likes: username }
+    }, {
+        new: true,
+        select: 'likesCount'
+    });
+};
+
+/* await Post.findOneAndUpdate( {'comments._id' : commentid} ,
+        {
+            $pull: { comments: { _id: commentid }}
+        },
+        { new: true} ).select('-_id comments'); */
+//.select('_id title username content createdAt comments')
 module.exports = mongoose.model('Post',Post);
 
 

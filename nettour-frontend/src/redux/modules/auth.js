@@ -20,6 +20,7 @@ const SOCIAL_LOGIN = 'auth/SOCIAL_LOGIN'; // 소셜 로그인
 const SOCIAL_REGISTER = 'auth/SOCIAL_REGISTEER'; // 소셜 회원가입
 
 const GET_CODE = 'auth/GET_CODE';
+const RESET_CODE = 'auth/RESET_CODE';
 
 export const changeInput = createAction(CHANGE_INPUT); //  { form, name, value }
 export const initializeForm = createAction(INITIALIZE_FORM); // form 
@@ -36,6 +37,7 @@ export const socialLogin = createAction(SOCIAL_LOGIN, AuthAPI.socialLogin); // {
 export const socialRegister = createAction(SOCIAL_REGISTER, AuthAPI.socialRegister); // { provider, accessToken, username }
 
 export const getCode = createAction(GET_CODE, AuthAPI.getCode);
+export const resetCode = createAction(RESET_CODE, AuthAPI.resetCode);
 
 const initialState = {
     register: {        
@@ -46,7 +48,9 @@ const initialState = {
         exists: {
             email: false,
             username: false,
+            code : '',
             auth_message : '',
+            resetcode : false,
         },
         error: null
     },
@@ -133,8 +137,15 @@ export default handleActions({
     }),
     ...pender({
         type: GET_CODE,
-        onSuccess: (state, action) => produce(state, draft => {           
+        onSuccess: (state, action) => produce(state, draft => {            
+            draft.register.exists.code = action.payload.data.code;  
             draft.register.exists.auth_message = action.payload.data.message; 
+        }),        
+    }),
+    ...pender({
+        type: RESET_CODE,
+        onSuccess: (state, action) => produce(state, draft => {            
+            draft.register.exists.resetcode = action.payload.data;
         }),        
     }),
 

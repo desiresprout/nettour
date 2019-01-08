@@ -11,5 +11,6 @@ auth.get('/check', authCtrl.check);
 auth.get('/getcode', authCtrl.getCode);
 
 auth.post('/auth-email', authCtrl.authEmail);
+auth.get('/resetcode/:email', authCtrl.resetcode);
 
 module.exports = auth;

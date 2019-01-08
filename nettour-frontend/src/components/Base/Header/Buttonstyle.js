@@ -14,7 +14,6 @@ export const Button = styled(Link)`
     text-decoration: none;
     transition: .2s all;
 
-
    }
 
     font-weight: 600;

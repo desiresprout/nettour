@@ -8,8 +8,7 @@ exports.writecomment = async (ctx) => {
     if(!user) {
         ctx.status = 403; 
         return;
-    } 
-     //console.log(ctx.request.headers);
+    }    
     
     const schema = Joi.object().keys({
         currentusername : Joi.string().required(),
@@ -105,8 +104,7 @@ exports.editcomment = async(ctx) => {
     } catch (e) {
         ctx.throw(500, e);
     }  
-  
-    //console.log(edit);
+    
     ctx.body = {
         comments : edit.comments
     };
@@ -136,7 +134,6 @@ exports.deletecomment = async (ctx) => {
     */
     
     const { commentid } = ctx.request.body;
-    //console.log(ctx.request.body);
 
     /*
      edit = await Post.findOneAndUpdate({ 'comments._id' : commentid}, 
@@ -174,14 +171,11 @@ exports.deletecomment = async (ctx) => {
             $pull: { comments: { _id: commentid }}
         },
         { new: true} ).select('-_id comments');
-    }catch(e){
-        console.log(e);
+    }catch(e){        
         ctx.throw(e,400);
     }   
-    //console.log(deletecomment);
-    ctx.body = deletecomment;
-    
-   
+  
+    ctx.body = deletecomment;     
     
 
 };
