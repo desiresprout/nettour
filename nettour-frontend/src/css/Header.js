@@ -51,6 +51,7 @@ export const Positioner = styled.div`
 `;
 
 
+
 export const ContentWrapper = styled.div`
     
     width: 1200px;

@@ -13,6 +13,7 @@ class Login extends Component {
         const { AuthActions } = this.props;
         AuthActions.initializeForm('login')
     }
+    
 
     handleChange = (e) => {
         const { AuthActions } = this.props;

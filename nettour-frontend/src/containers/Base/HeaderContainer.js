@@ -16,6 +16,7 @@ class HeaderContainer extends Component {
         const { BaseActions } = this.props;
         BaseActions.setUserMenuVisibility(true);
     }
+    
 
     
     
