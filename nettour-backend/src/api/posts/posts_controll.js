@@ -6,6 +6,8 @@ const fs = require('fs');
 const AWS = require('aws-sdk');
 const { formatFileName, Escapeurl } = require('../../lib/common');
 
+//const s3 = new AWS.S3({ region: 'ap-northeast-2', signatureVersion: 'v4' });
+
 exports.writepost  = async(ctx)=>{    
     const { user } = ctx.request;
    
@@ -86,7 +88,8 @@ exports.postlists = async (ctx) => {
 };
 
 exports.imageupload = async (ctx)=>{
-    //console.log(ctx.request.headers); 
+    //console.log(ctx.request.headers);
+    console.log('hi');
     const { file } = ctx.request.files;
     const { name } = file;    
 
@@ -96,6 +99,7 @@ exports.imageupload = async (ctx)=>{
       }     
 
     const stats = fs.statSync(file.path);
+    console.log(stats);
 
     if(stats.size > 1024 * 1024 * 5) { // 5mb
         ctx.status = 413; 
@@ -104,15 +108,17 @@ exports.imageupload = async (ctx)=>{
 
     const imagepath = formatFileName(name);
     const read = fs.createReadStream(file.path);
-    const filetype = file.type;    
+    console.log(read);
+    const filetype = file.type;
+    console.log(file.type); //image/png    
     
   
-    const s3 = new AWS.S3({
+     const s3 = new AWS.S3({
         credentials: {
           accessKeyId: process.env.AWS_ACCESS_KEY_ID,
           secretAccessKey: process.env.SECRET_ACCESS_KEY_ID,
         }
-      });
+      }); 
 
     try {
         const response = await s3
