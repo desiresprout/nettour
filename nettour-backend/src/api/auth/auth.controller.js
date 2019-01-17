@@ -70,17 +70,14 @@ exports.localLogin = async (ctx) => {
     const { email, password } = ctx.request.body; 
 
     let account = null;
-    try {
-        // 이메일로 계정 찾기
-        account = await Account.findByEmail(email);
-        //console.log(account);
+    try {        
+        account = await Account.findByEmail(email);        
     } catch (e) {
         ctx.throw(500, e);
     }
 
-    if(!account || !account.validatePassword(password)) {
-    // 유저가 존재하지 않거나 || 비밀번호가 일치하지 않으면
-        ctx.status = 403; // Forbidden
+    if(!account || !account.validatePassword(password)) {    
+        ctx.status = 403; 
         return;
     }
      if(account.auth.is_authed === false){
@@ -88,8 +85,9 @@ exports.localLogin = async (ctx) => {
          return;
      }
     let token = null;
-    try {
-        token = await account.generateToken();
+    try {        
+        token = await account.generateToken();       
+        
     } catch (e) {
         ctx.throw(500, e);
     }
@@ -152,8 +150,7 @@ exports.getCode = async(ctx) => {
     let account = null;
 
     try{
-        account = await Account.findByUserCode({code,email});
-       //console.log(account.auth.is_authed);
+        account = await Account.findByUserCode({code,email});       
     }catch(e){
         console.log(e);
     }

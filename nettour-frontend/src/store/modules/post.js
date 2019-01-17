@@ -59,8 +59,8 @@ const initialState ={
         status : false,
         upload:{
             thumbnailURL : '',
-            status : false,
-            postid : ''
+            imagepath : '',
+            status : false,            
         },
     },
     given:{        
@@ -155,8 +155,7 @@ export default handleActions({
 
     ...pender({
         type: REMOVE_COMMENT,
-        onSuccess: (state, action) => produce(state, draft => {  
-            console.log(action.payload.data);             
+        onSuccess: (state, action) => produce(state, draft => {                         
                  const { comments } = action.payload.data;
                  draft.readpost.comment.comments = comments;
                                  
@@ -171,7 +170,8 @@ export default handleActions({
         onSuccess: (state, action) => produce(state, draft => {              
             draft.editor.upload.thumbnailURL = action.payload.data.url;
             draft.editor.upload.status = action.payload.data.status;
-            draft.editor.upload.postid = action.payload.data.user;                                 
+            draft.editor.upload.imagepath = action.payload.data.imagepath;
+                                           
         }),        
        
     }), 

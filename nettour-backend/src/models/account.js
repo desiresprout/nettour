@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const crypto = require('crypto');
 const shortid = require('shortid');
+const { generateToken } = require('../lib/token');
 
 function hash(password) {
     return crypto.createHmac('sha256', process.env.SECRET_KEY).update(password).digest('hex');
@@ -41,8 +42,7 @@ Account.statics.findByUsername = function(username) {
 
 Account.statics.findByEmail = function(email) {
     
-    return this.findOne({'email' : email})
-    .select('-_id')
+    return this.findOne({'email' : email})    
     .exec();
 };
 
@@ -84,8 +84,6 @@ Account.methods.validatePassword = function(password) {
     const hashed = hash(password);
     return this.password === hashed;
 };
-
-const { generateToken } = require('../lib/token');
 
 Account.methods.generateToken = function() {
     // JWT 에 담을 내용

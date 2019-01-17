@@ -9,8 +9,7 @@ const { formatFileName, Escapeurl } = require('../../lib/common');
 //const s3 = new AWS.S3({ region: 'ap-northeast-2', signatureVersion: 'v4' });
 
 exports.writepost  = async(ctx)=>{    
-    const { user } = ctx.request;
-   
+    const { user } = ctx.request;    
     
     let account;
 
@@ -31,7 +30,8 @@ exports.writepost  = async(ctx)=>{
     const schema = Joi.object().keys({
         title : Joi.string().required().trim().min(2).max(150),
         content: Joi.string().min(5).required(), 
-        slug :  Joi.string().min(1).required(),           
+        slug :  Joi.string().min(1).required(),
+        imagepath : Joi.string().min(10)             
     });
 
     const result = Joi.validate(ctx.request.body, schema);
@@ -42,7 +42,7 @@ exports.writepost  = async(ctx)=>{
         return;
     }  
     //thumbnail,
-    const { title , content, slug } = ctx.request.body;    
+    const { title , content, slug, imagepath } = ctx.request.body;    
 
     let post;
     //thumnail 작업
@@ -51,7 +51,8 @@ exports.writepost  = async(ctx)=>{
             username: user.profile.username, 
             title,                   
             content,            
-            url_slug : slug,  
+            url_slug : slug,
+            post_thumbnail : imagepath  
         });        
         //url_slug : Escapeurl(title),  
     } catch (e) {
@@ -215,7 +216,8 @@ exports.editpost = async(ctx)=>{
         id : Joi.string().required().trim().min(2).max(150),
         content: Joi.string().min(5).required(), 
         slug :  Joi.string().min(5).required(),
-        title : Joi.string().min(5).required(),            
+        title : Joi.string().min(5).required(),
+        imagepath : Joi.string().min(10)            
     });
 
     const result = Joi.validate(ctx.request.body, schema);
@@ -236,7 +238,8 @@ exports.editpost = async(ctx)=>{
             { $set : { 
                 title : ctx.request.body.title, 
                 content : ctx.request.body.content, 
-                url_slug : ctx.request.body.slug 
+                url_slug : ctx.request.body.slug,
+                post_thumbnail : ctx.request.body.imagepath
                      } 
             },
         { new : true}).select('_id title content url_slug createdAt username').lean();

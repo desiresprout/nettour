@@ -167,7 +167,7 @@ class EditorContainer extends Component {
       }      
 
      handleSubmit = async () => {         
-        const { PostActions, title, content, history, location, user } = this.props; 
+        const { PostActions, title, content, history, location, user, imagepath } = this.props; 
        
         if(!user.logged && !user.validated ) return;
         
@@ -179,14 +179,16 @@ class EditorContainer extends Component {
                   id,
                   title,
                   content,
-                  slug : Escapeurl(title)
+                  slug : Escapeurl(title),
+                  imagepath
                 }); 
               
             }else{
                 await PostActions.writepost({
                     title,
                     content,
-                    slug : Escapeurl(title)
+                    slug : Escapeurl(title),
+                    imagepath
                 }); 
             }            
             
@@ -213,8 +215,7 @@ class EditorContainer extends Component {
         upload.onchange = (e) => {
             if (!upload.files) return;
             const file = upload.files[0];           
-            this.uploadThumbnail(file);
-            
+            this.uploadThumbnail(file);            
         };
         upload.click();
         
@@ -226,21 +227,16 @@ class EditorContainer extends Component {
         if(!file || file.size > 1024 * 1024 * 80 || file.type.indexOf('gif') > 0 ) return;
         const filename = Escapeurl(file.name);
         await PostActions.createurl({filename, type});
-        const { thumbnail, status, postid } = this.props;
+        const { thumbnail, status, imagepath } = this.props;
         
         try{
-            if(thumbnail && !status && !postid ) return;            
+            if(thumbnail && !status && !imagepath ) return;            
             await axios.put(thumbnail, file, {
-                headers: {   'Content-Type': type,  },           
-                
+                headers: {   'Content-Type': type,  }               
             });
         }catch(e){
             console.log(e);     
-        }
-        
-        
-        
-        
+        }       
 
 
      }
@@ -303,7 +299,7 @@ export default connect(
 
         thumbnail : state.post.editor.upload.thumbnailURL,
         status : state.post.editor.upload.status,
-        postid : state.post.editor.upload.postid,
+        imagepath : state.post.editor.upload.imagepath,
         
     }),
     (dispatch) => ({
