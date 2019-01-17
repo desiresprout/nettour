@@ -2,8 +2,9 @@
 import styled from 'styled-components';
 import oc from 'open-color';
 import { shadow, media } from 'css/styleUtil';
-import {IoLogoFacebook} from 'react-icons/io';
-import {IoLogoGoogle} from 'react-icons/io';  
+import GoogleIcon from 'react-icons/lib/io/social-google';  
+import FacebookIcon from 'react-icons/lib/io/social-facebook';
+
 
 const Wrapper = styled.div`
     margin-top: 1rem;
@@ -69,11 +70,11 @@ const SocialButton = styled.div`
 const SocialButtons = ({onsocial}) => (
     <Wrapper>
         <SocialButton facebook onClick={()=>onsocial('facebook')}>
-            <IoLogoFacebook/>
+            <FacebookIcon/>
             페이스북
         </SocialButton>
         <SocialButton google onClick={()=>onsocial('google')}>
-            <IoLogoGoogle/>
+             <GoogleIcon/> 
             구글
         </SocialButton>
     </Wrapper>

@@ -55,11 +55,12 @@ const { sendmail } = require('lib/sendmail');
 
 
 exports.localLogin = async (ctx) => {
+   
     const schema = Joi.object().keys({
         email: Joi.string().email().required(),
         password: Joi.string().required()
     });
-    //console.log('hi');
+    
     const result = Joi.validate(ctx.request.body, schema);
 
     if(result.error) {
@@ -82,6 +83,10 @@ exports.localLogin = async (ctx) => {
         ctx.status = 403; // Forbidden
         return;
     }
+     if(account.auth.is_authed === false){
+        ctx.status = 401;
+         return;
+     }
     let token = null;
     try {
         token = await account.generateToken();
@@ -95,6 +100,7 @@ exports.localLogin = async (ctx) => {
 
 // 이메일 / 아이디 존재유무 확인
 exports.exists = async (ctx) => {
+    
     const { key, value } = ctx.params;
     let account = null;
 

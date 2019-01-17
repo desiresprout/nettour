@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';  
-import * as PostActions from 'redux/modules/post';
+import * as PostActions from 'store/modules/post';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { ContentState, EditorState, convertFromRaw, convertFromHTML  } from "draft-js";

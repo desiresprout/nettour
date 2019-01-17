@@ -2,11 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { HeaderContainer}  from 'containers/Base';
 
 
-
-
-class HomePage extends Component {
-
-    
+class HomePage extends Component {    
+   
 
     render() {
         return (

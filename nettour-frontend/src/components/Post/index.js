@@ -10,6 +10,7 @@ export { default as PostComment } from './PostComment';
 export { default as PostComments} from './PostComments';
 export { default as PostCommentInput } from './PostCommentInput';
 export { default as PostAction } from './PostAction';
+export { default as Thumbnail } from './Thumbnail';
 
 
 

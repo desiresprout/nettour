@@ -44,6 +44,8 @@ const extractTextPluginOptions = shouldUseRelativeAssetPaths
   ? // Making sure that the publicPath goes back to to build folder.
     { publicPath: Array(cssFilename.split('/').length).join('../') }
   : {}
+console.log(paths.appIndexJs);
+// paths.appIndexJs = /home/woong/nettour/nettour-frontend/src/index.js
 
 // This is the production configuration.
 // It compiles slowly and is focused on producing a fast and minimal bundle.

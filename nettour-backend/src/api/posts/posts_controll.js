@@ -88,18 +88,28 @@ exports.postlists = async (ctx) => {
 };
 
 exports.imageupload = async (ctx)=>{
-    //console.log(ctx.request.headers);
-    console.log('hi');
+    
     const { file } = ctx.request.files;
-    const { name } = file;    
+    const { name } = file;
+    const { user } = ctx.request;
+
+    if(!user) {
+        ctx.status = 403;
+        ctx.body = {
+            error : 'not login'
+        };
+        return;
+    }    
 
     if(!file) {
         ctx.status = 400;
+        ctx.body = {
+            error : 'no file'
+         }
         return;
-      }     
+      } 
 
-    const stats = fs.statSync(file.path);
-    console.log(stats);
+    const stats = fs.statSync(file.path);    
 
     if(stats.size > 1024 * 1024 * 5) { // 5mb
         ctx.status = 413; 
@@ -108,9 +118,9 @@ exports.imageupload = async (ctx)=>{
 
     const imagepath = formatFileName(name);
     const read = fs.createReadStream(file.path);
-    console.log(read);
+    //console.log(read);
     const filetype = file.type;
-    console.log(file.type); //image/png    
+   // console.log(file.type); //image/png    
     
   
      const s3 = new AWS.S3({
@@ -139,7 +149,7 @@ exports.imageupload = async (ctx)=>{
         ctx.throw(500,e);        
       }
       //`https://s3.amazonaws.com/s3nettour/${res.data}`
-      //console.log(imagepath);
+      console.log(imagepath);
       
       ctx.body = imagepath; 
       

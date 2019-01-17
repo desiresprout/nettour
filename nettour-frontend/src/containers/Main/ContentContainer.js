@@ -4,7 +4,7 @@ import { ContentTemplateCss } from 'css/Main';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as postsActions from 'redux/modules/post';
+import * as postsActions from 'store/modules/post';
 
 
 

@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
-import { AuthContent, InputWithLabel, AuthButton, RightAlignedLink, SocialButtons, AuthError, SocialDivider } from 'components/Auth';
+import { AuthWrapper, AuthContent, InputWithLabel, AuthButton, RightAlignedLink, SocialButtons, AuthError, SocialDivider } from 'components/Auth';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as authActions from 'redux/modules/auth';
-import * as userActions from 'redux/modules/user';
+import * as authActions from 'store/modules/auth';
+import * as userActions from 'store/modules/user';
 import storage from 'lib/storage';
 import SocialLoginContainer from 'containers/Auth/SocialLoginContainer';  
+import styled from 'styled-components';
 
-class Login extends Component {
+
+const Login_Wrapper = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`;
+
+class LoginContainer extends Component {    
 
     componentWillUnmount() {
         const { AuthActions } = this.props;
@@ -28,6 +37,7 @@ class Login extends Component {
     }
 
     setError = (message) => {
+        console.log(message);
         const { AuthActions } = this.props;
         AuthActions.setError({
             form: "login",
@@ -48,7 +58,8 @@ class Login extends Component {
             storage.set('loggedInfo', loggedInfo);
 
         } catch (e) {            
-            this.setError('잘못된 계정정보입니다.');
+            e.response.status===401 ? 
+            this.setError('이메일인증을 진행해주세요') :  this.setError('잘못된 계정정보입니다.')
         }
     }   
 
@@ -58,7 +69,9 @@ class Login extends Component {
         const { error } = this.props;
 
         return (
-            <AuthContent title="로그인">
+            
+            <AuthWrapper>
+                <AuthContent title="로그인">
                 <InputWithLabel 
                     label="이메일" 
                     name="email" 
@@ -78,11 +91,13 @@ class Login extends Component {
                     error && <AuthError>{error}</AuthError>
                 }
                 <AuthButton onClick={handleLocalLogin}>로그인</AuthButton>
-                <RightAlignedLink to="/auth/register">회원가입</RightAlignedLink>              
+                <RightAlignedLink to="/register">회원가입</RightAlignedLink>              
                 <SocialDivider/>
                 <SocialLoginContainer/>
             </AuthContent>
-        );
+
+            </AuthWrapper>
+        )
     }
 }
 //<SocialButtons onSocialLogin={handleSocialLogin}/>
@@ -97,4 +112,4 @@ export default connect(
         AuthActions: bindActionCreators(authActions, dispatch),
         UserActions: bindActionCreators(userActions, dispatch)
     })
-)(Login);
+)(LoginContainer);

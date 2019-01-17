@@ -11,13 +11,11 @@ const Positioner = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
 `;
-
 // 너비, 그림자 설정
 const ShadowedBox = styled.div`
     width: 500px;
     ${shadow(2)}
 `;
-
 // 로고
 const LogoWrapper = styled.div`
     background: ${oc.indigo[3]};
@@ -26,7 +24,6 @@ const LogoWrapper = styled.div`
     align-items: center;
     justify-content: center;
 `;
-
 const Logo = styled(Link)`
     color: white;
     font-family: 'Rajdhani';

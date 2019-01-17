@@ -4,7 +4,7 @@ const Router = require('koa-router');
 const app = new Koa();
 const router = new Router();
 const api = require('api');   
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 5000;
 const koabody = require('koa-body');
 const mongoose = require('mongoose');
 const { jwtMiddleware } = require('./lib/token');
@@ -14,7 +14,11 @@ const cors = require('@koa/cors');
 mongoose.Promise = global.Promise; 
 
 
-// mongodb 연결 , 아이디비번 만들것
+const options = {
+    origin: process.env.NODE_ENV ==='dev' ? 'http://localhost:3000' : "https://nettour.ml",
+    credentials : true
+};
+//credentials : process.env.NODE_ENV =='dev' ? false : true
 mongoose.connect(process.env.MONGO_URI).then(
     (response) => {
         console.log('Successfully connected to mongodb');
@@ -27,7 +31,10 @@ app.use(koabody({
     multipart : true,
 }));
 app.use(jwtMiddleware);
-app.use(cors());
+app.use(cors(options ));
+
+
+
 
 
 router.use('/api', api.routes());
@@ -39,5 +46,5 @@ router.get('/post', (ctx, next) => {
 app.use(router.routes()).use(router.allowedMethods());
 
 app.listen(port, () => {
-    console.log('nettour server is listening to port 4000');
+    console.log(`nettour server is listening to ${port}`);
 });

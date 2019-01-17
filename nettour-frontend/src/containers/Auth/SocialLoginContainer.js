@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { SocialButtons } from 'components/Auth';
-import * as authActions from 'redux/modules/auth';
+import * as authActions from 'store/modules/auth';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as userActions from 'redux/modules/user';
+import * as userActions from 'store/modules/user';
 import storage from 'lib/storage';
 import { withRouter } from 'react-router-dom';
 
@@ -17,7 +17,7 @@ class SocialLogin extends Component {
             const accessToken = await AuthActions.providerLogin(provider); 
             await AuthActions.socialLogin({provider, accessToken}); 
              if(!this.props.social.registered) {
-                return history.push('/auth/social/register');
+                return history.push('/register');
             }
              const loggedInfo = this.props.result;
             UserActions.setLoggedInfo(loggedInfo);

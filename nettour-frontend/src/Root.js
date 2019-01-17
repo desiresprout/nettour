@@ -6,11 +6,16 @@ import { Provider } from 'react-redux';
 const Root = ({store}) => {
     return (
         <Provider store={store}>
-            <BrowserRouter basename={"/"}>
-                <Route path="/" component={App}/>
+            <BrowserRouter>
+                <Route path="/" component={App} />
             </BrowserRouter>
         </Provider>
     );
 };
 
 export default Root;
+
+
+{/* <BrowserRouter basename={"/"}>
+                <Route path="/" component={App}/>
+            </BrowserRouter> */}

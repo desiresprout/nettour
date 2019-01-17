@@ -1,8 +1,8 @@
 import React, { Component,  Fragment } from 'react';
 import Header, { Buttonstyle, UserThumbnail} from 'components/Base/Header';
 import { connect } from 'react-redux';
-import * as userActions from 'redux/modules/user';
-import * as baseActions from 'redux/modules/base';
+import * as userActions from 'store/modules/user';
+import * as baseActions from 'store/modules/base';
 import { bindActionCreators, compose } from 'redux';
 import storage from 'lib/storage';
 import UserMenuContainer from './UserMenuContainer';
@@ -15,10 +15,7 @@ class HeaderContainer extends Component {
         e.nativeEvent.stopImmediatePropagation();        
         const { BaseActions } = this.props;
         BaseActions.setUserMenuVisibility(true);
-    }
-    
-
-    
+    }   
     
     render() {
         const { visible, user, login, main } = this.props;

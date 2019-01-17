@@ -14,9 +14,10 @@ const EDIT_COMMENT = 'posts/EDIT_COMMENT';
 const CHANGE_COMMENT_INPUT = 'posts/CHANGE_COMMENT_INPUT'; // 덧글 인풋 수정
 const GET_POST = 'posts/GET_POST';
 const EDIT_POST = 'posts/EDIT_POST';
-
 const REMOVE_POST = 'posts/REMOVE_POST';
 const REMOVE_COMMENT = 'posts/REMOVE_COMMENT';
+
+const CREATE_URL = 'posts/CREATE_URL';
 
 //export const reset = createAction(RESET);
 export const changetitle = createAction(CHANGE_TITLE);
@@ -29,9 +30,10 @@ export const editcomment = createAction(EDIT_COMMENT, PostsAPI.editcomment);
 export const changecommentinput = createAction(CHANGE_COMMENT_INPUT); // { postId, value }
 export const getpost = createAction(GET_POST, PostsAPI.getpost);
 export const editpost = createAction(EDIT_POST, PostsAPI.editpost);
-
 export const removepost = createAction(REMOVE_POST, PostsAPI.removepost);
 export const removecomment =  createAction(REMOVE_COMMENT, PostsAPI.removecomment);
+
+export const createurl = createAction(CREATE_URL,PostsAPI.createurl);
 
 
 
@@ -55,6 +57,11 @@ const initialState ={
         content: '',              
         error: '',
         status : false,
+        upload:{
+            thumbnailURL : '',
+            status : false,
+            postid : ''
+        },
     },
     given:{        
         url_slug:'',
@@ -157,7 +164,18 @@ export default handleActions({
         onFailure: (state, action) => produce(state, draft => {       
           draft.given.error = action.payload;
         }),
+    }),
+    
+    ...pender({
+        type: CREATE_URL,
+        onSuccess: (state, action) => produce(state, draft => {              
+            draft.editor.upload.thumbnailURL = action.payload.data.url;
+            draft.editor.upload.status = action.payload.data.status;
+            draft.editor.upload.postid = action.payload.data.user;                                 
+        }),        
+       
     }), 
+    
 
     [CHANGE_TITLE]: (state, action) => produce(state, draft => {    
         draft.editor.title = action.payload;  

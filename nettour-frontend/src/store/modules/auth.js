@@ -56,7 +56,8 @@ const initialState = {
     },
     login: {
         email: '',
-        password: '',        
+        password: '',
+        status : '',        
         error: null
     },
     result: {},
@@ -93,6 +94,7 @@ export default handleActions({
     ...pender({
         type: LOCAL_LOGIN,
         onSuccess: (state, action) => produce(state, draft => {
+            console.log(action.payload.data);
             draft.result = action.payload.data;
         }),                       
     }),

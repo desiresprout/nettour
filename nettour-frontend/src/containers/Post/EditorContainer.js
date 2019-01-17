@@ -1,7 +1,6 @@
-    import React, { Component, Fragment } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from 'react-redux';  
-import * as PostActions from 'redux/modules/post';
-import * as UserActions from 'redux/modules/user';
+import * as PostActions from 'store/modules/post';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { Editor } from "react-draft-wysiwyg";
@@ -11,10 +10,9 @@ import htmlToDraft from 'html-to-draftjs';
 import queryString from 'query-string';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import axios from 'axios';
-import styled, { css } from 'styled-components';
-
+import styled from 'styled-components';
+import Thumbnail from 'components/Post/Thumbnail';
 import { Escapeurl } from 'lib/common';
-
 
         const editorWrapper = {
         
@@ -46,7 +44,7 @@ import { Escapeurl } from 'lib/common';
             line-height : 0;
             font-size : 0.875rem;
             transition : all 0.1s ease-in;
-            background : #748ffc;
+            background : #4c6ef5;
             color : #fff;    
         `;
         const INPUT_AREA = styled.div`
@@ -64,17 +62,16 @@ import { Escapeurl } from 'lib/common';
             color : black;
         `;
 
-        const EditorHeader = styled.div`
-            
+        const EditorHeader = styled.div`            
             display : flex;
             height : 4rem;
             padding-left : 2rem;
             padding-right : 2rem;
             align-items : center;
             color: #fff;
-            
-
         `;
+
+       
 
 class EditorContainer extends Component {
     state = {
@@ -100,9 +97,7 @@ class EditorContainer extends Component {
         });
         }
 
-      };
-
-      
+      };      
 
       componentDidMount() {
          const { PostActions, location, user } = this.props;
@@ -110,8 +105,7 @@ class EditorContainer extends Component {
         
          if(id){
             this.initializePostInfo(id);            
-         }
-        
+         }        
       }
 
       componentWillUnmount() {
@@ -133,11 +127,9 @@ class EditorContainer extends Component {
     onEditorStateChange = async(editorState) => {
         this.setState({
           editorState,
-        })            
-        
+        })        
         const { PostActions, username, title } = this.props;
-        let html = (draftToHtml(convertToRaw(editorState.getCurrentContent())));
-       
+        let html = (draftToHtml(convertToRaw(editorState.getCurrentContent())));       
         /*const editor = {
             HTML : html,
             EDITORSTATE : editorState,             
@@ -149,20 +141,18 @@ class EditorContainer extends Component {
         return new Promise(
           (resolve, reject) => {
             const reader = new FileReader(); 
-            const data = new FormData();
-    
+            const data = new FormData();    
             reader.onload = (e) => {
-              data.append('file', file);
-              
+              data.append('file', file);  
+              //https://s3.amazonaws.com/images.nettour.ml/postImages/20190116-zy3rf-d-.jpeg            
               axios.post('http://localhost:4000/api/posts/images', data)
                 .then(function (res) {
                   resolve({ 
                     data: { 
-                      link: `https://s3.ap-northeast-2.amazonaws.com/nettour.ml/${res.data}` 
+                      link: `https://s3.amazonaws.com/images.nettour.ml/${res.data}` 
                     }               
                   });    
-                }) 
-                                
+                })                                 
                 .catch(function (err) {
                   if(err) {
                     console.log('error', err);
@@ -174,15 +164,11 @@ class EditorContainer extends Component {
             reader.onerror = e => reject(e);
             reader.readAsDataURL(file);
           });
-      }
-
-
-          
-      
+      }      
 
      handleSubmit = async () => {         
         const { PostActions, title, content, history, location, user } = this.props; 
-        //console.log(user); //로그인이 아닌걸 판별해야댐
+       
         if(!user.logged && !user.validated ) return;
         
         try {            
@@ -219,15 +205,53 @@ class EditorContainer extends Component {
       const { PostActions } = this.props;         
       PostActions.changetitle(e.target.value);     
     }
+    
+    handleThumbnail = () => {
+        const upload = document.createElement('input');
+        upload.type = 'file';
+        upload.accept = 'image/*'
+        upload.onchange = (e) => {
+            if (!upload.files) return;
+            const file = upload.files[0];           
+            this.uploadThumbnail(file);
+            
+        };
+        upload.click();
+        
+    }
+
+    uploadThumbnail = async(file) => { 
+        const { PostActions } = this.props;       
+        const type = file.type;
+        if(!file || file.size > 1024 * 1024 * 80 || file.type.indexOf('gif') > 0 ) return;
+        const filename = Escapeurl(file.name);
+        await PostActions.createurl({filename, type});
+        const { thumbnail, status, postid } = this.props;
+        
+        try{
+            if(thumbnail && !status && !postid ) return;            
+            await axios.put(thumbnail, file, {
+                headers: {   'Content-Type': type,  },           
+                
+            });
+        }catch(e){
+            console.log(e);     
+        }
+        
+        
+        
+        
+
+
+     }
 
     render() {
         const { editorState} = this.state;
-        const { handleSubmit } = this;  
+        const { handleSubmit, handleThumbnail } = this;  
         const { match, location, title } = this.props;
         const { id } = queryString.parse(location.search);
-            
-
         
+
         return (
             <Fragment>
                 <EditorHeader>
@@ -238,6 +262,9 @@ class EditorContainer extends Component {
                 onChange={this.handletitleChange}
                 />
                 </INPUT_AREA>
+                <Thumbnail
+                    onThumbnailupload={handleThumbnail}
+                />
                 <Button onClick={this.handleSubmit}>{id ? '수정하기' : '등록하기' }</Button>  
                
                 </EditorHeader>               
@@ -271,14 +298,17 @@ export default connect(
         editorerrors : state.post.editor.error,       
         urlslug : state.post.given.url_slug,
         givenerros : state.post.given.error,  
-        loading : state.pender.pending['editor/WRITE_POST'],
-        
-        user: state.user
+        loading : state.pender.pending['editor/WRITE_POST'],        
+        user: state.user,
+
+        thumbnail : state.post.editor.upload.thumbnailURL,
+        status : state.post.editor.upload.status,
+        postid : state.post.editor.upload.postid,
         
     }),
     (dispatch) => ({
         PostActions: bindActionCreators(PostActions, dispatch),
-        UserActions: bindActionCreators(UserActions, dispatch)
+     
     }),  
 )(withRouter(EditorContainer));
     

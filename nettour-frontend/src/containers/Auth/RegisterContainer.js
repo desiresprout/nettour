@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { AuthContent, InputWithLabel, AuthButton, RightAlignedLink, AuthError, SocialDivider  } from 'components/Auth';
+import { AuthWrapper, AuthContent, InputWithLabel, AuthButton, RightAlignedLink, AuthError, SocialDivider  } from 'components/Auth';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as authActions from 'redux/modules/auth';
+import * as authActions from 'store/modules/auth';
 import {isEmail, isLength, isAlphanumeric} from 'validator';
 import debounce from 'lodash/debounce';
 import storage from 'lib/storage';
-import * as userActions from 'redux/modules/user';
+import * as userActions from 'store/modules/user';
 import SocialLoginContainer from './SocialLoginContainer';
 
-class Register extends Component {
+class RegisterContainer extends Component {
 
     componentWillUnmount() {
         const { AuthActions } = this.props;
@@ -125,7 +125,7 @@ class Register extends Component {
             this.setError('이메일 인증을 진행해주세요'); 
             
             setTimeout(() => {
-                history.push('/auth/login')
+                history.push('/login')
               }, 7000);  
             
             //history.push('/auth/login')
@@ -151,6 +151,7 @@ class Register extends Component {
 
 
         return (
+            <AuthWrapper>
             <AuthContent title="회원가입">
                 <InputWithLabel 
                     label="이메일"
@@ -186,10 +187,11 @@ class Register extends Component {
                     error && <AuthError>{error}</AuthError>
                 }
                 <AuthButton onClick={handleLocalRegister}>회원가입</AuthButton>
-                <RightAlignedLink to="/auth/login">로그인</RightAlignedLink>
+                <RightAlignedLink to="/login">로그인</RightAlignedLink>
                 <SocialDivider/>
                 <SocialLoginContainer/>
             </AuthContent>
+            </AuthWrapper>
         );
     }
 }
@@ -206,4 +208,4 @@ export default connect(
         AuthActions: bindActionCreators(authActions, dispatch),
         UserActions: bindActionCreators(userActions, dispatch)
     })
-)(Register);
+)(RegisterContainer);

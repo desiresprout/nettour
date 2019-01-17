@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { AuthContent, InputWithLabel, AuthButton, AuthError } from 'components/Auth';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as authActions from 'redux/modules/auth';
-import * as userActions from 'redux/modules/user';
+import * as authActions from 'store/modules/auth';
+import * as userActions from 'store/modules/user';
 import {isLength, isAlphanumeric} from 'validator';
 import debounce from 'lodash/debounce';
 import storage from 'lib/storage';
@@ -51,7 +51,7 @@ class SocialRegister extends Component {
     componentWillMount() {
         const { social, history } = this.props;
         if(!social.accessToken) {
-            //history.push('/auth/login');
+            //history.push('/login');
         }
     }
 

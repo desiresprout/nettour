@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import queryString from "query-string";
 import { bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
-import * as authActions from 'redux/modules/auth';
+import * as authActions from 'store/modules/auth';
 import styled from 'styled-components';
 
 const Auth_Wrapper = styled.div`

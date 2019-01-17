@@ -11,7 +11,7 @@ class SidebarContainer extends Component {
 
                         <SidebarWrapperCss>
                             
-                            <SidebarMenu> 최신 포스트 </SidebarMenu>                   
+                            <SidebarMenu> 최신 포스트11 </SidebarMenu>                   
 </SidebarWrapperCss>
 
                         <SidebarWrapperCss>

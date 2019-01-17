@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import UserMenu, { UserMenuItem, Username } from 'components/Base/UserMenu';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as baseActions from 'redux/modules/base';
-import * as userActions from 'redux/modules/user';
+import * as baseActions from 'store/modules/base';
+import * as userActions from 'store/modules/user';
 
 import storage from 'lib/storage';
 

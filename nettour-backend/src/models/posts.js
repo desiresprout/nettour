@@ -6,9 +6,9 @@ const Comment = new Schema({
     username: String, 
     comment: String
 });
-
+//post_thumbnail : { type : String, default : 'static/images/thumbnail.png' },
 const Post = new Schema({
-    user_thumbnail : { type : String, default : 'static/images/thumbnail.png' },
+    post_thumbnail : { type : String },
     createdAt: { type: Date, default: Date.now }, 
     username: String,
     title: String,

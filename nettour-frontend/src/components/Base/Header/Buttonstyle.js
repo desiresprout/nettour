@@ -36,7 +36,7 @@ export const Button = styled(Link)`
 `;
 
 const Buttonstyle = ({ login }) => (
-    <Button to="/auth/login" login={login} >
+    <Button to="/login" login={login} >
         Login / Resigter
     </Button>
 );
