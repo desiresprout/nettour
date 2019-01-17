@@ -6,9 +6,9 @@ const Comment = new Schema({
     username: String, 
     comment: String
 });
-//post_thumbnail : { type : String, default : 'static/images/thumbnail.png' },
+
 const Post = new Schema({
-    post_thumbnail : { type : String },
+    thumbnail : { type : String, default : 'no' },
     createdAt: { type: Date, default: Date.now }, 
     username: String,
     title: String,
@@ -24,9 +24,9 @@ const Post = new Schema({
 
 
 
-Post.statics.writepost = function({title, username, content, state, url_slug}) {
+Post.statics.writepost = function({title, username, content, state, url_slug, thumbnail}) {
     const post = new this({
-        title, username, content, url_slug
+        title, username, content, url_slug, thumbnail
     });
 
     return post.save();
@@ -43,7 +43,7 @@ Post.statics.list = function ( { cursor, username, self}){
     return this.find(query)
         .sort({_id: -1})        
         .limit(20)
-        .select('-_id -content -likes -likesCount')
+        .select('-content -likes -likesCount')
         .exec();
 };
 

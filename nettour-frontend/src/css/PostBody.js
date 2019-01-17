@@ -23,8 +23,8 @@ export const UserdisplayCss = styled.div`
     display : flex;
     margin-top : 1rem;
     margin-bottom : 2rem;
-    align-items : center
-    justify-content : flex-end; 
+    align-items : center;
+    justify-content : flex-end;     
     
 `;
 

@@ -167,9 +167,13 @@ class EditorContainer extends Component {
       }      
 
      handleSubmit = async () => {         
-        const { PostActions, title, content, history, location, user, imagepath } = this.props; 
-       
+        const { PostActions, title, content, history, location, user, imagepath } = this.props;        
         if(!user.logged && !user.validated ) return;
+        let imageurl;
+        if(imagepath) {
+            imageurl = `https://images.nettour.ml/${imagepath}`;
+        }
+        console.log(imageurl);  
         
         try {            
             const { id } = queryString.parse(location.search);
@@ -180,7 +184,7 @@ class EditorContainer extends Component {
                   title,
                   content,
                   slug : Escapeurl(title),
-                  imagepath
+                  imageurl
                 }); 
               
             }else{
@@ -188,7 +192,7 @@ class EditorContainer extends Component {
                     title,
                     content,
                     slug : Escapeurl(title),
-                    imagepath
+                    imageurl
                 }); 
             }            
             

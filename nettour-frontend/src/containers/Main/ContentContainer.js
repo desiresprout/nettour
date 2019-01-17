@@ -11,7 +11,7 @@ import * as postsActions from 'store/modules/post';
 class ContentContainer extends Component {
       load = async () => {
         const { PostsActions } = this.props;
-        PostsActions.fulllist();
+        PostsActions.postlists();
     }
 
     componentDidMount() {        

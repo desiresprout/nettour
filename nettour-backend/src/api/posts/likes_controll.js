@@ -1,4 +1,4 @@
-const Post = require('models/post');
+const Post = require('models/posts');
 
 exports.like = async (ctx) => {
         
@@ -79,8 +79,7 @@ exports.unlike = async (ctx) => {
         ctx.status = 404; 
         return;
     }
-
-    // 이미 좋아요 하지 않은 상태면 기본값 반환
+    
     if(post.likes.length === 0) {
         ctx.body = {
             liked: false,
@@ -98,8 +97,7 @@ exports.unlike = async (ctx) => {
     } catch (e) {
         ctx.throw(500, e);
     }
-
-    /* 좋아요 관련정보 반환 */
+   
     ctx.body = {
         liked: false,
         likesCount: post.likesCount

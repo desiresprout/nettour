@@ -1,29 +1,22 @@
 import React from 'react';
-import { PostsCardCss, PostsThumbnailCss, RadiusMaskCss, ImageholderCss } from 'css/PostsCard';
+import { PostsCardCss, PostsThumbnailCss, RadiusMaskCss} from 'css/PostsCard';
 import UserThumbnail from 'components/Base/Header/UserThumbnail';
-//import  IoIosImage  from 'react-icons/lib/io/image';
+import  IoIosImage  from 'react-icons/lib/io/image';
 // import { IoIosImages } from 'react-icons/io'
-
 import { PostsCardContent } from 'components/Post';
 
 
-
-
-
 const PostsCard = ( { post } ) => {
-    const { _id, username, title, content, createdAt, comments, url_slug, user_thumbnail} = post;
+    const { username, title, content, createdAt, comments, url_slug, thumbnail} = post;
     
     return (
         <PostsCardCss className="postcard">
-            <PostsThumbnailCss to={`@${username}/${url_slug}`}>
-                <ImageholderCss>
-                     
-                    <RadiusMaskCss className="radius"/>      
-                
-                </ImageholderCss>               
+            <PostsThumbnailCss className="postsThumnbail" to={`@${username}/${url_slug}`}>
+                    {thumbnail=='no' ? <IoIosImage/> : <img src={thumbnail}/>}
+                    <RadiusMaskCss className="radius"/>               
                 
             </PostsThumbnailCss> 
-            <PostsCardContent title={title} thumnail={user_thumbnail} date={createdAt} count={comments.length}/>       
+            <PostsCardContent title={title} date={createdAt} count={comments.length}/>       
         
         </PostsCardCss>
         

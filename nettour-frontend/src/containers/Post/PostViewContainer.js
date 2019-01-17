@@ -5,65 +5,51 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { ContentState, EditorState, convertFromRaw, convertFromHTML  } from "draft-js";
 import htmlToDraft from 'html-to-draftjs';
-
-import axios from 'axios';
+import axios from 'lib/client';
 import Escapeurl from 'lib/common';
-
 import { PostHead, PostBody, PostContent, PostLike, PostComments} from 'components/Post';
 import { PostWrapperCss } from 'css/PostHead';
 import { PostContentCss} from 'css/PostContent';
 
-
-
-
 class PostViewContainer extends Component {
-   
-
-    initialize = async () => {
-        
-        const { PostActions, name, urlslug } = this.props;
-        
-        if(this.props.username && this.props.urlslug ) return;          
+    initialize = async () => {    
+        const { PostActions, name, urlslug } = this.props;       
+        if(this.props.username && this.props.urlslug ) return;        
        
         try { 
-            await PostActions.readpost({
+            const a = await PostActions.readpost({
                 name,
                 urlslug
-            });                           
+            });  
+            console.log(a);                         
         } catch(e) {
              console.log(e);          
         } 
-            //console.log("readpost");
+            
     }
 
-    handleRemovePost = async () => {
-        
+    handleRemovePost = async () => {        
         const { PostActions, postid, history }  = this.props;
         try{
             await PostActions.removepost(postid);
         }catch(e){
             console.log(e);
         }
-        history.push('/main');
-        
-    }
-       
-        
+        history.push('/main');        
+    }        
     
     componentDidMount(){
         this.initialize();       
     }
 
     render() {
-        const { title, username, content,  likesCount, date, currentuser, logged, postid } = this.props;
-        //const contentBlock = htmlToDraft(content); 
-
+        const { title, username, content,  likesCount, date, currentuser, logged, postid} = this.props;
         const { handleRemovePost } = this;
        
       
         return (            
             <Fragment>            
-                    <PostBody  //posthead
+                    <PostBody  
                         title = {title}
                         likes = {likesCount}
                         date = {date}
@@ -71,6 +57,7 @@ class PostViewContainer extends Component {
                         own = {currentuser===username}
                         onremovepost = {handleRemovePost}
                         id={postid}
+                        
                     />
                     <PostContentCss className="PostContent" 
                             dangerouslySetInnerHTML={{__html: content }}>           
@@ -93,9 +80,7 @@ export default connect(
         askremove : state.post.askremove,
         postid : state.post.readpost.postid,        
         currentuser : state.user.loggedInfo.username,
-        logged : !!state.user.loggedInfo.username,
-        
-        
+        logged : !!state.user.loggedInfo.username,        
     }),
     (dispatch) => ({
         PostActions: bindActionCreators(PostActions, dispatch)

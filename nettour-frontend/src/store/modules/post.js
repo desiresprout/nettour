@@ -3,7 +3,7 @@ import * as PostsAPI from 'lib/api/post';
 import { pender } from 'redux-pender';
 import produce from 'immer';
 
-const FULL_POST = 'posts/FULL_POST'; 
+const POST_LISTS = 'posts/POST_LISTS'; 
 const READ_POST = 'posts/READ_POST';
 //const RESET = 'posts/INITIALIZE';
 const CHANGE_TITLE = 'posts/CHANGE_TITLE';
@@ -22,7 +22,7 @@ const CREATE_URL = 'posts/CREATE_URL';
 //export const reset = createAction(RESET);
 export const changetitle = createAction(CHANGE_TITLE);
 export const changecontent = createAction(CHANGE_CONTENT);
-export const fulllist = createAction(FULL_POST, PostsAPI.fulllist);
+export const postlists = createAction(POST_LISTS, PostsAPI.postlists);
 export const writepost = createAction(WRITE_POST, PostsAPI.writepost);
 export const readpost = createAction(READ_POST, PostsAPI.readpost);
 export const writecomment = createAction(WRITE_COMMENT, PostsAPI.writecomment);
@@ -72,7 +72,7 @@ const initialState ={
 
 export default handleActions({
     ...pender({
-        type: FULL_POST,
+        type: POST_LISTS,
         onSuccess: (state, action) =>  produce(state, draft => {
                 const { next, data } = action.payload.data;
                 draft.next = next;

@@ -14,7 +14,7 @@ export const CardContentCss = styled.div`
 
 export const UserThunmnailCss = styled(Link)`
     position : absolute;
-    top : 0;
+    
     right : 1rem;
     width : 3.5rem;
     height : 3.5rem;

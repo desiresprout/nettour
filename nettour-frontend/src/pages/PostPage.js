@@ -7,8 +7,7 @@ import { PostHead } from 'components/Post';
 class PostPage extends Component {    
     
     render() {
-        const { match } = this.props;
-            
+        const { match } = this.props;            
         const { username, urlslug } = match.params;
 
 

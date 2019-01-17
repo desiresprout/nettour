@@ -1,26 +1,21 @@
 import React, { Fragment } from 'react';
-import { EditorState, ContentState } from 'draft-js';
-import htmlToDraft from 'html-to-draftjs';
-import { PostBodyCss, PostHeadCss, UserdisplayCss, UserThunmailCss, UserInfoCss, Date_likes_number } from 'css/PostBody';
+import { PostBodyCss, PostHeadCss, UserdisplayCss, UserInfoCss, Date_likes_number } from 'css/PostBody';
 import { Fromnow} from 'lib/common';
 import { Link } from 'react-router-dom';
 import { SeparatorCss} from 'css/Separator';
 import { PostAction } from 'components/Post';
 
 const PostBody = ({title, likes, date, username, own, id, onremovepost } ) => {
-    //const changedate = Fromnow(date);
-    //const changecontent = htmlToDraft(convertFromRaw(state.getCurrentContent()));  
-        //img에 유저프로필 렌더링
-    return (
-      
+    
+    return (      
         <PostBodyCss className="PostBody">
             <PostHeadCss className="PostHead">
                 <UserdisplayCss className="Userdisplay">
                     <Link to={'/'}>
-                        <img/>
+                        
                     </Link> 
                 <UserInfoCss>
-                    <Link to={'/'}>작성자 : {username}</Link>
+                    <Link to={'/'}> 작성자 : {username}</Link>
                 </UserInfoCss>               
 
                     
@@ -34,8 +29,7 @@ const PostBody = ({title, likes, date, username, own, id, onremovepost } ) => {
                 { own && <PostAction id={id} onremovepost={onremovepost} /> }
                 
             </PostHeadCss>
-        </PostBodyCss>      
-        
+        </PostBodyCss>         
     );
 };
 

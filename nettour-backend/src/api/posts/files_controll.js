@@ -3,8 +3,12 @@ const Post = require('models/posts');
 const AWS = require('aws-sdk');
 const kolocale = require('date-fns/locale/ko')
 
-const s3 = new AWS.S3({ region: 'ap-northeast-2', signatureVersion: 'v4' });
-
+const s3 = new AWS.S3({
+    credentials: {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.SECRET_ACCESS_KEY_ID,
+    }
+  }); 
 
 exports.createurl = async (ctx) => {
     
@@ -26,22 +30,17 @@ exports.createurl = async (ctx) => {
         };
         return;
     }         
-    const { username } = user.profile;   
+    const { username } = user.profile;     
     
-    const s3 = new AWS.S3({
-        credentials: {
-          accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-          secretAccessKey: process.env.SECRET_ACCESS_KEY_ID,
-        }
-      }); 
    
       const newDate = format(
         new Date(),
-        'YYYY-MM-DD.HH.mm.ss:Z',
+        'YYYY-MM-DD.HH.mm.ss',
         {locale: kolocale}
       );
 
-    const path = `post-thumbnail/${newDate}/${username}/${filename}`;   
+    const path = `post-thumbnail/${newDate}/${username}/${filename}`;     
+    
 
     const url = await s3.getSignedUrl('putObject', {
         Bucket: 'images.nettour.ml',
@@ -49,7 +48,8 @@ exports.createurl = async (ctx) => {
         ContentType: type,
         Expires: 300,
         ACL: 'public-read'
-      });    
+      });
+          
     ctx.body = {       
         url : url,
         imagepath : path,
@@ -57,5 +57,64 @@ exports.createurl = async (ctx) => {
 
     };
     
+};
+
+exports.imageupload = async (ctx)=>{
+    
+    const { file } = ctx.request.files;
+    const { name } = file;
+    const { user } = ctx.request;
+
+    if(!user) {
+        ctx.status = 403;
+        ctx.body = {
+            error : 'not login'
+        };
+        return;
+    }    
+
+    if(!file) {
+        ctx.status = 400;
+        ctx.body = {
+            error : 'no file'
+         }
+        return;
+      } 
+
+    const stats = fs.statSync(file.path);    
+
+    if(stats.size > 1024 * 1024 * 5) { // 5mb
+        ctx.status = 413; 
+        return;
+      }
+
+    const imagepath = formatFileName(name);
+    const read = fs.createReadStream(file.path);    
+    const filetype = file.type;  
+    
+
+    try {
+        const response = await s3
+          .upload({
+            Bucket: 'images.nettour.ml',
+            Key: imagepath, //
+            Body: read,  //스트림
+            ContentType: filetype,  //image/png
+            ACL: 'public-read'
+          }).promise();            
+    
+        if(!response || !response.ETag) {
+          console.log('error', response);
+          ctx.status = 418;
+          return;
+        }
+      } catch (e) {
+        ctx.throw(500,e);        
+      }
+      //`https://s3.amazonaws.com/s3nettour/${res.data}`
+      console.log(imagepath);
+      
+      ctx.body = imagepath; 
+      
 };
 
