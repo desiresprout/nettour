@@ -43,7 +43,7 @@ exports.createurl = async (ctx) => {
     
 
     const url = await s3.getSignedUrl('putObject', {
-        Bucket: 'images.nettour.ml',
+        Bucket: 'images.nettour.cf',
         Key: path,
         ContentType: type,
         Expires: 300,
@@ -96,7 +96,7 @@ exports.imageupload = async (ctx)=>{
     try {
         const response = await s3
           .upload({
-            Bucket: 'images.nettour.ml',
+            Bucket: 'images.nettour.cf',
             Key: imagepath, //
             Body: read,  //스트림
             ContentType: filetype,  //image/png

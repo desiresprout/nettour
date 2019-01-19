@@ -1,19 +1,20 @@
 const Post = require('models/posts');
 
 exports.like = async (ctx) => {
-        
+    
     const { user } = ctx.request;
     if(!user) {
         ctx.status = 403; 
         return;
-    }
+    }    
   
-    const { postId } = ctx.params;
+    const { postid } = ctx.params;
     const { username } = user.profile;
+    
 
     let post = null;
     try {
-        post = await Post.findById(postId, { 
+        post = await Post.findById(postid, { 
             likesCount: 1,
             likes: {
                 '$elemMatch': { '$eq': username }
@@ -27,7 +28,7 @@ exports.like = async (ctx) => {
         ctx.status = 404; 
         return;
     }
-    
+   
     if(post.likes[0] === username) {
         ctx.body = {
             liked: true,
@@ -39,7 +40,7 @@ exports.like = async (ctx) => {
     
     try {
         post = await Post.like({
-            _id: postId,
+            _id: postid,
             username: username
         });
     } catch (e) {
@@ -47,25 +48,26 @@ exports.like = async (ctx) => {
     }
 
     
-    ctx.body = {
+    ctx.body = {    
         liked: true,
         likesCount: post.likesCount
     };
 };
 
 exports.unlike = async (ctx) => {    
+    
     const { user } = ctx.request;
     if(!user) {
         ctx.status = 403; // Forbidden
         return;
     }
     
-    const { postId } = ctx.params;
+    const { postid } = ctx.params;
     const { username } = user.profile;
 
     let post = null;
     try {
-        post = await Post.findById(postId, {
+        post = await Post.findById(postid, {
             likesCount: 1,
             likes: {
                 '$elemMatch': { '$eq': username }
@@ -91,7 +93,7 @@ exports.unlike = async (ctx) => {
     
     try {
         post = await Post.unlike({
-            _id: postId,
+            _id: postid,
             username: username
         });
     } catch (e) {

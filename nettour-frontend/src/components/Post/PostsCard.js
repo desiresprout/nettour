@@ -16,6 +16,7 @@ const PostsCard = ( { post } ) => {
                     <RadiusMaskCss className="radius"/>               
                 
             </PostsThumbnailCss> 
+
             <PostsCardContent title={title} date={createdAt} count={comments.length}/>       
         
         </PostsCardCss>

@@ -40,15 +40,13 @@ Account.statics.findByUsername = function(username) {
     return this.findOne({'profile.username': username}).exec();
 };
 
-Account.statics.findByEmail = function(email) {
-    
+Account.statics.findByEmail = function(email) {    
     return this.findOne({'email' : email})    
     .exec();
 };
 
 Account.statics.findByEmailOrUsername = function({username, email}) {
-    return this.findOne({
-        // $or 연산자를 통해 둘중에 하나를 만족하는 데이터를 찾습니다
+    return this.findOne({        
         $or: [
             { 'profile.username': username },
             { 'email' : email}
@@ -56,8 +54,7 @@ Account.statics.findByEmailOrUsername = function({username, email}) {
     }).exec();
 };
 
-Account.statics.findByUserCode = function({code,email}) {
-    // 객체에 내장되어있는 값을 사용 할 때는 객체명.키 이런식으로 쿼리하면 됩니다
+Account.statics.findByUserCode = function({code,email}) {    
     return this.findOne({
         'auth.code' : code,
         'email' : email
@@ -80,19 +77,18 @@ Account.statics.localRegister = function({ username, email, password }) {
 };
 
 Account.methods.validatePassword = function(password) {
-    // 함수로 전달받은 password 의 해시값과, 데이터에 담겨있는 해시값과 비교를 합니다.
+    
     const hashed = hash(password);
     return this.password === hashed;
 };
 
-Account.methods.generateToken = function() {
-    // JWT 에 담을 내용
+Account.methods.generateToken = function() {    
     const payload = {
         _id: this._id,
         profile: this.profile
     };
     
-    return generateToken(payload);  //generateToken(payload, 'account');
+    return generateToken(payload);  
 };
 
 Account.methods.increasePostCount = function() {
@@ -100,16 +96,17 @@ Account.methods.increasePostCount = function() {
     return this.save();
 };
 
+Account.methods.decreasePostCount = function() {
+    this.postCount--;
+    return this.save();
+};
+
 Account.statics.emailChangeAuth = function(id){
-    /* !this.auth.is_authed;
-    return this.save(); */
     return this.findByIdAndUpdate(id, {
         $set: { 'auth.is_authed' : true }        
     }, {
         //new: true,        
     });
 }
-
-
 
 module.exports = mongoose.model('Account', Account);

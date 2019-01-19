@@ -5,23 +5,7 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const fs = require('fs');
 
 
-exports.writepost  = async(ctx)=>{    
-    const { user } = ctx.request;    
-    
-    let account;
-
-    try {
-        account = await Account.findById(user._id).exec();      
-    } catch (e) {
-        ctx.throw(500, e);
-    }
-
-    if(!account) {
-        ctx.status = 403; 
-        return;
-    } 
-    const count = account.postCount + 1;    
-   
+exports.writepost  = async(ctx)=>{
     const schema = Joi.object().keys({
         title : Joi.string().required().trim().min(2).max(150),
         content: Joi.string().min(5).required(), 
@@ -35,10 +19,22 @@ exports.writepost  = async(ctx)=>{
         ctx.status = 401;       
         console.log(result.error);        
         return;
-    }  
+    }     
+    const { user } = ctx.request;    
     
-    const { title , content, slug, imageurl } = ctx.request.body;    
+    let account;
 
+    try {
+        account = await Account.findById(user._id).exec();      
+    } catch (e) {
+        ctx.throw(500, e);
+    }
+
+    if(!account) {
+        ctx.status = 403; 
+        return;
+    }    
+    const { title , content, slug, imageurl } = ctx.request.body;   
     
     let post;    
 
@@ -50,11 +46,14 @@ exports.writepost  = async(ctx)=>{
             url_slug : slug,
             thumbnail : imageurl          
         });
-               
+        await account.increasePostCount();               
         
     } catch (e) {
         ctx.throw(500, e);
     }   
+    post = post.toJSON();
+    delete post.likes;
+    post.liked = false;
 
     ctx.body = post;  
     
@@ -85,20 +84,49 @@ exports.postlists = async (ctx) => {
 };
 
 exports.readpost = async(ctx)=>{
-    const { name, urlslug } = ctx.params;        
+    const { name, urlslug } = ctx.params;   
+    
+    const { user } = ctx.request;       
+    const self = user ? user.profile.username : null;
     
     let post;    
+
     try {        
         post = await Post.readpost({
             name, 
-            urlslug 
+            urlslug,
+            self 
         });
+        
            
     } catch (e) {
         ctx.throw(500, e);
-    }   
+    }       
+    //console.log(post);
+    let checklike= post.likes;    
+    let liked;
+
+    // 로그인안한상태 liked - false
+    // post.likes.length==0일떄  liked - false
+    // 로그인했는데 likes 배열에 없는경우 liked - false
+    // 로그인했는데 likes 배열에 있는경우 liked - true    
+       
+        //배열에 있으면 0을 반환
+        if(user){            
+            checklike.indexOf(user.profile.username) == 0 ? liked = true : liked = false             
+            // 로그인 한 상태에서 좋아요를 눌른상태면 true 아니면 false
+        }
+
+        if(!user || post.likes.length == 0 ){  // 로그안한거나 좋아요가 0일때는 false로
+            liked = false;
+        }
     
-    ctx.body = post;    
+    delete post.likes;
+    ctx.body = {
+        post : post,
+        liked : liked,
+       
+    };    
 
 };
 
@@ -122,7 +150,6 @@ exports.getpost = async(ctx)=>{
 
 exports.editpost = async(ctx)=>{
 
-    //id = postid, content
     const schema = Joi.object().keys({
         id : Joi.string().required().trim().min(2).max(150),
         content: Joi.string().min(5).required(), 
@@ -138,8 +165,7 @@ exports.editpost = async(ctx)=>{
         console.log(result.error);        
         return;
     }  
-
-   // const { id, title, content, slug} = ctx.request.body;
+   
 
     let editpost = null;
         //await Post.findByIdAndUpdate(postid, {'$set' : { 'comments.$.comment' : comment  }  })
@@ -147,10 +173,10 @@ exports.editpost = async(ctx)=>{
     try{
         editpost = await Post.findByIdAndUpdate(ctx.request.body.id,                    
             { $set : { 
-                title : ctx.request.body.title, 
-                content : ctx.request.body.content, 
-                url_slug : ctx.request.body.slug,
-                thumbnail : ctx.request.body.imagepath
+                        title : ctx.request.body.title, 
+                        content : ctx.request.body.content, 
+                        url_slug : ctx.request.body.slug,
+                        thumbnail : ctx.request.body.imagepath
                      } 
             },
         { new : true}).select('_id title content url_slug createdAt username').lean();
@@ -161,18 +187,15 @@ exports.editpost = async(ctx)=>{
     }catch(e){
         ctx.throw(e,500);
     }
-   
-
     ctx.body = editpost;
-
     
 };
 
 exports.removepost = async (ctx) => {
     const { id } = ctx.params;
-    console.log(id);
     
     try {
+      await Account.decreasePostCount();
       await Post.findByIdAndRemove(id).exec();
       ctx.status = 204;
     } catch (e) {

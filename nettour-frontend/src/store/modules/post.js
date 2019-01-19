@@ -16,8 +16,10 @@ const GET_POST = 'posts/GET_POST';
 const EDIT_POST = 'posts/EDIT_POST';
 const REMOVE_POST = 'posts/REMOVE_POST';
 const REMOVE_COMMENT = 'posts/REMOVE_COMMENT';
-
 const CREATE_URL = 'posts/CREATE_URL';
+
+const LIKE_POST = 'posts/LIKE_POST'; 
+const UNLIKE_POST = 'posts/UNLIKE_POST';
 
 //export const reset = createAction(RESET);
 export const changetitle = createAction(CHANGE_TITLE);
@@ -32,10 +34,10 @@ export const getpost = createAction(GET_POST, PostsAPI.getpost);
 export const editpost = createAction(EDIT_POST, PostsAPI.editpost);
 export const removepost = createAction(REMOVE_POST, PostsAPI.removepost);
 export const removecomment =  createAction(REMOVE_COMMENT, PostsAPI.removecomment);
-
 export const createurl = createAction(CREATE_URL,PostsAPI.createurl);
 
-
+export const likePost = createAction(LIKE_POST, PostsAPI.likePost); 
+export const unlikePost = createAction(UNLIKE_POST, PostsAPI.unlikePost); 
 
 const initialState ={
     next: '',
@@ -46,6 +48,7 @@ const initialState ={
         username : '',
         content : '',       
         likesCount:'',
+        liked : false,
         date:'',
         comment : {
             visible : false,
@@ -66,8 +69,7 @@ const initialState ={
     given:{        
         url_slug:'',
         error:'',
-    },
-    
+    },    
 };
 
 export default handleActions({
@@ -81,20 +83,22 @@ export default handleActions({
     }),
     ...pender({
         type: READ_POST,
-        onSuccess: (state, action) => produce(state, draft => {               
-                 const { _id , username, title, content, createdAt, comments} = action.payload.data;
+        onSuccess: (state, action) => produce(state, draft => {                                     
+                 const { _id , username, title, content, createdAt, comments, likesCount} = action.payload.data.post;
                  draft.readpost.postid = _id;
                  draft.readpost.title = title;
                  draft.readpost.username = username;                
                  draft.readpost.content = content;                 
                  draft.readpost.date = createdAt; 
-                 draft.readpost.comment.comments = comments;                
+                 draft.readpost.comment.comments = comments;
+                 draft.readpost.likesCount = likesCount;
+                 
+                 draft.readpost.liked = action.payload.data.liked;
         }),        
         onFailure: (state, action) => produce(state, draft => {       
           draft.given.error = action.payload;
         }),
     }),
-
     ...pender({
         type: WRITE_POST,
         onSuccess: (state, action) => produce(state, draft => {
@@ -170,12 +174,37 @@ export default handleActions({
         onSuccess: (state, action) => produce(state, draft => {              
             draft.editor.upload.thumbnailURL = action.payload.data.url;
             draft.editor.upload.status = action.payload.data.status;
-            draft.editor.upload.imagepath = action.payload.data.imagepath;
-                                           
+            draft.editor.upload.imagepath = action.payload.data.imagepath;                                           
         }),        
-       
-    }), 
-    
+     }),
+
+    ...pender({
+        type: LIKE_POST,
+        onPending : (state, action) => produce(state, draft=>{
+            
+            draft.readpost.liked = true;
+            draft.readpost.likesCount +=1;
+        }), 
+             
+        onSuccess: (state, action) => produce(state, draft=>{
+            console.log(action.payload.data.likesCount);            
+            draft.readpost.likesCount = action.payload.data.likesCount;
+            draft.readpost.liked = action.payload.data.liked;
+        }), 
+    }),
+
+    ...pender({
+        type: UNLIKE_POST,
+        onPending : (state, action) => produce(state, draft=>{
+            draft.readpost.liked = false;
+            draft.readpost.likesCount -=1;
+        }),         
+        onSuccess: (state, action) => produce(state, draft=>{
+            console.log(action.payload.data.likesCount);
+            draft.readpost.likesCount = action.payload.data.likesCount;
+            draft.readpost.liked = action.payload.data.liked;
+        }), 
+    }),
 
     [CHANGE_TITLE]: (state, action) => produce(state, draft => {    
         draft.editor.title = action.payload;  

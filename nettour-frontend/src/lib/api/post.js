@@ -11,5 +11,7 @@ export const getpost = (id) => axios.get(`/api/posts/post/${id}`);
 export const editpost = ({id, title, content, slug, imagepath}) => axios.patch(`/api/posts/post/edit`, { id, title, content, slug, imagepath});
 export const removepost = (id) => axios.delete(`/api/posts/post/${id}`);
 export const removecomment = (commentid) => axios.patch(`/api/posts/delete/comment`, { commentid });
-
 export const createurl = ({ filename, type }) => axios.post(`/api/posts/createurl`, { filename, type });
+
+export const likePost = (postid) => axios.post(`api/posts/${postid}/likes`);
+export const unlikePost = (postid) => axios.delete(`api/posts/${postid}/likes`)

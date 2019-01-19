@@ -10,18 +10,21 @@ import Escapeurl from 'lib/common';
 import { PostHead, PostBody, PostContent, PostLike, PostComments} from 'components/Post';
 import { PostWrapperCss } from 'css/PostHead';
 import { PostContentCss} from 'css/PostContent';
+import { pender } from 'redux-pender';
 
 class PostViewContainer extends Component {
+
     initialize = async () => {    
+       
         const { PostActions, name, urlslug } = this.props;       
-        if(this.props.username && this.props.urlslug ) return;        
+        if(!this.props.username && !this.props.urlslug ) return;        
        
         try { 
             const a = await PostActions.readpost({
                 name,
                 urlslug
             });  
-            console.log(a);                         
+                                   
         } catch(e) {
              console.log(e);          
         } 
@@ -42,8 +45,20 @@ class PostViewContainer extends Component {
         this.initialize();       
     }
 
+    onToggleLike = async() =>{        
+        const { PostActions, postid, liked } = this.props;      
+
+         if(liked){
+             PostActions.unlikePost(postid);
+         }else{
+            PostActions.likePost(postid);
+        }
+    };
+
+    
+
     render() {
-        const { title, username, content,  likesCount, date, currentuser, logged, postid} = this.props;
+        const { title, username, content,  likesCount, date, currentuser, logged, postid, liked} = this.props;
         const { handleRemovePost } = this;
        
       
@@ -51,12 +66,15 @@ class PostViewContainer extends Component {
             <Fragment>            
                     <PostBody  
                         title = {title}
-                        likes = {likesCount}
+                        likesCount = {likesCount}
                         date = {date}
                         username = {username}
                         own = {currentuser===username}
                         onremovepost = {handleRemovePost}
-                        id={postid}
+                        id={postid}                        
+                        liked={liked}
+                        onToggleLike={this.onToggleLike}
+                        logged={logged}
                         
                     />
                     <PostContentCss className="PostContent" 
@@ -71,14 +89,16 @@ class PostViewContainer extends Component {
 }
 
 export default connect(
-    (state) => ({
+    (state) => ({ 
         username : state.post.readpost.username,        
         title: state.post.readpost.title, 
         content: state.post.readpost.content,              
         likesCount : state.post.readpost.likesCount,
+        //processLike : state.pender.pending['posts/LIKE_POST'] || pender.pending['posts/UNLIKE_POST'],
         date : state.post.readpost.date,
         askremove : state.post.askremove,
-        postid : state.post.readpost.postid,        
+        postid : state.post.readpost.postid,
+        liked : state.post.readpost.liked,        
         currentuser : state.user.loggedInfo.username,
         logged : !!state.user.loggedInfo.username,        
     }),

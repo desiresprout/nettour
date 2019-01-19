@@ -171,9 +171,9 @@ class EditorContainer extends Component {
         if(!user.logged && !user.validated ) return;
         let imageurl;
         if(imagepath) {
-            imageurl = `https://images.nettour.ml/${imagepath}`;
+            imageurl = `https://images.nettour.cf/${imagepath}`;
         }
-        console.log(imageurl);  
+        
         
         try {            
             const { id } = queryString.parse(location.search);

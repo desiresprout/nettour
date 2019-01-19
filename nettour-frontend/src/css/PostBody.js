@@ -55,12 +55,51 @@ export const UserInfoCss = styled.div`
 export const Date_likes_number = styled.div`
     display : flex;
     align-items : center;
-    justify-content : flex-end;
-    maring-top : 1.5rem;
-    & > h3{
-        font-size : 1rem;
-        color : blue;
+    justify-content : space-between;
+    margin-top : 1.5rem;    
+    
+    
+`;
+export const LikesWrapper = styled.div`
+    display : flex;
+    align-items : center;
+    
+    h3{
+        font-size : 2rem;
+        color : ${oc.indigo[7]};
     }
+`;
+
+
+export const Likes = styled.button`
+    color : ${oc.indigo[4]};
+    border : 1px solid ${oc.indigo[2]};
+    width : 3rem;
+    height : 3rem;
+    background : #fff;
+    cursor : pointer;
+    border-radius : 1.8rem;
+    
+    margin : 0;
+    margin-right : 1rem;
+    padding : 0;
+    line-height : normal;
+    display : flex;
+    align-items : center;
+    justify-content : center;
+    overflow: visible;
+    font-size : 1.6rem;
+    
+    &:hover{
+        background : ${oc.indigo[4]};
+        color : white;
+    }
+    
+    svg{
+        font-size : 1.4rem;
+        border : ${oc.indigo[9]};
+    }
+
 `;
 
 export const PostContentCss = styled.div`
