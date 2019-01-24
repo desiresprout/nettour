@@ -33,19 +33,29 @@ Post.statics.writepost = function({title, username, content, state, url_slug, th
     return post.save();
 };
 
-Post.statics.list = function ( { cursor, username}){
+Post.statics.list = function ( { cursor, username, user}){
+    
     const query = Object.assign(
         { }, 
         cursor ? { _id: { $lt: cursor } } : { },
         username ? { username } : { }
-    );   
+    );      
     
+    if(user){
+        return this.find(query)
+        .sort({_id: -1})        
+        .limit(15)
+        .select('_id createdAt title content likesCount url_slug')        
+        .exec();
+    }
+
+    //여기서 lean()을 하면 다음포스트 읽어올수있을까?? 테스트해볼것     
     return this.find(query)
         .sort({_id: -1})        
         .limit(20)
         .select('_id thumbnail createdAt username title content likesCount comments url_slug')        
-        .exec();
-    //여기서 lean()을 하면 다음포스트 읽어올수있을까?? 테스트해볼것    
+        .exec();    
+    
 };
 
 Post.statics.readpost = function ({ name, urlslug, self}) {  

@@ -4,22 +4,14 @@ import { shadow, media } from 'css/styleUtil';
 import { Link } from 'react-router-dom';
 import abc from 'static/images/a.jpg';
 import { commonbackground }  from 'css/common.js';
+import a from 'static/images/travel.jpg';
 
-/*background-image : url(${first});
-transition : all 5s linear; 
-        background-size : cover;
-        background-repeat : no-repeat;  
-        background-position: 0 90%;
-        padding : 80% 0;    */
 export const HeaderWrapper = styled.div`
     width: 100%;      
     background-size : cover;
     background-repeat : no-repeat;
-    background-position : top;    
-    
-    
-    
-    
+    background-position : top;
+        
 
     @media (min-width : 1920px)
     {
@@ -29,7 +21,7 @@ export const HeaderWrapper = styled.div`
         width: 100%;                          
         height : 15rem;    
         background-image : none;
-        padding : 1.75rem;     
+        padding : 1.75rem;  
         
         background-color : #ffffff;      
         
@@ -116,33 +108,49 @@ export const Space = styled.div`
 export const InfoWrapper = styled.div`
     width : 1000px;
     display : flex;
-    flex-direction : row
+    flex-direction : row;
     align-items : center;
-    justify-items : center;
-    margin : 0 auto;
+    justify-content : space-between;
+   
 
     ${props => props.main && `    
         display : none;
  `}   
 `;
 
-export const InfoButton = styled(Link)`
-    flex : 1 0 auto;
+export const Info = styled.div`
+    display : flex;
     text-align : center;
     color : ${oc.indigo[3]};
-    &:hover {        
-        ${shadow(1)}
+    
+    a{
+        flex : 1 0 auto;
+        text-align : center;
+        color : ${oc.indigo[3]};
+        &:hover {        
+            ${shadow(1)}
+        }
+        font-weight : 500;
     }
-    font-weight : 500;
-
-    ${props => props.main && `    
-        display : none;
- `}   
 `;
+
+// export const InfoButton = styled(Link)`
+//     flex : 1 0 auto;
+//     text-align : center;
+//     color : ${oc.indigo[3]};
+//     &:hover {        
+//         ${shadow(1)}
+//     }
+//     font-weight : 500;
+
+//     ${props => props.main && `    
+//         display : none;
+//  `}   
+// `;
 
 
 export const BoardWrapper = styled.div`
-    background-image : url(${abc});
+    background-image : url(${a});
     background-size : cover;
     background-repeat : no-repeat;
     background-position : top; 

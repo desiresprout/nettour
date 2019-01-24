@@ -7,7 +7,7 @@ import { PostAction } from 'components/Post';
 import FaThumbsOUp from 'react-icons/lib/fa/thumbs-o-up'
 import FaThumbsUp from 'react-icons/lib/fa/thumbs-up';
 import Tooltip from 'react-tooltip';
-import withClickOutside from 'react-onclickoutside';
+
 
 class PostBody extends Component {
 
@@ -15,7 +15,7 @@ class PostBody extends Component {
     
     render() {
         const { title, likesCount, date, username, own, id, onremovepost, onToggleLike, liked, logged } = this.props;
-        console.log(logged);
+        
         return (
             <PostBodyCss className="PostBody">
                 <PostHeadCss className="PostHead">
@@ -24,7 +24,7 @@ class PostBody extends Component {
                             
                         </Link> 
                     <UserInfoCss>
-                        <Link to={'/'}> 작성자 : {username}</Link>
+                        <Link to={`/@${username}`}> 작성자 : {username}</Link>
                     </UserInfoCss>               
 
                         

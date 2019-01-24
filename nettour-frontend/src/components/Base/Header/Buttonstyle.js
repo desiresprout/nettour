@@ -13,9 +13,9 @@ export const Button = styled(Link)`
     border-radius: 2px;
     text-decoration: none;
     transition: .2s all;
-
    }
-
+    margin-top : 4rem;
+    text-align : center;
     font-weight: 600;
     color : ${oc.indigo[5]}; 
     padding: 0.5rem;
@@ -24,13 +24,13 @@ export const Button = styled(Link)`
     border-radius: 2px;
     text-decoration: none;
     transition: .2s all;
+    
 
     &:hover {        
         ${shadow(1)}
     }
 
-    &:active {
-        /* 마우스 클릭시 아래로 미세하게 움직임 */
+    &:active {        
         transform: translateY(3px);
     }
 `;

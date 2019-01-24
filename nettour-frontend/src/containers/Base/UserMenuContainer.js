@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as baseActions from 'store/modules/base';
 import * as userActions from 'store/modules/user';
-
 import storage from 'lib/storage';
-
 import onClickOutside from 'react-onclickoutside';
+
 
 class UserMenuContainer extends Component {
 
@@ -24,7 +23,6 @@ class UserMenuContainer extends Component {
         } catch (e) {
             console.log(e);
         }
-
         storage.remove('loggedInfo');
         window.location.href = '/';
     }
@@ -41,7 +39,6 @@ class UserMenuContainer extends Component {
         return (
             <UserMenu>
                 <Username username={username}/>
-                <UserMenuItem>ㅇㅇ</UserMenuItem>
                 <UserMenuItem>설정</UserMenuItem>
                 <UserMenuItem onClick={handleLogout}>로그아웃</UserMenuItem>
             </UserMenu>

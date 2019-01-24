@@ -77,7 +77,7 @@ export const Postcomment_inputcss = styled.div`
         border: 1px solid ${oc.gray[2]};
         border-radius: 4px;
         resize: none;
-        color: $oc-gray-9;
+        color: ${oc.gray[9]};
         display: block;
         line-height: 1.5;
     }

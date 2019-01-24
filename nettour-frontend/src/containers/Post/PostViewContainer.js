@@ -20,11 +20,7 @@ class PostViewContainer extends Component {
         if(!this.props.username && !this.props.urlslug ) return;        
        
         try { 
-            const a = await PostActions.readpost({
-                name,
-                urlslug
-            });  
-                                   
+            const a = await PostActions.readpost({ name,urlslug });                                     
         } catch(e) {
              console.log(e);          
         } 
@@ -60,7 +56,8 @@ class PostViewContainer extends Component {
     render() {
         const { title, username, content,  likesCount, date, currentuser, logged, postid, liked} = this.props;
         const { handleRemovePost } = this;
-       
+        console.log(typeof(content));
+
       
         return (            
             <Fragment>            

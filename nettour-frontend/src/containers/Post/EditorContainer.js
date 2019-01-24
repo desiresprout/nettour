@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from 'react-redux';  
 import * as PostActions from 'store/modules/post';
+import * as BaseActions from 'store/modules/base';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { Editor } from "react-draft-wysiwyg";
@@ -167,7 +168,7 @@ class EditorContainer extends Component {
       }      
 
      handleSubmit = async () => {         
-        const { PostActions, title, content, history, location, user, imagepath } = this.props;        
+        const { PostActions, title, content, history, location, user, imagepath, BaseActions } = this.props;        
         if(!user.logged && !user.validated ) return;
         let imageurl;
         if(imagepath) {
@@ -186,6 +187,10 @@ class EditorContainer extends Component {
                   slug : Escapeurl(title),
                   imageurl
                 }); 
+                BaseActions.setshow({
+                    code : 'success',
+                    message :'수정되었습니다',
+                });
               
             }else{
                 await PostActions.writepost({
@@ -194,8 +199,12 @@ class EditorContainer extends Component {
                     slug : Escapeurl(title),
                     imageurl
                 }); 
-            }            
-            
+               
+                BaseActions.setshow({
+                    code : 'success',
+                    message : '작성되었습니다',
+                });
+            }    
             if (!this.props.username || !this.props.urlslug) return;          
             const redirecturl = `/@${this.props.username}/${this.props.urlslug}`;
             history.push(redirecturl); 
@@ -308,7 +317,7 @@ export default connect(
     }),
     (dispatch) => ({
         PostActions: bindActionCreators(PostActions, dispatch),
-     
+        BaseActions : bindActionCreators(BaseActions, dispatch),
     }),  
 )(withRouter(EditorContainer));
     

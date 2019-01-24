@@ -2,7 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import oc from 'open-color';
 
-const Wrapper = styled.div`
+const ThumbnailWrapper = styled.div`
+    margin-top : 3rem;
+    display : flex;
+    margin : 0 auto;    
+`;
+const Thumbnail = styled.div`
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -19,9 +24,11 @@ const Wrapper = styled.div`
 `;
 
 const UserThumbnail = ({thumbnail, onClick}) => (
-    <Wrapper image={thumbnail} onClick={onClick}>
+    <ThumbnailWrapper>
+        <Thumbnail image={thumbnail} onClick={onClick}>
 
-    </Wrapper>
+        </Thumbnail>
+    </ThumbnailWrapper>
 );
 
 export default UserThumbnail;

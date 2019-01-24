@@ -5,11 +5,10 @@ import * as userActions from 'store/modules/user';
 import * as baseActions from 'store/modules/base';
 import { bindActionCreators, compose } from 'redux';
 import storage from 'lib/storage';
-import UserMenuContainer from './UserMenuContainer';
-import { Helmet } from 'react-helmet';
+import UserMenuContainer from 'containers/Base/UserMenuContainer';
 
 
-class HeaderContainer extends Component {
+class AuthContainer extends Component {
     
     handleThumbnailClick = (e) => {
         e.nativeEvent.stopImmediatePropagation();        
@@ -24,34 +23,13 @@ class HeaderContainer extends Component {
         
         return (          
             <Fragment>            
-            <Helmet>
-            <title>NetTouR - 여행 후기  </title>
-            </Helmet>            
-            
-            { !main
-                ? ( 
-                        <Header>            
                         {     user.logged 
                             ? ( <UserThumbnail thumbnail={user.loggedInfo.thumbnail} onClick={handleThumbnailClick}/>)
                             : <Buttonstyle className="login" />                    
                         }    
                             <UserMenuContainer eventTypes="click"/>
-                        </Header> 
-                  )                  
-                :  
-                (  
-                    <Header className="header" main={main}>            
-                    {     user.logged 
-                        ? ( <UserThumbnail thumbnail={user.loggedInfo.thumbnail} onClick={handleThumbnailClick}/>)
-                        : <Buttonstyle className="login" />                    
-                    }    
-                        <UserMenuContainer eventTypes="click"/>
-                    </Header>  
-                )           
-            }            
-              
+                            
             </Fragment>         
-            
         );
     }
 }
@@ -66,7 +44,7 @@ export default connect(
         UserActions: bindActionCreators(userActions, dispatch),
         BaseActions: bindActionCreators(baseActions, dispatch)
     }),
-)(HeaderContainer);
+)(AuthContainer);
 
 
 

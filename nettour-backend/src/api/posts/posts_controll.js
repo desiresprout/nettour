@@ -60,7 +60,8 @@ exports.writepost  = async(ctx)=>{
 };
 
 exports.postlists = async (ctx) => {
-    const { cursor, username } = ctx.query; 
+    const { cursor, username, user } = ctx.query;     
+    
 
     if(cursor && !ObjectId.isValid(cursor)) {
         ctx.status = 400; 
@@ -70,17 +71,29 @@ exports.postlists = async (ctx) => {
     let posts = null;
 
     try{
-      posts = await Post.list( { cursor, username } );  
+      posts = await Post.list( { cursor, username, user } );
+       
     } catch(e){
         ctx.throw(500,e);
     }
-    
-    const next = posts.length === 20 ? `/api/posts/?${username ? `username=${username}&` : ''}cursor=${posts[19]._id}` : null;
-   
-    ctx.body = {
-        next,
-        data: posts
-    };
+
+    if(user){        
+        const next = posts.length === 15 ? `/api/posts/?${username ? `username=${username}&` : ''}cursor=${posts[14]._id}` : null;
+                
+        ctx.body = {
+            next,
+            data:posts
+        }
+        return;
+     }else{       
+       const next = posts.length === 20 ? `/api/posts/?${username ? `username=${username}&` : ''}cursor=${posts[19]._id}` : null;
+
+       ctx.body = {
+            next,
+            data:posts
+        }
+        return;
+    }    
 };
 
 exports.readpost = async(ctx)=>{

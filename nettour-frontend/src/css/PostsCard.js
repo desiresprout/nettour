@@ -37,6 +37,26 @@ export const PostsThumbnailCss = styled(Link)`
     }
 
 `;
+export const ImagePlaceholder = styled.div`
+        background: ${oc.gray[3]};
+        font-size: 5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #98a8b9;
+        object-fit : cover;
+        position : absolute;
+        top: 0;
+        left: 0;
+        width : 100%;
+        height : 100%;
+        border-top-left-radius : 4px;
+        border-top-right-radius : 4px;
+        & > svg{        
+            vertical-align : middle;        
+        
+        }
+`;
 
 export const RadiusMaskCss = styled.div`
     position : absolute;

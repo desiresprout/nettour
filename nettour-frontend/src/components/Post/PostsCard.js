@@ -1,5 +1,5 @@
 import React from 'react';
-import { PostsCardCss, PostsThumbnailCss, RadiusMaskCss} from 'css/PostsCard';
+import { PostsCardCss, PostsThumbnailCss, RadiusMaskCss, ImagePlaceholder} from 'css/PostsCard';
 import UserThumbnail from 'components/Base/Header/UserThumbnail';
 import  IoIosImage  from 'react-icons/lib/io/image';
 // import { IoIosImages } from 'react-icons/io'
@@ -12,7 +12,11 @@ const PostsCard = ( { post } ) => {
     return (
         <PostsCardCss className="postcard">
             <PostsThumbnailCss className="postsThumnbail" to={`@${username}/${url_slug}`}>
-                    {thumbnail=='no' ? <IoIosImage/> : <img src={thumbnail}/>}
+                    { thumbnail=='no' ? 
+                    <ImagePlaceholder>
+                        <IoIosImage/> 
+                    </ImagePlaceholder>
+                    : <img src={thumbnail}/>}
                     <RadiusMaskCss className="radius"/>               
                 
             </PostsThumbnailCss> 
