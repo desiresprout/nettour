@@ -8,7 +8,7 @@ import storage from 'lib/storage';
 import { withRouter } from 'react-router-dom';
 
 
-class SocialLogin extends Component {
+class SocialLoginContainer extends Component {
 
     handleSocialLogin = async (provider) => {
         const { AuthActions, UserActions, history } = this.props;
@@ -46,4 +46,4 @@ export default connect(
         AuthActions: bindActionCreators(authActions, dispatch),
         UserActions: bindActionCreators(userActions, dispatch)
     })
-)(withRouter(SocialLogin)); 
+)(withRouter(SocialLoginContainer)); 

@@ -7,7 +7,7 @@ import {isEmail, isLength, isAlphanumeric} from 'validator';
 import debounce from 'lodash/debounce';
 import storage from 'lib/storage';
 import * as userActions from 'store/modules/user';
-import SocialLoginContainer from './SocialLoginContainer';
+import SocialRegisterContainer from './SocialLoginContainer';
 
 class RegisterContainer extends Component {
 
@@ -189,7 +189,7 @@ class RegisterContainer extends Component {
                 <AuthButton onClick={handleLocalRegister}>회원가입</AuthButton>
                 <RightAlignedLink to="/login">로그인</RightAlignedLink>
                 <SocialDivider/>
-                <SocialLoginContainer/>
+                <SocialRegisterContainer/>
             </AuthContent>
             </AuthWrapper>
         );

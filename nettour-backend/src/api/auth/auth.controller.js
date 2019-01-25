@@ -3,6 +3,7 @@ const Account = require('models/account');
 const nodemailer = require('nodemailer');
 const shortid = require('shortid');
 const { sendmail } = require('lib/sendmail');
+const social = require('lib/social');
 
 /* exports.localRegister = async (ctx) => {
     const schema = Joi.object().keys({
@@ -113,6 +114,7 @@ exports.exists = async (ctx) => {
 };
 
 exports.socialLogin = async (ctx) => {    
+   
     const schema = Joi.object().keys({
         accessToken: Joi.string().required()
     });
@@ -126,10 +128,13 @@ exports.socialLogin = async (ctx) => {
 
     const { provider } = ctx.params;
     const { accessToken } = ctx.request.body;
+    // console.log(provider);
+    // console.log(accessToken);
 
     let profile = null;
     try {
         profile = await social[provider].getProfile(accessToken);
+        console.log(profile);
     } catch (e) {       
         ctx.status = 403; 
         return;
@@ -178,71 +183,74 @@ exports.socialLogin = async (ctx) => {
 };
 
 exports.socialRegister = async (ctx) => {    
-    const schema = Joi.object().keys({
-        username: Joi.string().alphanum().min(4).max(15).required(),
-        accessToken: Joi.string().required()
-    });
+    console.log(ctx.request.accessToken);
 
-    const result = Joi.validate(ctx.request.body, schema);
+    // const schema = Joi.object().keys({
+    //     username: Joi.string().alphanum().min(4).max(15).required(),
+    //     accessToken: Joi.string().required()
+    // });
 
-    if(result.error) {
-        ctx.status = 400; 
-        return;
-    }
-    const { provider } = ctx.params;
-    const { accessToken, username } = ctx.request.body;
+    // const result = Joi.validate(ctx.request.body, schema);
+
+    // if(result.error) {
+    //     ctx.status = 400; 
+    //     return;
+    // }
+    // const { provider } = ctx.params;
+    // const { accessToken, username } = ctx.request.body;
     
-    try {
-        const usernameExists = await Account.findByUsername(username);
-        if(usernameExists) {
-            ctx.status = 409; 
-            ctx.body = { message: 'duplicated username' };
-        }
-    } catch (e) {
-        ctx.throw(500, e);
-    }    
+    // try {
+    //     const usernameExists = await Account.findByUsername(username);
+    //     if(usernameExists) {
+    //         ctx.status = 409; 
+    //         ctx.body = { message: 'duplicated username' };
+    //     }
+    // } catch (e) {
+    //     ctx.throw(500, e);
+    // }    
     
-    let profile = null;
-    try {
-        profile = await social[provider].getProfile(accessToken);
-    } catch (e) {
-        ctx.status = 403;
-        return;
-    }
+    // let profile = null;
+    // try {
+    //     profile = await social[provider].getProfile(accessToken);
+    //     console.log(profile);
+    // } catch (e) {
+    //     ctx.status = 403;
+    //     return;
+    // }
 
-    let account = null;
-    try {
-        account = await Account.findByProviderId(provider, profile.id);
-    } catch (e) {
-        ctx.throw(500, e);
-    }
+    // let account = null;
+    // try {
+    //     account = await Account.findByProviderId(provider, profile.id);
+    // } catch (e) {
+    //     ctx.throw(500, e);
+    // }
 
-    if(account) {       
-        ctx.status = 409; 
-        ctx.body = { message: 'already registered' };
-        return;
-    }    
-    try {
-        account = await Account.socialRegister({
-            provider,
-            profile,
-            accessToken,
-            username
-        });
-    } catch (e) {
-        ctx.throw(500, e);
-    }
+    // if(account) {       
+    //     ctx.status = 409; 
+    //     ctx.body = { message: 'already registered' };
+    //     return;
+    // }    
+    // try {
+    //     account = await Account.socialRegister({
+    //         provider,
+    //         profile,
+    //         accessToken,
+    //         username
+    //     });
+    // } catch (e) {
+    //     ctx.throw(500, e);
+    // }
 
-    try {
-        const token = await account.generateToken();
-        ctx.cookies.set('access_token', token, {
-            maxAge: 1000 * 60 * 60 * 24 * 7,
-            httpOnly: true
-        });
-        ctx.body = account.profile;
-    } catch (e) {
-        ctx.throw(500, e);
-    }
+    // try {
+    //     const token = await account.generateToken();
+    //     ctx.cookies.set('access_token', token, {
+    //         maxAge: 1000 * 60 * 60 * 24 * 7,
+    //         httpOnly: true
+    //     });
+    //     ctx.body = account.profile;
+    // } catch (e) {
+    //     ctx.throw(500, e);
+    // }
 };
 
 
@@ -352,8 +360,8 @@ exports.authEmail = async(ctx) =>{
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: process.env.AUTH_EMAIL,  
-            pass: process.env.AUTH_PASSWORD        
+            user: process.env.EMAIL,  
+            pass: process.env.EMAIL_PASSWORD        
         }
     });
     let code = await Account.findByEmail(email);
@@ -362,7 +370,7 @@ exports.authEmail = async(ctx) =>{
             <a href="https://nettour.cf/auth-email?email=${email}&code=${code.auth.code}">인증하기</a>` 
     */
     let mailOptions = {
-        from: process.env.AUTH_EMAIL,    
+        from: process.env.EMAIL,    
         to: email ,                     
         subject: '안녕하세요, NetTouR입니다. 이메일 인증을 해주세요.',
         html: `<a href="https://nettour.cf"><img src="https://images.nettour.cf/nettour_logo.png" style="display: block; 

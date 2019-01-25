@@ -71,6 +71,7 @@ class SocialRegister extends Component {
 
 
     handleSocialRegister = async () => {
+        console.log('hi');
         const { AuthActions, UserActions, error, register, social, history } = this.props;
         const username = register.username;
 
@@ -78,7 +79,7 @@ class SocialRegister extends Component {
         if(error) return;
 
         const { accessToken, provider } = social;
-
+        
         try {
             await AuthActions.socialRegister({
                 provider,
