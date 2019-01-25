@@ -31,7 +31,7 @@ provider:
 
 functions:
   api:
-    handler: src/api.handler
+    handler: src/serverless.handler
     events:
       - http:
           path: /

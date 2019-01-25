@@ -33,9 +33,6 @@ app.use(jwtMiddleware);
 app.use(cors(options ));
 
 
-
-
-
 router.use('/api', api.routes());
 
 router.get('/check', (ctx, next) => {
