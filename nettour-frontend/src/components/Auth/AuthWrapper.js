@@ -4,6 +4,13 @@ import oc from 'open-color';
 import { shadow } from 'css/styleUtil';
 import { Link } from 'react-router-dom';
 
+
+const Wrapper = styled.div`
+    width : 100%;
+    height : 100%;
+    position : relative;
+`;
+
 // 화면의 중앙에 위치시킨다
 const Positioner = styled.div`
     position: absolute;
@@ -40,6 +47,7 @@ const Contents = styled.div`
 `;
 
 const AuthWrapper = ({children}) => (
+    <Wrapper>
     <Positioner>
         <ShadowedBox>
             <LogoWrapper>
@@ -50,6 +58,7 @@ const AuthWrapper = ({children}) => (
             </Contents>
         </ShadowedBox>
     </Positioner>
+    </Wrapper>
 );
 
 export default AuthWrapper;

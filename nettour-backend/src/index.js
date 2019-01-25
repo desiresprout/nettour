@@ -10,16 +10,15 @@ const mongoose = require('mongoose');
 const { jwtMiddleware } = require('./lib/token');
 const cors = require('@koa/cors');
 
-
 mongoose.Promise = global.Promise; 
-
 
 const options = {
     origin: process.env.NODE_ENV ==='dev' ? 'http://localhost:3000' : "https://nettour.ml",
     credentials : true
 };
 //credentials : process.env.NODE_ENV =='dev' ? false : true
-mongoose.connect(process.env.MONGO_URI).then(
+
+mongoose.connect(process.env.NODE_ENV === 'dev' ? process.env.LOCAL_MONGO_URI : process.env.MONGO_URI).then(
     (response) => {
         console.log('Successfully connected to mongodb');
     }
@@ -39,8 +38,12 @@ app.use(cors(options ));
 
 router.use('/api', api.routes());
 
-router.get('/post', (ctx, next) => {
-    ctx.body = 'post';
+router.get('/check', (ctx, next) => {
+    ctx.body = 'check';
+});
+
+router.get('/db', (ctx, next) => {
+    ctx.body = 'check';
 });
 
 app.use(router.routes()).use(router.allowedMethods());

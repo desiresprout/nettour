@@ -19,6 +19,11 @@ const Wrapper = styled.div`
             width: 100%;
         `}
     `}
+    div{
+        &.container{
+            height : 100%;
+        }
+    }
 `;
 
 const PageWrapper = ({responsive, children}) => (
@@ -34,7 +39,9 @@ class UserPage extends Component {
         const { username } = match.params;
         return (
             <PageWrapper>
-                <UserContainer username={username}/>    
+                <div className="container">
+                <UserContainer username={username}/>  
+                </div>  
             </PageWrapper>
         );
     }
