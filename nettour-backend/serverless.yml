@@ -63,11 +63,9 @@ functions:
             allowCredentials: true
     vpc:
       securityGroupIds:
-        - sg-5bc57830
-        - sg-056b9986a73e2f766
+    
       subnetIds:
-        - subnet-91481ef9
-        - subnet-4f59dc03 
+        
 
 custom:
   apigwBinary:
