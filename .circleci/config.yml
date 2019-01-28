@@ -31,4 +31,4 @@ workflows:
       - deploy-backend:
           filters:
             branches:
-              only: circle
+              only: circleci
