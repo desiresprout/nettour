@@ -17,8 +17,8 @@ provider:
     MONGO_URI : ${env:MONGO_URI} 
     S3_KEY : ${env:AWS_S3_ACCESS_KEY_ID}
     S3_SECRET_KEY : ${env:AWS_S3_SECRET_KEY_ID}
-    EMAIL : ${env:AUTH_EMAIL}
-    EMAIL_PASSWORD : ${env:AUTH_PASSWORD}
+    EMAIL : ${env:EMAIL}
+    EMAIL_PASSWORD : ${env:EMAIL_PASSWORD}
 
   iamRoleStatements:
     - Effect: 'Allow'
@@ -63,7 +63,7 @@ functions:
             allowCredentials: true
     vpc:
       securityGroupIds:
-        - sg-071dad567216f0e1a
+        
 
       subnetIds:
         - subnet-0241a7d39dab6241d
