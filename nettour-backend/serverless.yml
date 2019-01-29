@@ -37,7 +37,7 @@ functions:
           path: /
           method: ANY
           cors:
-            origin: 'https://nettour.cf'
+           # origin: 'https://nettour.cf'
             headers:
               - Cookie
               - Content-Type
@@ -51,7 +51,7 @@ functions:
           path: /{any+} # this matches any path, the token 'any' doesn't mean anything special
           method: ANY
           cors:
-            origin: 'https://nettour.cf'
+            #origin: 'https://nettour.cf'
             headers:
               - Cookie
               - Content-Type
