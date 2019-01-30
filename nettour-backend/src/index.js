@@ -10,6 +10,8 @@ const mongoose = require('mongoose');
 const { jwtMiddleware } = require('./lib/token');
 const cors = require('@koa/cors');
 
+
+
 mongoose.Promise = global.Promise; 
 
 const options = {
