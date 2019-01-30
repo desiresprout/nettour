@@ -10,12 +10,10 @@ const mongoose = require('mongoose');
 const { jwtMiddleware } = require('./lib/token');
 const cors = require('@koa/cors');
 
-
-
 mongoose.Promise = global.Promise; 
 
 const options = {
-    origin: process.env.NODE_ENV ==='dev' ? 'http://localhost:3000' : "https://nettour.ml",
+    origin: process.env.NODE_ENV ==='dev' ? 'http://localhost:3000' : "https://nettour.cf",
     credentials : true
 };
 //credentials : process.env.NODE_ENV =='dev' ? false : true
@@ -52,5 +50,7 @@ router.get('/', (ctx, next) => {
 app.use(router.routes()).use(router.allowedMethods());
 
 app.listen(port, () => {
-    console.log(`nettour server is listening to ${port}`);
+    console.log(`nettoura server is listening to ${port}`);
 });
+
+module.exports = app;
