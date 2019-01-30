@@ -40,7 +40,11 @@ router.get('/check', (ctx, next) => {
 });
 
 router.get('/db', (ctx, next) => {
-    ctx.body = 'check';
+    ctx.body = 'db';
+});
+
+router.get('/', (ctx, next) => {
+    ctx.body = 'nettour';
 });
 
 app.use(router.routes()).use(router.allowedMethods());
