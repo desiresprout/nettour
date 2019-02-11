@@ -9,7 +9,7 @@ const UserPostWrapper = styled.div`
     display : flex;
     flex-direction : column;
     margin : 0.8rem;
-    box-shadow: 0 4px 8px 0 ${oc.indigo[3]};
+    box-shadow: 0 4px 8px 0 #808080;
     transition: 0.3s;
     border-radius: 5px;
     h2{
@@ -31,6 +31,7 @@ const UserPostWrapper = styled.div`
 `;
 
 const UserSubWrapper = styled.div`
+    margin-top : 0.8rem;
     span{
         &.padding{
             &:before{

@@ -56,8 +56,6 @@ class PostViewContainer extends Component {
     render() {
         const { title, username, content,  likesCount, date, currentuser, logged, postid, liked} = this.props;
         const { handleRemovePost } = this;
-        console.log(typeof(content));
-
       
         return (            
             <Fragment>            
@@ -76,10 +74,7 @@ class PostViewContainer extends Component {
                     />
                     <PostContentCss className="PostContent" 
                             dangerouslySetInnerHTML={{__html: content }}>           
-                    </PostContentCss>             
-                
-                
-            
+                    </PostContentCss>                    
             </Fragment>
         );
     }

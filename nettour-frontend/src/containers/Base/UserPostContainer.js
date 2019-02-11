@@ -8,6 +8,7 @@ import { UserPostList }  from 'components/Base/UserMenu';
 class UserPostContainer extends Component {
 
     prev = null;
+    user = true;
 
     load = async () => {
         const { PostsActions, username } = this.props;
@@ -17,7 +18,7 @@ class UserPostContainer extends Component {
             const { next } = this.props;           
             
             if(next) {                               
-                await PostsActions.prefetchpost(next);
+                await PostsActions.prefetchpost(next, this.user);
             }
         } catch (e) {
             console.log(e);
@@ -34,7 +35,7 @@ class UserPostContainer extends Component {
         this.prev = next;
         
         try {
-            await PostsActions.prefetchpost(next);
+            await PostsActions.prefetchpost(next,this.user);
         } catch (e) {
             console.log(e);
         }

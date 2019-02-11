@@ -1,7 +1,6 @@
 const Post = require('models/posts');
 
-exports.like = async (ctx) => {
-    
+exports.like = async (ctx) => {    
     const { user } = ctx.request;
     if(!user) {
         ctx.status = 403; 
@@ -9,9 +8,8 @@ exports.like = async (ctx) => {
     }    
   
     const { postid } = ctx.params;
-    const { username } = user.profile;
-    
-
+    const { username } = user.profile;    
+   
     let post = null;
     try {
         post = await Post.findById(postid, { 
@@ -27,7 +25,7 @@ exports.like = async (ctx) => {
     if(!post) {
         ctx.status = 404; 
         return;
-    }
+    }    
    
     if(post.likes[0] === username) {
         ctx.body = {

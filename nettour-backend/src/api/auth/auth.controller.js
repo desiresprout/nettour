@@ -5,55 +5,6 @@ const shortid = require('shortid');
 const { sendmail } = require('lib/sendmail');
 const social = require('lib/social');
 
-/* exports.localRegister = async (ctx) => {
-    const schema = Joi.object().keys({
-        username: Joi.string().alphanum().min(4).max(15).required(),
-        email: Joi.string().email().required(),
-        password: Joi.string().required().min(6)
-    });    
-    const result = Joi.validate(ctx.request.body, schema);    
-    
-    if(result.error) {
-        ctx.status = 400;
-        return;
-    }      
-
-    let existing = null;
-    try {        
-        existing = await Account.findByEmailOrUsername(ctx.request.body);
-    } catch (e) {
-        ctx.throw(500, e);
-    }
-
-    if(existing) {
-        ctx.status = 409; 
-        ctx.body = {
-            key: existing.email === ctx.request.body.email ? 'email' : 'username'
-        };
-        return;
-    }
-
-    
-    let account = null;
-    try {
-        account = await Account.localRegister(ctx.request.body); 
-    } catch (e) {
-        ctx.throw(500, e);
-    }
-
-    let token = null;
-    try {
-        token = await account.generateToken();
-    } catch (e) {
-        ctx.throw(500, e);
-    }
-    
-    ctx.cookies.set('access_token', token, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 }); //네임,값
-    
-    ctx.body = account.profile; // 이메일확인하세요 메세지 보내기
-}; 
- */
-
 
 exports.localLogin = async (ctx) => {
    
@@ -173,7 +124,7 @@ exports.socialLogin = async (ctx) => {
     try {
         const token = await account.generateToken();
         ctx.cookies.set('access_token', token, {
-            maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+            maxAge: 1000 * 60 * 60 * 24 * 7, 
             httpOnly: true
         });
         ctx.body = account.profile;
@@ -185,72 +136,72 @@ exports.socialLogin = async (ctx) => {
 exports.socialRegister = async (ctx) => {    
     console.log(ctx.request.accessToken);
 
-    // const schema = Joi.object().keys({
-    //     username: Joi.string().alphanum().min(4).max(15).required(),
-    //     accessToken: Joi.string().required()
-    // });
+    const schema = Joi.object().keys({
+        username: Joi.string().alphanum().min(4).max(15).required(),
+        accessToken: Joi.string().required()
+    });
 
-    // const result = Joi.validate(ctx.request.body, schema);
+    const result = Joi.validate(ctx.request.body, schema);
 
-    // if(result.error) {
-    //     ctx.status = 400; 
-    //     return;
-    // }
-    // const { provider } = ctx.params;
-    // const { accessToken, username } = ctx.request.body;
+    if(result.error) {
+        ctx.status = 400; 
+        return;
+    }
+    const { provider } = ctx.params;
+    const { accessToken, username } = ctx.request.body;
     
-    // try {
-    //     const usernameExists = await Account.findByUsername(username);
-    //     if(usernameExists) {
-    //         ctx.status = 409; 
-    //         ctx.body = { message: 'duplicated username' };
-    //     }
-    // } catch (e) {
-    //     ctx.throw(500, e);
-    // }    
+    try {
+        const usernameExists = await Account.findByUsername(username);
+        if(usernameExists) {
+            ctx.status = 409; 
+            ctx.body = { message: 'duplicated username' };
+        }
+    } catch (e) {
+        ctx.throw(500, e);
+    }    
     
-    // let profile = null;
-    // try {
-    //     profile = await social[provider].getProfile(accessToken);
-    //     console.log(profile);
-    // } catch (e) {
-    //     ctx.status = 403;
-    //     return;
-    // }
+    let profile = null;
+    try {
+        profile = await social[provider].getProfile(accessToken);
+        console.log(profile);
+    } catch (e) {
+        ctx.status = 403;
+        return;
+    }
 
-    // let account = null;
-    // try {
-    //     account = await Account.findByProviderId(provider, profile.id);
-    // } catch (e) {
-    //     ctx.throw(500, e);
-    // }
+    let account = null;
+    try {
+        account = await Account.findByProviderId(provider, profile.id);
+    } catch (e) {
+        ctx.throw(500, e);
+    }
 
-    // if(account) {       
-    //     ctx.status = 409; 
-    //     ctx.body = { message: 'already registered' };
-    //     return;
-    // }    
-    // try {
-    //     account = await Account.socialRegister({
-    //         provider,
-    //         profile,
-    //         accessToken,
-    //         username
-    //     });
-    // } catch (e) {
-    //     ctx.throw(500, e);
-    // }
+    if(account) {       
+        ctx.status = 409; 
+        ctx.body = { message: 'already registered' };
+        return;
+    }    
+    try {
+        account = await Account.socialRegister({
+            provider,
+            profile,
+            accessToken,
+            username
+        });
+    } catch (e) {
+        ctx.throw(500, e);
+    }
 
-    // try {
-    //     const token = await account.generateToken();
-    //     ctx.cookies.set('access_token', token, {
-    //         maxAge: 1000 * 60 * 60 * 24 * 7,
-    //         httpOnly: true
-    //     });
-    //     ctx.body = account.profile;
-    // } catch (e) {
-    //     ctx.throw(500, e);
-    // }
+    try {
+        const token = await account.generateToken();
+        ctx.cookies.set('access_token', token, {
+            maxAge: 1000 * 60 * 60 * 24 * 7,
+            httpOnly: true
+        });
+        ctx.body = account.profile;
+    } catch (e) {
+        ctx.throw(500, e);
+    }
 };
 
 
@@ -382,7 +333,7 @@ exports.authEmail = async(ctx) =>{
     회원가입을 위해 이메일 인증을 진행해주세요.
           </div>
           
-          <a href="https://nettour.cf/auth-email?email=${email}&code=${code.auth.code}" 
+          <a href="http://localhost:3000/auth-email?email=${email}&code=${code.auth.code}" 
              style="text-decoration: none; width: 400px; text-align:center; display:block; margin: 0 auto; 
               margin-top: 1rem;background: #1971c2; padding-top: 1rem; color: white; font-size: 1.25rem; 
               padding-bottom: 1rem;font-weight: 600; border-radius: 4px;">계속하기</a>
@@ -395,8 +346,7 @@ exports.authEmail = async(ctx) =>{
     <div style="text-align:center;font-weight:600; color:#1864ab ">이 링크는 24시간동안입니다. </div></div>` 
     };  
     
-    //<a href="localhost:3000/auth-email?email=${email}&code=${code.auth.code}">인증하기</a>` 
-    //<a href="localhost:4000/api/auth/getcode/?email=${email}&code=${code.auth.code}
+   //"https://nettour.cf/auth-email?email=${email}&code=${code.auth.code}"
     transporter.sendMail(mailOptions, function(error, info){
         if (error) {
             console.log(error);

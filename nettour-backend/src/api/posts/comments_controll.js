@@ -162,7 +162,7 @@ exports.deletecomment = async (ctx) => {
             postid,
            { $pull: { 'comments': {  _id: commentid } } });
 
-    */  //$pull: { 'comment.$._id':  commentid }
+    */  //$pull: { 'comment.$._id':  commentid }    
     let deletecomment = null;
     
     try{

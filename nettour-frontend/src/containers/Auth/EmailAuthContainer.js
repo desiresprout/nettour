@@ -76,8 +76,7 @@ class EmailAuthContainer extends Component {
     
          try {
           if (code && email) {
-            await AuthActions.getCode({email, code});
-            console.log(email);            
+            await AuthActions.getCode({email, code});           
             this.setState({
                 email : email
             })

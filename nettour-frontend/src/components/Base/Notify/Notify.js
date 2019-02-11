@@ -24,7 +24,7 @@ const transitions = {
 
 const NotifyWrapper = styled.div`
     position: fixed;
-    top: 1rem;
+    bottom: 1rem;
     left: 1rem;
     border-radius: 1.5rem;
     color: white;
@@ -69,7 +69,7 @@ class Notify extends Component {
         this.HideTimeout = setTimeout(() => {
           this.props.Hide();
           this.HideTimeout = null; 
-        }, 1300);
+        }, 3000);
       }
   
       if (prevProps.notify.watch !== this.props.notify.watch) {
@@ -84,7 +84,7 @@ class Notify extends Component {
           this.setState({
             animate: false,
           });
-        }, 1300);
+        }, 3000);
       }
     }
     render() {

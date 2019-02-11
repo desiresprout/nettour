@@ -4,7 +4,10 @@ import axios from 'lib/client';
 //url - "/api/posts/?username=kohahn21&cursor=5c46abdac488371993d64289"
 
 
-export const prefetchpost = (url) => axios.get(`${url}&user=true`);
+//const next =  `/api/posts/?${username ? `username=${username}&` : ''}cursor=${posts[14]._id}` : null;
+
+
+export const prefetchpost = (url,user) => axios.get(`${url}` +(user ? `&user=${user}` : '' ) );
 export const writepost = ({title, content, slug, imageurl}) => axios.post(`/api/posts`, { title, content, slug, imageurl });
 export const readpost = ({name, urlslug}) => axios.get(`/api/posts/post/${name}/${urlslug}`);
 export const writecomment = ({postid, currentusername, comment}) => axios.post(`/api/posts/post/${postid}/comments`, { currentusername, comment });

@@ -11,23 +11,17 @@ import Tooltip from 'react-tooltip';
 
 class PostBody extends Component {
 
-
-    
     render() {
         const { title, likesCount, date, username, own, id, onremovepost, onToggleLike, liked, logged } = this.props;
         
         return (
             <PostBodyCss className="PostBody">
                 <PostHeadCss className="PostHead">
-                    <UserdisplayCss className="Userdisplay">
-                        <Link to={'/'}>
-                            
-                        </Link> 
+                    <UserdisplayCss className="Userdisplay"> 
                     <UserInfoCss>
                         <Link to={`/@${username}`}> 작성자 : {username}</Link>
-                    </UserInfoCss>               
-
-                        
+                    </UserInfoCss>      
+                                            
                     </UserdisplayCss>
                     <h1>{title}</h1>
                     <Date_likes_number className="Date">

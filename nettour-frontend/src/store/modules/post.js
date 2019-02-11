@@ -11,7 +11,7 @@ const CHANGE_CONTENT = 'posts/CHANGE_CONTENT';
 const WRITE_POST = 'posts/WRITE_POST';
 const WRITE_COMMENT = 'posts/COMMENT_WRITE';
 const EDIT_COMMENT = 'posts/EDIT_COMMENT';
-const CHANGE_COMMENT_INPUT = 'posts/CHANGE_COMMENT_INPUT'; // 덧글 인풋 수정
+const CHANGE_COMMENT_INPUT = 'posts/CHANGE_COMMENT_INPUT'; 
 const GET_POST = 'posts/GET_POST';
 const EDIT_POST = 'posts/EDIT_POST';
 const REMOVE_POST = 'posts/REMOVE_POST';
@@ -22,7 +22,6 @@ const UNLIKE_POST = 'posts/UNLIKE_POST';
 
 const PREFETCH_POST = 'posts/PREFETCH_POST';
 const SHOW_PREFETCHED_POST = 'posts/SHOW_PREFETCHED_POST';
-
 
 //export const reset = createAction(RESET);
 export const prefetchpost = createAction(PREFETCH_POST, PostsAPI.prefetchpost);
@@ -81,8 +80,7 @@ const initialState ={
 export default handleActions({
     ...pender({
         type: POST_LISTS,
-        onSuccess: (state, action) =>  produce(state, draft => {
-            console.log(action.payload.data.data);
+        onSuccess: (state, action) =>  produce(state, draft => {            
                 const { next, data } = action.payload.data;
                 draft.next = next;
                 draft.data = data;                
@@ -216,14 +214,11 @@ export default handleActions({
         onSuccess: (state, action) => produce(state, draft=>{
             const { next, data } = action.payload.data;
             draft.next = next;
-            draft.nextdata = data;
-            
+            draft.nextdata = data;            
         }), 
     }),
 
-    [SHOW_PREFETCHED_POST]: (state, action) => produce(state, draft=>{       
-        // console.log(state.nextdata);
-        // console.log(state.data);
+    [SHOW_PREFETCHED_POST]: (state, action) => produce(state, draft=>{          
         draft.data = [...state.data, ...state.nextdata];
         draft.nextdata = [];        
     }),        

@@ -58,7 +58,7 @@ class PostCommentContainer extends Component {
 
       onRemoveComment = async(commentid) => {
         const { PostActions } = this.props;
-          //console.log(commentid);
+        
         let removecomment = null;
         try{
             removecomment = await PostActions.removecomment(commentid);

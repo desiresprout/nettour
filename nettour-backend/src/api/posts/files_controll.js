@@ -98,8 +98,8 @@ exports.imageupload = async (ctx)=>{
           .upload({
             Bucket: 'images.nettour.cf',
             Key: imagepath, //
-            Body: read,  //스트림
-            ContentType: filetype,  //image/png
+            Body: read,  //
+            ContentType: filetype,  //
             ACL: 'public-read'
           }).promise();            
     

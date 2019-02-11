@@ -185,7 +185,7 @@ class EditorContainer extends Component {
                   title,
                   content,
                   slug : Escapeurl(title),
-                  imageurl
+                  imagepath : imageurl
                 }); 
                 BaseActions.setshow({
                     code : 'success',
@@ -197,7 +197,8 @@ class EditorContainer extends Component {
                     title,
                     content,
                     slug : Escapeurl(title),
-                    imageurl
+                    imagepath : imageurl
+                  
                 }); 
                
                 BaseActions.setshow({
