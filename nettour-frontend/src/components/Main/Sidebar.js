@@ -1,13 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-
-
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Sidebar = ({}) => {
-    return (
-        <div></div>
-
-    );
+  return <div></div>;
 };
 
 export default Sidebar;

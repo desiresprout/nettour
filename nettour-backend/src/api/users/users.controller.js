@@ -1,48 +1,40 @@
-const Account = require('models/account');
+const Account = require("models/account");
 
-exports.getProfile = async (ctx) => {
-    const { username } = ctx.params;
-    
-    let account;
-    try {
-        account = await Account.findByUsername(username);
-    } catch (e) {
-        ctx.throw(500, e);
-    }
+exports.getProfile = async ctx => {
+  const { username } = ctx.params;
 
-    if(!account) {
-        ctx.status = 404;
-        return;
-    }
+  let account;
+  try {
+    account = await Account.findByUsername(username);
+  } catch (e) {
+    ctx.throw(500, e);
+  }
 
-    
-    ctx.body = {
-        profile: account.profile,
-        postcount: account.postCount,
-    };
+  if (!account) {
+    ctx.status = 404;
+    return;
+  }
+
+  ctx.body = {
+    profile: account.profile.thumbnail,
+    postCount: account.postCount,
+  };
 };
 
+exports.getThumbnail = async ctx => {
+  const { username } = ctx.params;
 
+  let account;
+  try {
+    account = await Account.findByUsername(username);
+  } catch (e) {
+    ctx.throw(500, e);
+  }
 
+  if (!account) {
+    ctx.status = 404;
+    return;
+  }
 
-exports.getThumbnail = async (ctx) => {
-    const { username } = ctx.params;
-    
-    let account;
-    try {
-        account = await Account.findByUsername(username);
-    } catch (e) {
-        ctx.throw(500, e);
-    }
-
-    if(!account) {
-        ctx.status = 404;
-        return;
-    }
-    //console.log(account.profile.thumbnail); 
-
-
-    ctx.redirect(account.profile.thumbnail);
-    
-
+  ctx.redirect(account.profile.thumbnail);
 };
