@@ -36,7 +36,7 @@
     "html-webpack-plugin": "2.29.0",
     "immer": "^1.7.2",
     "jest": "20.0.4",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.19",
     "node-sass": "^4.8.3",
     "object-assign": "4.1.1",
     "open-color": "^1.6.3",
