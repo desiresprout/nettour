@@ -1,6 +1,6 @@
-const FB = require('fb');
-const google = require('googleapis');
-const plus = google.plus('v1');
+const FB = require("fb");
+const google = require("googleapis");
+const plus = google.plus("v1");
 
 /*
     Reference: 
@@ -8,17 +8,17 @@ const plus = google.plus('v1');
     - https://developers.facebook.com/docs/graph-api/reference/v2.2/user
 */
 exports.facebook = {
-    getProfile: (accessToken) => {
-        return FB.api('me', { fields: ['email'], access_token: accessToken }).then(
-            (auth) => {
-                console.log(auth);
-                return {                
-                    id: auth.id,
-                    email: auth.email,                   
-                };
-            }
-        );
-    }
+  getProfile: accessToken => {
+    return FB.api("me", { fields: ["email"], access_token: accessToken }).then(
+      auth => {
+        console.log(auth);
+        return {
+          id: auth.id,
+          email: auth.email,
+        };
+      }
+    );
+  },
 };
 
 /*
@@ -28,21 +28,20 @@ exports.facebook = {
 */
 
 exports.google = {
-    getProfile: (accessToken) => {
-        console.log(accessToken);
-        return new Promise((resolve, reject) => {
-            plus.people.get({
-                userId: 'me',
-                auth: accessToken
-            }, (err, auth) => 
-            {
-                console.log(auth);                
-                if(err) reject(err);
-                resolve({
-                   
-                                       
-                });
-            });
-        });
-    }
+  getProfile: accessToken => {
+    console.log(accessToken);
+    return new Promise((resolve, reject) => {
+      plus.people.get(
+        {
+          userId: "me",
+          auth: accessToken,
+        },
+        (err, auth) => {
+          console.log(auth);
+          if (err) reject(err);
+          resolve({ auth });
+        }
+      );
+    });
+  },
 };

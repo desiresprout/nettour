@@ -1,56 +1,64 @@
-require('dotenv').config();
-const Koa = require('koa');
-const Router = require('koa-router');
+require("dotenv").config();
+const Koa = require("koa");
+const Router = require("koa-router");
 const app = new Koa();
 const router = new Router();
-const api = require('api');   
+const api = require("api");
 const port = process.env.PORT || 5000;
-const koabody = require('koa-body');
-const mongoose = require('mongoose');
-const { jwtMiddleware } = require('./lib/token');
-const cors = require('@koa/cors');
+const koabody = require("koa-body");
+const mongoose = require("mongoose");
+const { jwtMiddleware } = require("./lib/token");
+const cors = require("@koa/cors");
 
-mongoose.Promise = global.Promise; 
+mongoose.Promise = global.Promise;
 
 const options = {
-    origin: process.env.NODE_ENV ==='dev' ? 'http://localhost:3000' : "https://nettour.cf",
-    credentials : true
+  origin:
+    process.env.NODE_ENV === "dev"
+      ? "http://localhost:3000"
+      : "https://nettour.cf",
+  credentials: true,
 };
-//credentials : process.env.NODE_ENV =='dev' ? false : true
 
-mongoose.connect(process.env.NODE_ENV === 'dev' ? process.env.LOCAL_MONGO_URI : process.env.MONGO_URI).then(
-    (response) => {
-        console.log('Successfully connected to mongodb');
-    }
-).catch(e => {
+mongoose
+  .connect(
+    process.env.NODE_ENV === "dev"
+      ? process.env.LOCAL_MONGO_URI
+      : process.env.MONGO_URI
+  )
+  .then(response => {
+    console.log("Successfully connected to mongodb");
+  })
+  .catch(e => {
     console.error(e);
-});
+  });
 
-app.use(koabody({
-    multipart : true,
-}));
+app.use(
+  koabody({
+    multipart: true,
+  })
+);
 app.use(jwtMiddleware);
-app.use(cors(options ));
+app.use(cors(options));
 
+router.use("/api", api.routes());
 
-router.use('/api', api.routes());
-
-router.get('/check', (ctx, next) => {
-    ctx.body = 'check';
+router.get("/check", (ctx, next) => {
+  ctx.body = "check";
 });
 
-router.get('/db', (ctx, next) => {
-    ctx.body = 'db';
+router.get("/db", (ctx, next) => {
+  ctx.body = "db";
 });
 
-router.get('/', (ctx, next) => {
-    ctx.body = 'nettour';
+router.get("/", (ctx, next) => {
+  ctx.body = "nettour";
 });
 
 app.use(router.routes()).use(router.allowedMethods());
 
 app.listen(port, () => {
-    console.log(`nettoura server is listening to ${port}`);
+  console.log(`nettoura server is listening to ${port}`);
 });
 
 module.exports = app;
