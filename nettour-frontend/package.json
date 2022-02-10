@@ -37,7 +37,7 @@
     "immer": "^1.7.2",
     "jest": "20.0.4",
     "lodash": "^4.17.10",
-    "node-sass": "^4.8.3",
+    "node-sass": "^7.0.0",
     "object-assign": "4.1.1",
     "open-color": "^1.6.3",
     "postcss-flexbugs-fixes": "3.2.0",
