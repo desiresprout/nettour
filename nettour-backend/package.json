@@ -19,7 +19,7 @@
     "koa-body": "^4.0.4",
     "koa-router": "^7.4.0",
     "moment": "^2.22.2",
-    "mongoose": "^5.3.14",
+    "mongoose": "^5.7.5",
     "nodemailer": "^4.7.0",
     "nodemon": "^1.18.6",
     "serverless-http": "1.5.2",
